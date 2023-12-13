@@ -6,7 +6,8 @@
 </head>
 <body>
 <?php
-echo "<p>Hello world!</p>"
+echo "<p>Hello world!</p>";
+echo "<p>line2</p>"
 ?>
 </body>
 </html>

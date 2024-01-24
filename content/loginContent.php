@@ -6,7 +6,7 @@
     </div>
 
     <div>
-        <label class="form-label" for="loginPassword">Password</label>
+        <label for="loginPassword">Password</label>
         <input type="password" id="loginPassword" name="password">
         <small></small>
     </div>

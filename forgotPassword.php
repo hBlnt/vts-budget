@@ -1,4 +1,5 @@
 <?php
+
 require_once 'autoload.php';
 require_once 'config.php';
 require_once 'db_config.php';
@@ -10,19 +11,19 @@ use Web\{
 use Meta\Meta;
 
 $content = '';
+
 ob_start();
-include 'content/registerContent.php';
+include 'content/forgotPasswordContent.php';
 $content .= ob_get_clean();
 
 require_once 'error.php';
 $body = new Body('container', $content, 'first');
-$header = new Header('Registration', $linksHeader,$scripts);
+$header = new Header('Forgot', $linksHeader, $scripts);
 Html::renderStart('en');
 
 $header->renderStart();
 $header->renderTitle();
 Meta::renderMetaTags($metas['global']);
-Meta::renderMetaTags($metas['registration.php']);
 $header->renderLinks();
 $header->renderScripts();
 $header->renderEnd();

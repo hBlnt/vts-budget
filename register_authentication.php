@@ -11,12 +11,10 @@ use Meta\Meta;
 
 $content = '';
 ob_start();
-include 'content/registerContent.php';
-$content .= ob_get_clean();
 
 require_once 'error.php';
 $body = new Body('container', $content, 'first');
-$header = new Header('Registration', $linksHeader,$scripts);
+$header = new Header('Registration', $linksHeader, $scripts);
 Html::renderStart('en');
 
 $header->renderStart();

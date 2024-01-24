@@ -16,17 +16,22 @@ $metas = [
         ['name' => 'description', 'content' => 'Login']
     ],
 ];
-
+$isLoggedIn = '';
+if (isset($_SESSION['username'])) {
+    $isLoggedIn = true;
+}
 $links = [
-    "Home" => ['class'=>'active','href'=>'index.php','title'=>'title text'],
-    "Contact" => ['class'=>'','href'=>'contacts.php','title'=>'title text'],
-    "Registration" => ['class'=>'','href'=>'registration.php','title'=>'title text'],
-    "Login" => ['class'=>'','href'=>'login.php','title'=>'title text'],
+    "Home" => ['class' => 'active', 'href' => 'index.php', 'title' => 'Home / Index'],
+    "Contact" => ['class' => '', 'href' => 'contacts.php', 'title' => 'Contacts'],
+    "Registration" => ['class' => ($isLoggedIn ? 'hidden' : ''), 'href' => 'registration.php', 'title' => 'Register'],
+    "Login" => ['class' => ($isLoggedIn ? 'hidden' : ''), 'href' => 'login.php', 'title' => 'Login'],
+    "Log Out" => ['class' => ($isLoggedIn ? '' : 'hidden'), 'href' => 'logout.php', 'title' => 'Log out'],
 
 ];
 
 $linksHeader = [
-    ['rel'=>'stylesheet','href'=>'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'],
-    ['rel'=>'stylesheet','href'=>'https://fonts.googleapis.com/css?family=Roboto']
+    ['rel' => 'stylesheet', 'href' => 'https://fonts.googleapis.com/css?family=Roboto'],
+    ['rel' => 'stylesheet', 'href' => 'style/style.css'],
+    ['rel' => 'stylesheet', 'href' => 'style/bootstrap.css']
 ];
-$scripts=['script.js'];
+$scripts = ['script.js'];

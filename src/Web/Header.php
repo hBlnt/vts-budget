@@ -8,7 +8,7 @@ class Header
     public array $links;
     public array $scripts;
 
-    public function __construct($title, $links,$scripts)
+    public function __construct($title, $links, $scripts)
     {
         $this->title = $title;
         $this->links = $links;
@@ -30,6 +30,7 @@ class Header
             echo '>' . PHP_EOL;
         }
     }
+
     public function renderScripts(): void
     {
         foreach ($this->scripts as $script) {

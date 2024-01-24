@@ -6,11 +6,13 @@ class Header
 {
     public string $title;
     public array $links;
+    public array $scripts;
 
-    public function __construct($title, $links)
+    public function __construct($title, $links,$scripts)
     {
         $this->title = $title;
         $this->links = $links;
+        $this->scripts = $scripts;
     }
 
     public function renderStart(): void
@@ -26,6 +28,14 @@ class Header
                 echo $key . '="' . $value . '" ';
             }
             echo '>' . PHP_EOL;
+        }
+    }
+    public function renderScripts(): void
+    {
+        foreach ($this->scripts as $script) {
+            echo '<script src=script/';
+            echo $script;
+            echo '></script>' . PHP_EOL;
         }
     }
 

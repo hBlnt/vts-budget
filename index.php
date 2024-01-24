@@ -9,7 +9,7 @@ use Web\{
 use Meta\Meta;
 $content ="hi again";
 $body = new Body('container', $content, 'first');
-$header = new Header('Home', $linksHeader);
+$header = new Header('Home', $linksHeader,$scripts);
 Html::renderStart('en');
 
 $header->renderStart();

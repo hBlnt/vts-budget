@@ -28,5 +28,5 @@
     <input type="hidden" name="action" value="register">
     <button type="submit" id="register">Register</button>
 
-    <a href="signIn.php" style="text-decoration: none">Login page</a>
+    <a href="login.php" style="text-decoration: none">Login page</a>
 </form>

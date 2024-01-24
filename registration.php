@@ -28,7 +28,7 @@ include 'content/registerContent.php';
 $content .= ob_get_clean();
 
 $body = new Body('container', $content, 'first');
-$header = new Header('Registration', $linksHeader);
+$header = new Header('Registration', $linksHeader,$scripts);
 Html::renderStart('en');
 
 $header->renderStart();
@@ -36,6 +36,7 @@ $header->renderTitle();
 Meta::renderMetaTags($metas['global']);
 Meta::renderMetaTags($metas['registration.php']);
 $header->renderLinks();
+$header->renderScripts();
 $header->renderEnd();
 
 $body->renderStart();

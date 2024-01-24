@@ -7,10 +7,28 @@ use Web\{
 };
 
 use Meta\Meta;
-$content ='
-';
+
+$content = '';
+$r = 0;
+
+if (isset($_GET["r"]) and is_numeric($_GET['r'])) {
+    $r = (int)$_GET["r"];
+
+    if (array_key_exists($r, $messages)) {
+        $content .= '
+                    <div  style="font-size: 40px" role="alert">
+                        ' . $messages[$r] . '
+                    </div>
+                    ';
+    }
+}
+
+ob_start();
+include 'content/loginContent.php';
+$content .= ob_get_clean();
+
 $body = new Body('container', $content, 'first');
-$header = new Header('Login', $linksHeader);
+$header = new Header('Login', $linksHeader,$scripts);
 Html::renderStart('en');
 
 $header->renderStart();
@@ -18,6 +36,7 @@ $header->renderTitle();
 Meta::renderMetaTags($metas['global']);
 Meta::renderMetaTags($metas['login.php']);
 $header->renderLinks();
+$header->renderScripts();
 $header->renderEnd();
 
 $body->renderStart();

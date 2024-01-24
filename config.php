@@ -7,14 +7,20 @@ $metas = [
         ['http-equiv' => 'X-UA-Compatible', 'content' => 'IE=edge']
     ],
     'index.php' => [
-        ['name' => 'description', 'content' => 'Web Tutorials']
-    ]
+        ['name' => 'description', 'content' => 'Home']
+    ],
+    'registration.php' => [
+        ['name' => 'description', 'content' => 'Registration']
+    ],
+    'login.php' => [
+        ['name' => 'description', 'content' => 'Login']
+    ],
 ];
 
 $links = [
     "Home" => ['class'=>'active','href'=>'index.php','title'=>'title text'],
     "Contact" => ['class'=>'','href'=>'contacts.php','title'=>'title text'],
-    "Registration" => ['class'=>'','href'=>'2.php','title'=>'title text'],
+    "Registration" => ['class'=>'','href'=>'registration.php','title'=>'title text'],
     "Login" => ['class'=>'','href'=>'login.php','title'=>'title text'],
 
 ];

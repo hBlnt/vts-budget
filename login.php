@@ -7,15 +7,16 @@ use Web\{
 };
 
 use Meta\Meta;
-$content ="hi again";
+$content ='
+';
 $body = new Body('container', $content, 'first');
-$header = new Header('Home', $linksHeader);
+$header = new Header('Login', $linksHeader);
 Html::renderStart('en');
 
 $header->renderStart();
 $header->renderTitle();
 Meta::renderMetaTags($metas['global']);
-Meta::renderMetaTags($metas['index.php']);
+Meta::renderMetaTags($metas['login.php']);
 $header->renderLinks();
 $header->renderEnd();
 

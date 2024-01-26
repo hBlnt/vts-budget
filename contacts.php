@@ -12,10 +12,7 @@ use Web\{
 
 use Meta\Meta;
 
-$content = "hi again ";
-if (isset($_SESSION['username'])) {
-    $content .= $_SESSION["firstname"];
-}
+$content = "";
 ob_start();
 require_once 'content/contactsContent.php';
 $content .= ob_get_clean();

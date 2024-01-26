@@ -12,9 +12,9 @@ use Meta\Meta;
 
 $content = "";
 ob_start();
-require_once 'content/attractionDetailsContent.php';
+require_once 'content/myToursContent.php';
 $content .= ob_get_clean();
 $body = new Body('', $content, 'first');
-$header = new Header('Index', $linksHeader, $scripts);
+$header = new Header('My tours', $linksHeader, $scripts);
 
 require_once 'sablon.php';

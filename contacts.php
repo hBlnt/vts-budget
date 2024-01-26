@@ -17,5 +17,5 @@ ob_start();
 require_once 'content/contactsContent.php';
 $content .= ob_get_clean();
 $body = new Body('', $content, 'first');
-$header = new Header('Index', $linksHeader, $scripts);
+$header = new Header('Contacts', $linksHeader, $scripts);
 require_once 'sablon.php';

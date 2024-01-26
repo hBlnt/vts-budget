@@ -7,18 +7,53 @@
 
         .title {
             color: white;
-            text-shadow:-1px -1px 0 #000,
-            0   -1px 0 #000,
+            text-shadow: -1px -1px 0 #000,
+            0 -1px 0 #000,
             1px -1px 0 #000,
-            1px  0   0 #000,
-            1px  1px 0 #000,
-            0    1px 0 #000,
-            -1px  1px 0 #000,
-            -1px  0   0 #000;
+            1px 0 0 #000,
+            1px 1px 0 #000,
+            0 1px 0 #000,
+            -1px 1px 0 #000,
+            -1px 0 0 #000;
         }
     </style>
 </head>
 <body>
 <p class="title">asd</p>
+<script>
+    function handleSelectChange(selectElement) {
+        // Get the selected value
+        var selectedValue = selectElement.value;
+
+        // Disable the selected value in other select elements
+        document.querySelectorAll('.form-select-sm').forEach(function (element) {
+            if (element !== selectElement) {
+                Array.from(element.options).forEach(function (option) {
+                    option.disabled = (option.value === selectedValue);
+                });
+            }
+        });
+    }
+</script>
+<select class="form-select-sm" onchange="handleSelectChange(this)">
+    <option value="apple">apple</option>
+    <option value="banana">banana</option>
+    <option value="orange">orange</option>
+</select>
+<select class="form-select-sm" onchange="handleSelectChange(this)">
+    <option value="apple">apple</option>
+    <option value="banana">banana</option>
+    <option value="orange">orange</option>
+</select>
+<select class="form-select-sm" onchange="handleSelectChange(this)">
+    <option value="apple">apple</option>
+    <option value="banana">banana</option>
+    <option value="orange">orange</option>
+</select>
+<select class="form-select-sm" onchange="handleSelectChange(this)">
+    <option value="apple">apple</option>
+    <option value="banana">banana</option>
+    <option value="orange">orange</option>
+</select>
 </body>
 </html>

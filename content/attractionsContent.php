@@ -106,7 +106,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
                 $pathData = getAttractionImagePath($pdo, $attractionId);
                 echo "   
         <div class='col-md-4 mb-5'>
-            <div class='card h-100 text-center'style='background-image: url(" . $pathData["path"] . "); background-size: cover;'>
+            <div class='card h-100 text-center border-5 border-light'style='background-image: url(" . $pathData["path"] . "); background-size: cover;'>
                 <div class='card-body title'>    
                     <h2>{$attractionName}</h2>
                     <p>City: {$cityData["city_name"]} </p>

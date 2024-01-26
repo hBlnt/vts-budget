@@ -303,14 +303,17 @@ function getAttractionTypes(PDO $pdo): array
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getTableData(PDO $pdo, string $idColumn, int $id, string $table_name): array
+function getTableData(PDO $pdo, string $table_name, string $id_name, int $id , bool $fetchAll): array|bool
 {
-    $sql = "SELECT * FROM $table_name WHERE $idColumn = :id";
+    $sql = "SELECT * FROM $table_name WHERE $id_name = :id";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
 
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($fetchAll)
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    else
+        return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 function getAttractionImagePath(PDO $pdo, string $id_attraction): array
@@ -326,6 +329,7 @@ function getAttractionImagePath(PDO $pdo, string $id_attraction): array
 
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
 function getAttractionImages(PDO $pdo, $id_attraction): array
 {
     $sql = "SELECT i.path FROM 
@@ -337,5 +341,45 @@ function getAttractionImages(PDO $pdo, $id_attraction): array
     $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
     $stmt->execute();
 
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getTourData(PDO $pdo, $id_tour): array
+{
+    $sql = "SELECT a.attraction_name,a.address FROM tours t
+    INNER JOIN tours_attractions ta ON t.id_tour = ta.id_tour
+    INNER JOIN attractions a ON ta.id_attraction = a.id_attraction
+    WHERE t.id_tour = :id_tour";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_tour', $id_tour, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function getCityNames(PDO $pdo, $id_tour): array
+{
+    $sql = "SELECT DISTINCT c.city_name FROM tours t
+            INNER JOIN tours_attractions ta ON t.id_tour = ta.id_tour
+            INNER JOIN attractions a ON ta.id_attraction = a.id_attraction
+            INNER JOIN cities c ON a.id_city = c.id_city
+            WHERE t.id_tour = :id_tour";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_tour', $id_tour, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function deleteTableData(PDO $pdo, string $table_name, string $id_name, int $id ): bool
+{
+
+    $sql = "DELETE FROM $table_name WHERE $id_name = :id;";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+    return $stmt->execute();
+}
+function getAllData(PDO $pdo, string $table_name): array
+{
+    $sql = "SELECT * FROM $table_name";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

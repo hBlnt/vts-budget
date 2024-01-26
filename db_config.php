@@ -19,6 +19,7 @@ $pdoOptions = [
 ];
 
 $actions = ['login', 'register', 'forget'];
+$formActions = ['userViewTour','userDeleteTour'];
 
 $messages = [
     0 => 'No direct access!',

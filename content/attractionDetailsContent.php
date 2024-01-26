@@ -1,10 +1,10 @@
 <?php
 $attraction_id = $_POST['attraction_id'] ?? '';
 
-$attraction = getTableData($pdo, 'id_attraction', $attraction_id, 'attractions');
+$attraction = getTableData($pdo, 'attractions', 'id_attraction', $attraction_id,false);
 $attractionName = $attraction['attraction_name'];
 $images = getAttractionImages($pdo, $attraction_id);
-echo "{$attraction_id}
+echo "
 
 <div class='container px-4 px-lg-5'>
 

@@ -303,7 +303,7 @@ function getAttractionTypes(PDO $pdo): array
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getTableData(PDO $pdo, string $table_name, string $id_name, int $id , bool $fetchAll): array|bool
+function getTableData(PDO $pdo, string $table_name, string $id_name, int $id, bool $fetchAll): array|bool
 {
     $sql = "SELECT * FROM $table_name WHERE $id_name = :id";
     $stmt = $pdo->prepare($sql);
@@ -355,6 +355,7 @@ function getTourData(PDO $pdo, $id_tour): array
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 function getCityNames(PDO $pdo, $id_tour): array
 {
     $sql = "SELECT DISTINCT c.city_name FROM tours t
@@ -368,7 +369,8 @@ function getCityNames(PDO $pdo, $id_tour): array
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-function deleteTableData(PDO $pdo, string $table_name, string $id_name, int $id ): bool
+
+function deleteTableData(PDO $pdo, string $table_name, string $id_name, int $id): bool
 {
 
     $sql = "DELETE FROM $table_name WHERE $id_name = :id;";
@@ -376,6 +378,7 @@ function deleteTableData(PDO $pdo, string $table_name, string $id_name, int $id 
     $stmt->bindParam(':id', $id, PDO::PARAM_STR);
     return $stmt->execute();
 }
+
 function getAllData(PDO $pdo, string $table_name): array
 {
     $sql = "SELECT * FROM $table_name";
@@ -383,3 +386,21 @@ function getAllData(PDO $pdo, string $table_name): array
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function getCitiesWithAttractions(PDO $pdo): array
+{
+    $sql = "SELECT DISTINCT c.city_name,c.id_city
+               FROM cities c 
+               INNER JOIN attractions a ON c.id_city = a.id_city
+               WHERE id_attraction > 0";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+//function getAttractionsByCity(PDO $pdo, string $id_city):array
+//{
+//    $sql = "SELECT * FROM attractions WHERE id_city = :id_city"
+//    $stmt = $pdo->prepare($sql);
+//    $stmt->execute();
+//    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+//}

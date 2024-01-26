@@ -1,6 +1,5 @@
 <div class="container px-4 px-lg-5">
 
-    <p class="col-lg">
         <h1 class="font-weight-light my-2 text-center">Welcome to Toorizm</h1>
 
         <p>Dedicated to crafting unforgettable experiences, our travel agency prioritizes customer satisfaction by tailoring personalized itineraries, ensuring every journey is a seamless blend of comfort and adventure. With a commitment to customer care, we go beyond booking flights and accommodations, providing attentive support, expert guidance, and a genuine passion for making travel dreams a reality.</p>

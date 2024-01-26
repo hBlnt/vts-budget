@@ -36,8 +36,6 @@ if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !==
 
                     $_SESSION['username'] = $username;
                     $_SESSION['id_user'] = $data['id_user'];
-                    $_SESSION['firstname'] = $data['firstname'];
-                    $_SESSION['lastname'] = $data['lastname'];
                     redirection('index.php');
                 } else {
                     redirection('login.php?e=1');

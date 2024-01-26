@@ -1,3 +1,9 @@
+<?php
+$id_user = '';
+if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESSION['id_user'])) {
+    $id_user = $_SESSION['id_user'];
+}
+?>
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 align-items-center my-5">
         <div class="col-lg-5">
@@ -5,7 +11,7 @@
 
         </div>
     </div>
-    <div class="col-lg-8 pb-4">
+    <div class="col-lg-12 pb-4">
 
         <form method="post" class="form-control">
             <label for="search_by_name">Search</label>
@@ -32,22 +38,24 @@
             </select><br>
             <fieldset class="border p-1">
                 <legend>Choose your attraction types</legend>
-            <?php
-            $types = getAttractionTypes($pdo);
-            foreach ($types as $type)
-            {
-                $typeSingle = $type['type'];
-                echo "<input type='checkbox' name='typeArray[]' value='$typeSingle'> $typeSingle<br>";
-            }
-            ?>
+                <?php
+                $types = getAttractionTypes($pdo);
+                foreach ($types as $type) {
+                    $typeSingle = $type['type'];
+                    echo "<input type='checkbox' name='typeArray[]' value='$typeSingle'> $typeSingle<br>";
+                }
+                ?>
             </fieldset>
             <br>
-            <button type='submit' id='searchButton' class='btn btn-primary'>Search</button>
+            <div class="text-center">
+                <button type='submit' id='searchButton' class='btn btn-primary justify-content-center align-content-center'>Search</button>
+            </div>
 
         </form>
     </div>
     <div class="row gx-4 gx-lg-5">
         <?php
+        //        echo $_SESSION['id_user'];
         $city = '';
         $selectedType = $_POST['typeArray'] ?? [];
         $selectedCountry = $_POST['country'] ?? '';
@@ -100,9 +108,19 @@
         <div class='col-md-4 mb-5'>
             <div class='card h-100 text-center'style='background-image: url(" . $pathData["path"] . "); background-size: cover;'>
                 <div class='card-body title'>    
-                    <h2 class='title'>{$attractionName}</h2>
+                    <h2>{$attractionName}</h2>
                     <p>City: {$cityData["city_name"]} </p>
                     <p>Type: {$attractionType} </p>
+                    
+                    ";
+                if (!empty($id_user)) {
+                    echo "
+                    <form method='post' action='attraction_details.php'>
+                        <input type='hidden' name='attraction_id' value='{$attractionId}'>
+                        <input type='submit' class='btn btn-light border-3 border-dark' value='More information'>
+                    </form>";
+                }
+                echo "
                 </div>
             </div>
         </div>

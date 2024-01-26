@@ -54,17 +54,12 @@ function checkUserLogin(PDO $pdo, string $email, string $enteredPassword): array
     $stmtUser->bindParam(':email', $email, PDO::PARAM_STR);
 
     $data = [];
-    $result = ['firstname' => '',
-        'lastname' => ''
-    ];
 
     $stmtUser->execute();
     if ($stmtUser->rowCount() > 0) {
         $result = $stmtUser->fetch(PDO::FETCH_ASSOC);
 
     }
-    $data['firstname'] = $result['firstname'];
-    $data['lastname'] = $result['lastname'];
 
     if ($stmtUser->rowCount() > 0) {
 
@@ -299,6 +294,25 @@ function getCityData(PDO $pdo, string $attractionName): array
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function getAttractionTypes(PDO $pdo): array
+{
+    $sql = 'SELECT DISTINCT type FROM attractions';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getTableData(PDO $pdo, string $idColumn, int $id, string $table_name): array
+{
+    $sql = "SELECT * FROM $table_name WHERE $idColumn = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 function getAttractionImagePath(PDO $pdo, string $id_attraction): array
 {
     $sql = "SELECT i.path FROM 
@@ -312,10 +326,15 @@ function getAttractionImagePath(PDO $pdo, string $id_attraction): array
 
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
-function getAttractionTypes(PDO $pdo):array
+function getAttractionImages(PDO $pdo, $id_attraction): array
 {
-    $sql = 'SELECT DISTINCT type FROM attractions';
+    $sql = "SELECT i.path FROM 
+            images i
+            INNER JOIN attractions_images ai ON  i.id_image = ai.id_image
+            INNER JOIN attractions a ON ai.id_attraction = a.id_attraction
+            WHERE a.id_attraction = :id_attraction";
     $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -31,6 +31,7 @@ $links = [
     "Attractions" => ['class' => 'nav-link', 'href' => 'attractions.php', 'title' => 'Attractions'],
     "City" => ['class' => 'nav-link', 'href' => 'city.php', 'title' => 'Search by City'],
 
+    "My tours" => ['class' => 'nav-link' . ($isLoggedIn ? '' : ' hidden '), 'href' => 'my_tours.php', 'title' => 'Tours made by me'],
     "Favourites" => ['class' => 'nav-link' . ($isLoggedIn ? '' : ' hidden '), 'href' => 'favourites.php', 'title' => 'Favourite Attractions'],
     "Log Out" => ['class' => 'nav-link' . ($isLoggedIn ? '' : ' hidden '), 'href' => 'logout.php', 'title' => 'Log out'],
 ];

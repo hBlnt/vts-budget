@@ -11,6 +11,9 @@ footer {
     color: white;
 
 }
+.darkgreen{
+    background-color: #327d81 !important;
+}
 
 .title {
     color: white;
@@ -27,4 +30,8 @@ footer {
 .card-body {
     position: relative; /* Make sure text is on top of the overlay */
     z-index: 2; /* Ensure the text is above the overlay */
+}
+.imgsmall{
+    max-width: 300px;
+    height: auto; /* To maintain the aspect ratio */
 }

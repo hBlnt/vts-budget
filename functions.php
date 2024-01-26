@@ -392,15 +392,37 @@ function getCitiesWithAttractions(PDO $pdo): array
     $sql = "SELECT DISTINCT c.city_name,c.id_city
                FROM cities c 
                INNER JOIN attractions a ON c.id_city = a.id_city
-               WHERE id_attraction > 0";
+               WHERE id_attraction > 0 ORDER BY c.city_name ASC ";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-//function getAttractionsByCity(PDO $pdo, string $id_city):array
-//{
-//    $sql = "SELECT * FROM attractions WHERE id_city = :id_city"
-//    $stmt = $pdo->prepare($sql);
-//    $stmt->execute();
-//    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-//}
+
+function insertNewTour(PDO $pdo, int $id_user, string $tour_name, string $tour_type): int
+{
+    $sql = "INSERT INTO tours (id_user,tour_name,tour_type) VALUES (:id_user,:tour_name,:tour_type)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_user', $id_user, PDO::PARAM_STR);
+    $stmt->bindParam(':tour_name', $tour_name, PDO::PARAM_STR);
+    $stmt->bindParam(':tour_type', $tour_type, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $pdo->lastInsertId();
+}
+
+function insertTourAttractions(PDO $pdo, int $id_tour, array $attractions): bool
+{
+    $count = 0;
+    foreach ($attractions as $attraction) {
+        $sql = "INSERT INTO tours_attractions (id_tour,id_attraction) VALUES (:id_tour,:id_attraction)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':id_tour', $id_tour, PDO::PARAM_STR);
+        $stmt->bindParam(':id_attraction', $attraction, PDO::PARAM_STR);
+        $stmt->execute();
+        $count++;
+    }
+    if ($count< count($attractions))
+        return "problem occured";
+    else
+        return "everything went fine";
+}

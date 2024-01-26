@@ -13,6 +13,7 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['id_user']) || !is_int($_S
     <h1 class='font-weight-light my-2 text-center text-decoration-underline'>New tour</h1>
     <br>
     <form method="post" action="form_action.php">
+        <input type='hidden' name='action' value='newTour'>
         <label for="tour_name">What should the name of the tour be?</label>
         <input type="text" name="tour_name" id="tour_name" class="form-control"
                placeholder="Your tour name . . ."><br>
@@ -60,9 +61,7 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['id_user']) || !is_int($_S
         <br>
         <br>
         <div class="text-center">
-            <button type='submit' class='btn btn-success border-3 border-dark text-center btn-lg'>Next
-                page
-            </button>
+            <button type='submit' class='btn btn-success border-3 border-dark text-center btn-lg'>Make tour</button>
         </div>
     </form>
 </div>

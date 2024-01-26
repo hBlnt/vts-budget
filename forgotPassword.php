@@ -19,18 +19,5 @@ $content .= ob_get_clean();
 require_once 'error.php';
 $body = new Body('container', $content, 'first');
 $header = new Header('Forgot', $linksHeader, $scripts);
-Html::renderStart('en');
 
-$header->renderStart();
-$header->renderTitle();
-Meta::renderMetaTags($metas['global']);
-$header->renderLinks();
-$header->renderScripts();
-$header->renderEnd();
-
-$body->renderStart();
-Navigation::renderNavigation($links);
-$body->renderContent();
-Footer::renderFooter(true);
-$body->renderEnd();
-Html::renderEnd();
+require_once 'sablon.php';

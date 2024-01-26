@@ -34,8 +34,10 @@ class Header
     public function renderScripts(): void
     {
         foreach ($this->scripts as $script) {
-            echo '<script src=script/';
-            echo $script;
+            echo '<script ';
+            foreach ($script as $key => $value) {
+                echo $key . '="' . $value . '" ';
+            }
             echo '></script>' . PHP_EOL;
         }
     }

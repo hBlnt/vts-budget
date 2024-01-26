@@ -259,6 +259,7 @@ function addEmailFailure(PDO $pdo, int $id_user, string $message): void
     $stmt->execute();
 
 }
+
 function getUserData(PDO $pdo, string $data, string $field, string $value): string
 {
     $sql = "SELECT $data as data FROM users WHERE $field=:value LIMIT 0,1";
@@ -275,6 +276,7 @@ function getUserData(PDO $pdo, string $data, string $field, string $value): stri
 
     return $data;
 }
+
 function setForgottenToken(PDO $pdo, string $table, string $email, string $token): void
 {
     $sql = "UPDATE $table SET forgotten_password_token = :token, forgotten_password_expiry = DATE_ADD(now(),INTERVAL 6 HOUR) WHERE email = :email";
@@ -282,4 +284,39 @@ function setForgottenToken(PDO $pdo, string $table, string $email, string $token
     $stmt->bindParam(':token', $token, PDO::PARAM_STR);
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     $stmt->execute();
+}
+
+function getCityData(PDO $pdo, string $attractionName): array
+{
+    $sql = "SELECT c.id_city,c.city_name,c.country 
+    FROM cities c
+    INNER JOIN attractions a ON c.id_city = a.id_city 
+    WHERE a.attraction_name = :attraction_name";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':attraction_name', $attractionName, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function getAttractionImagePath(PDO $pdo, string $id_attraction): array
+{
+    $sql = "SELECT i.path FROM 
+            images i
+            INNER JOIN attractions_images ai ON  i.id_image = ai.id_image
+            INNER JOIN attractions a ON ai.id_attraction = a.id_attraction
+            WHERE a.id_attraction = :id_attraction LIMIT 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+function getAttractionTypes(PDO $pdo):array
+{
+    $sql = 'SELECT DISTINCT type FROM attractions';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

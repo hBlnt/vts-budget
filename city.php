@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once 'config.php';
 
 use Web\{
@@ -7,11 +9,11 @@ use Web\{
 
 use Meta\Meta;
 
-$content = '';
+$content = "";
 ob_start();
-
-require_once 'error.php';
+require_once 'content/cityContent.php';
+$content .= ob_get_clean();
 $body = new Body('', $content, 'first');
-$header = new Header('Registration', $linksHeader, $scripts);
+$header = new Header('Index', $linksHeader, $scripts);
 
 require_once 'sablon.php';

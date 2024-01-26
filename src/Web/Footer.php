@@ -7,9 +7,10 @@ class Footer
 
     public static function renderFooter(bool $year): void
     {
-        echo '<footer class="footer">';
-        echo "Copyright by Budget ";
+        echo '<footer class="py-5">
+    <div class="container px-4 px-lg-5">
+    <p class="m-0 text-center text-white">&copy; Copyright by Budget ';
         echo $year ? date('Y') : '';
-        echo '</footer>' . PHP_EOL;
+        echo '</p></div></footer>' . PHP_EOL;
     }
 }

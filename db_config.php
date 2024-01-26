@@ -38,16 +38,9 @@ $messages = [
     14 => 'Something went wrong with server.',
     15 => 'Token or other data are invalid!',
     16 => 'Your new password is set and you can login.',
-    17 => 'Fill out the biography field!',//
     18 => 'Fill out the new fields!',//
-    19 => 'Choose a gender!',//
-    20 => 'UserType error',//
-    21 => 'Type in your biography!',
     22 => 'Logged in congrats, you are a USER',
-    23 => 'Logged in ,you are a TRAINER',
     24 => 'Admin did not approve yet!',
-    25 => 'We couldn\'t rate the trainer. ',
-    26 => 'Thank you for your rating!',
     27 => 'Success',
     28 => 'Something went wrong',
 

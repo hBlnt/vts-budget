@@ -1,5 +1,4 @@
 <?php
-require_once 'db_config.php';
 if (isset($_GET['token'])) {
     $token = trim($_GET['token']);
 }

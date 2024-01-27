@@ -31,12 +31,15 @@ if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !==
 
             if (!empty($username) and !empty($password)) {
                 $data = checkUserLogin($pdo, $username, $password);
-                var_dump($data);
                 if ($data and is_int($data['id_user'])) {
-
                     $_SESSION['username'] = $username;
                     $_SESSION['id_user'] = $data['id_user'];
                     redirection('index.php');
+                } else if ($data and is_int($data['id_organization'])) {
+                    $_SESSION['username'] = $username;
+                    $_SESSION['id_organization'] = $data['id_organization'];
+                    redirection('index.php');
+
                 } else {
                     redirection('login.php?e=1');
                 }
@@ -129,7 +132,7 @@ if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !==
                     setForgottenToken($pdo, 'users', $email, $token);
                     $id_user = getUserData($pdo, 'id_user', 'email', $email);
                     try {
-                        $body = "You are a User.<br>To start the process of changing password, visit <a href=" . SITE . "forget.php?token=$token>link</a>.";
+                        $body = "To start the process of changing password, visit <a href=" . SITE . "forget.php?token=$token>link</a>.";
                         sendEmail($pdo, $email, $emailMessages['forget'], $body, $id_user);
                         redirection('forgotPassword.php?e=13');
                     } catch (Exception $e) {

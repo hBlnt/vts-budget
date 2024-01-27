@@ -11,27 +11,34 @@ footer {
     color: white;
 
 }
-.darkgreen{
+
+.darkgreen {
     background-color: #327d81 !important;
 }
 
 .title {
     color: white;
-    text-shadow:-1px -1px 0 #000,
-    0   -1px 0 #000,
+    text-shadow: -1px -1px 0 #000,
+    0 -1px 0 #000,
     1px -1px 0 #000,
-    1px  0   0 #000,
-    1px  1px 0 #000,
-    0    1px 0 #000,
-    -1px  1px 0 #000,
-    -1px  0   0 #000;
+    1px 0 0 #000,
+    1px 1px 0 #000,
+    0 1px 0 #000,
+    -1px 1px 0 #000,
+    -1px 0 0 #000;
 }
 
 .card-body {
     position: relative; /* Make sure text is on top of the overlay */
     z-index: 2; /* Ensure the text is above the overlay */
 }
-.imgsmall{
+
+.imgsmall {
     max-width: 300px;
     height: auto; /* To maintain the aspect ratio */
+}
+
+.error {
+    color: #f00;
+    display: block;
 }

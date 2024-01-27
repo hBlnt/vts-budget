@@ -1,7 +1,12 @@
 <?php
 $id_user = '';
+$id_organization = '';
 if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESSION['id_user'])) {
     $id_user = $_SESSION['id_user'];
+}
+if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_int($_SESSION['id_organization'])) {
+    $id_organization = $_SESSION['id_organization'];
+//    var_dump($id_organization);
 }
 ?>
 <div class="container px-4 px-lg-5">
@@ -17,25 +22,32 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
             <label for="search_by_name">Search</label>
             <input type="text" name="search" id="search_by_name" class="form-control"
                    placeholder="Search"><br>
-            <label for="country">Country:</label>
-            <select name="country" id="country" class="form-select">
-                <option value="">Choose</option>
-                <?php
-
-                $sql = 'SELECT DISTINCT country FROM cities';
-                $query = $pdo->prepare($sql);
-                $query->execute();
-                $cities = $query->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($cities
-
-                as $city){
-                $country = $city['country'];
-
+            <?php
+            if (!empty($id_user)) {
                 ?>
-                <option value="<?php echo $country; ?>"><?php echo $country;
-                    }
-                    ?></option>
-            </select><br>
+                <label for="country">Country:</label>
+                <select name="country" id="country" class="form-select">
+                    <option value="">Choose</option>
+                    <?php
+
+                    $sql = 'SELECT DISTINCT country FROM cities';
+                    $query = $pdo->prepare($sql);
+                    $query->execute();
+                    $cities = $query->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($cities
+
+                    as $city){
+                    $country = $city['country'];
+
+                    ?>
+                    <option value="<?php echo $country; ?>"><?php echo $country;
+                        }
+                        ?></option>
+                </select>
+                <?php
+            }
+            ?>
+            <br>
             <fieldset class="border p-1">
                 <legend>Choose your attraction types</legend>
                 <?php
@@ -46,9 +58,26 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
                 }
                 ?>
             </fieldset>
+            <?php
+            if (!empty($id_organization)) {
+                echo "
+<br>
+                <label for='order'>What order would you like?</label>
+                <select name='order' id='order' class='form-select'>
+                    <option value='' selected>Choose an order</option>
+                    <option value='alphabet_asc'>Alphabetical (A-Z)</option>
+                    <option value='alphabet_desc'>Backwards alphabetical (Z-A)</option>
+                    <option value='popularity_high'>Popularity (Highest first)</option>
+                    <option value='popularity_low'>Popularity (Lowest first)</option>
+                </select>
+                ";
+            }
+            ?>
             <br>
             <div class="text-center">
-                <button type='submit' id='searchButton' class='btn btn-light border-3 border-dark accordion-button'>Search</button>
+                <button type='submit' id='searchButton' class='btn btn-light border-3 border-dark accordion-button'>
+                    Search
+                </button>
             </div>
 
         </form>
@@ -60,7 +89,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
         $selectedType = $_POST['typeArray'] ?? [];
         $selectedCountry = $_POST['country'] ?? '';
         $insertedSearch = $_POST['search'] ?? '';
-        $sqlAttractionSelect = "SELECT a.id_attraction,a.id_organization,a.attraction_name,a.type FROM `attractions` a";
+        $order = $_POST['order'] ?? '';
+
+        $sqlAttractionSelect = "SELECT a.id_attraction,a.id_organization,a.attraction_name,a.type, a.popularity, a.id_city FROM `attractions` a";
 
         $sqlAttractionSelect .= " INNER JOIN `cities` c ON a.`id_city` = c.`id_city`";
 
@@ -83,6 +114,33 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
             $dynamicWhereClause .= empty($dynamicWhereClause) ? " WHERE " : " AND ";
             $dynamicWhereClause .= " (a.attraction_name LIKE :search)";
         }
+
+        if (!empty($id_organization)) {
+
+            $orgData = getTableData($pdo, 'organizations', 'id_organization', $id_organization, false);
+            $orgCity = $orgData['id_city'];
+            $dynamicWhereClause .= empty($dynamicWhereClause) ? " WHERE " : " AND ";
+            $dynamicWhereClause .= "a.id_city = :org_city";
+            if (!empty($order)) {
+                switch ($order) {
+
+                    case "alphabet_asc":
+                        $dynamicWhereClause .= " ORDER BY a.attraction_name ASC";
+                        break;
+                    case "alphabet_desc":
+                        $dynamicWhereClause .= " ORDER BY a.attraction_name DESC";
+                        break;
+                    case "popularity_high":
+                        $dynamicWhereClause .= " ORDER BY a.popularity DESC";
+                        break;
+                    case "popularity_low":
+                        $dynamicWhereClause .= " ORDER BY a.popularity ASC";
+                        break;
+                }
+            }
+        } else
+            $dynamicWhereClause .= " ORDER BY a.attraction_name ASC";
+
         $sqlAttractionSelect .= $dynamicWhereClause;
 
 
@@ -95,12 +153,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
             $searchTerm = '%' . $insertedSearch . '%';
             $stmtAttractionSelect->bindParam(':search', $searchTerm, PDO::PARAM_STR);
         }
+        if (!empty($id_organization)) {
+            $stmtAttractionSelect->bindParam(':org_city', $orgCity, PDO::PARAM_STR);
+        }
         $stmtAttractionSelect->execute();
         if ($stmtAttractionSelect->rowCount() > 0) {
             while ($row = $stmtAttractionSelect->fetch(PDO::FETCH_ASSOC)) {
                 $attractionName = $row["attraction_name"];
                 $attractionId = $row["id_attraction"];
                 $attractionType = $row["type"];
+                $attractionPopularity = $row["popularity"];
                 $cityData = getCityData($pdo, $attractionName);
                 $pathData = getAttractionImagePath($pdo, $attractionId);
                 echo "   
@@ -108,16 +170,23 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
             <div class='card h-100 text-center border-5 border-light'style='background-image: url(" . $pathData["path"] . "); background-size: cover;'>
                 <div class='card-body title d-flex flex-column'>    
                     <h2>{$attractionName}</h2>
-                    <p>City: {$cityData["city_name"]} </p>
-                    <p>Type: {$attractionType} </p>
+                    
                     
                     ";
                 if (!empty($id_user)) {
                     echo "
+
+                    <p>City: {$cityData["city_name"]} </p>
+                    <p>Type: {$attractionType} </p>
                     <form method='post' action='attraction_details.php' class='mt-auto'>
                         <input type='hidden' name='attraction_id' value='{$attractionId}'>
                         <input type='submit' class='btn btn-light border-3 border-dark just' value='More information'>
                     </form>";
+                }
+                if (!empty($id_organization)) {
+                    echo "
+                   <p class='text-decoration-underline'>Popularity: {$attractionPopularity} </p> 
+                    ";
                 }
                 echo "
                 </div>

@@ -49,16 +49,24 @@ function redirection($url)
 function checkUserLogin(PDO $pdo, string $email, string $enteredPassword): array
 {
     $sqlUser = "SELECT id_user, password,firstname,lastname FROM users WHERE email=:email AND active=1 AND is_banned = 0 LIMIT 0,1";
+    $sqlOrg = "SELECT id_organization, id_city, password FROM organizations WHERE email=:email AND is_banned = 0 LIMIT 0,1";
 
     $stmtUser = $pdo->prepare($sqlUser);
     $stmtUser->bindParam(':email', $email, PDO::PARAM_STR);
 
+    $stmtOrg = $pdo->prepare($sqlOrg);
+    $stmtOrg->bindParam(':email', $email, PDO::PARAM_STR);
     $data = [];
 
     $stmtUser->execute();
+    $stmtOrg->execute();
+
+
     if ($stmtUser->rowCount() > 0) {
         $result = $stmtUser->fetch(PDO::FETCH_ASSOC);
+    } else if ($stmtOrg->rowCount() > 0) {
 
+        $result = $stmtOrg->fetch(PDO::FETCH_ASSOC);
     }
 
     if ($stmtUser->rowCount() > 0) {
@@ -67,6 +75,11 @@ function checkUserLogin(PDO $pdo, string $email, string $enteredPassword): array
 
         if (password_verify($enteredPassword, $registeredPassword)) {
             $data['id_user'] = $result['id_user'];
+        }
+    } else if ($stmtOrg->rowCount() > 0) {
+        $registeredPassword = $result['password'];
+        if (password_verify($enteredPassword, $registeredPassword)) {
+           $data['id_organization'] = $result['id_organization'] ;
         }
     }
 
@@ -134,51 +147,6 @@ function createToken(int $length): ?string
     }
 }
 
-function editUser(PDO $pdo, string $password, string $firstname, string $lastname, string $age, string $phone, string $id): bool
-{
-    $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
-
-    $sql = "UPDATE users SET ";
-
-    $updateFields = [];
-    $params = [];
-
-    if (!empty($password)) {
-        $updateFields[] = "password = :passwordHashed";
-        $params[':passwordHashed'] = $passwordHashed;
-    }
-
-    if (!empty($firstname)) {
-        $updateFields[] = "firstname = :firstname";
-        $params[':firstname'] = $firstname;
-    }
-
-    if (!empty($lastname)) {
-        $updateFields[] = "lastname = :lastname";
-        $params[':lastname'] = $lastname;
-    }
-
-    if (empty($updateFields)) {
-        return false; // No fields to update
-    }
-
-    $sql .= implode(", ", $updateFields);
-    $sql .= " WHERE id_user = :id";
-    $params[':id'] = $id;
-
-    $stmt = $pdo->prepare($sql);
-
-    try {
-        $stmt->execute($params);
-        return true;
-    } catch (PDOException $ex) {
-        error_log("******************FUNCTIONERROR**********************");
-        error_log($ex->getMessage());
-        error_log("file:" . $ex->getFile() . " line:" . $ex->getLine());
-        return false;
-    }
-
-}
 const GMailUSEREmail = 'personaltrainerhelp2023@gmail.com'; // your username on gmail
 const GoogleAppsPassword = 'ybyvuesekrtnjjbb'; // you password for created APP
 
@@ -188,7 +156,7 @@ function sendEmail(PDO $pdo, string $email, array $emailData, string $body, int 
     $toEmail = $email;
     $subject = $emailData['subject'];
     $from = 'personaltrainerhelp2023@gmail.com';
-    $fromName = 'Personal Trainer';
+    $fromName = 'Tourist website';
 
 
     try {
@@ -455,7 +423,7 @@ function isFavouriteAttractionExist(PDO $pdo, int $id_city, int $id_user): bool
 
 function getFavouriteAttractions(PDO $pdo, int $id_user): array
 {
-    $sql = "SELECT a.attraction_name,a.id_attraction,c.city_name FROM favourite_attractions fa
+    $sql = "SELECT a.attraction_name,a.id_attraction,c.city_name,a.id_city FROM favourite_attractions fa
     INNER JOIN attractions a ON fa.id_attraction = a.id_attraction
     INNER JOIN cities c ON a.id_city = c.id_city
     WHERE fa.id_user = :id_user";

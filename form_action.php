@@ -38,7 +38,7 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
         case "makeFavourite":
 
             $id_attraction = trim($_POST['id_attraction'] ?? '');
-            insertFavouriteAttraction($pdo,$id_user,$id_attraction);
+            insertFavouriteAttraction($pdo, $id_user, $id_attraction);
             redirection("favourites.php");
             break;
 

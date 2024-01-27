@@ -1,3 +1,11 @@
+<?php
+
+$id_organization = '';
+if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_int($_SESSION['id_organization'])) {
+    $id_organization = $_SESSION['id_organization'];
+}
+var_dump($id_organization);
+?>
 <div class="container px-4 px-lg-5">
 
         <h1 class="font-weight-light my-2 text-center">Welcome to Toorizm</h1>
@@ -19,3 +27,4 @@
         </div>
     </div>
 </div>
+

@@ -6,8 +6,8 @@ if (isset($_GET["e"]) and is_numeric($_GET['e'])) {
     $e = (int)$_GET["e"];
 
     if (array_key_exists($e, $messages)) {
-        $content .= '
-                    <div  style="font-size: 40px" role="alert">
+        echo'
+                    <div  style="font-size: 30px" role="alert">
                         ' . $messages[$e] . '
                     </div>
                     ';

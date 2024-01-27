@@ -19,7 +19,7 @@ $pdoOptions = [
 ];
 
 $actions = ['login', 'register', 'forget'];
-$formActions = ['userDeleteTour', 'newTour','userDeleteFavourite','makeFavourite'];
+$formActions = ['userDeleteTour', 'newTour','userDeleteFavourite','makeFavourite','editAttraction','deleteAttraction','newAttraction'];
 
 $messages = [
     0 => 'No direct access!',
@@ -43,11 +43,16 @@ $messages = [
     22 => 'Logged in congrats, you are a USER',
     24 => 'Admin did not approve yet!',
     27 => 'Success',
+
     28 => 'Something went wrong',
 
     29 => 'Something went wrong. Please contact our support.',
     30 => 'Fill at least one field!',
     31 => 'Successfully updated your data!',
+    32 => 'Successfully deleted data!',
+    33 => 'Something went wrong with image upload!',
+    34 => 'File is not picture',
+    35 => 'Already exists attraction with this name'
 ];
 
 $emailMessages = [

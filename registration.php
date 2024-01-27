@@ -12,7 +12,6 @@ ob_start();
 include 'content/registerContent.php';
 $content .= ob_get_clean();
 
-require_once 'error.php';
 $body = new Body('', $content, 'first');
 $header = new Header('Registration', $linksHeader,$scripts);
 

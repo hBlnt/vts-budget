@@ -10,10 +10,24 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
 }
 ?>
 <div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 align-items-center my-5">
+    <div class="row gx-4 gx-lg-5 text-center justify-content-center my-5">
         <div class="col-lg-5">
             <h1 class="font-weight-light">ATTRACTIONS</h1>
-
+            <?php
+            if (!empty($id_organization)) {
+                echo "
+                
+            <div>
+                <a href='new_attraction.php'>
+                    <button class='btn btn-success border-3 border-dark text-center btn-lg'><h1>New attraction</h1></button>
+                </a>
+                ";
+                require_once 'error.php';
+                echo "
+            </div>
+                ";
+            }
+            ?>
         </div>
     </div>
     <div class="col-lg-12 pb-4">
@@ -165,9 +179,12 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
                 $attractionPopularity = $row["popularity"];
                 $cityData = getCityData($pdo, $attractionName);
                 $pathData = getAttractionImagePath($pdo, $attractionId);
+                $img_path = '';
+                if (!empty($pathData["path"]))
+                    $img_path = $pathData["path"];
                 echo "   
         <div class='col-md-4 mb-5'>
-            <div class='card h-100 text-center border-5 border-light'style='background-image: url(" . $pathData["path"] . "); background-size: cover;'>
+            <div class='card h-100 text-center border-5 border-light'style='background-image: url(" . $img_path . "); background-size: cover;'>
                 <div class='card-body title d-flex flex-column'>    
                     <h2>{$attractionName}</h2>
                     
@@ -178,15 +195,28 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
 
                     <p>City: {$cityData["city_name"]} </p>
                     <p>Type: {$attractionType} </p>
-                    <form method='post' action='attraction_details.php' class='mt-auto'>
+                    <form method='post' action='attraction_details.php'>
                         <input type='hidden' name='attraction_id' value='{$attractionId}'>
-                        <input type='submit' class='btn btn-light border-3 border-dark just' value='More information'>
+                        <input type='submit' class='btn btn-light border-3 border-dark' value='More information'>
                     </form>";
                 }
                 if (!empty($id_organization)) {
                     echo "
-                   <p class='text-decoration-underline'>Popularity: {$attractionPopularity} </p> 
+                   <p class='text-decoration-underline mt-auto'>Popularity: {$attractionPopularity} </p> 
+                   <div class='d-flex justify-content-between mt-auto'>
+                        <form method='post' action='form_action.php'>
+                            <input type='hidden' name='action' value='editAttraction'>
+                            <input type='hidden' name='id_attraction' value='{$attractionId}'>
+                            <input type='submit' class='btn btn-warning border-3 border-dark' value='Edit'>
+                        </form>
+                        <form method='post' action='form_action.php' class='mt-auto'>
+                            <input type='hidden' name='action' value='deleteAttraction'>
+                            <input type='hidden' name='id_attraction' value='{$attractionId}'>
+                            <input type='submit' class='btn btn-danger border-3 border-dark' value='Delete'>
+                        </form>
+                    </div>
                     ";
+
                 }
                 echo "
                 </div>

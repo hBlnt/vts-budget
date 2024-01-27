@@ -16,7 +16,6 @@ ob_start();
 include 'content/forgotMessageContent.php';
 $content .= ob_get_clean();
 
-require_once 'error.php';
 $body = new Body('', $content, 'first');
 $header = new Header('Forgot', $linksHeader, $scripts);
 Html::renderStart('en');

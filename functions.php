@@ -79,7 +79,7 @@ function checkUserLogin(PDO $pdo, string $email, string $enteredPassword): array
     } else if ($stmtOrg->rowCount() > 0) {
         $registeredPassword = $result['password'];
         if (password_verify($enteredPassword, $registeredPassword)) {
-           $data['id_organization'] = $result['id_organization'] ;
+            $data['id_organization'] = $result['id_organization'];
         }
     }
 
@@ -284,7 +284,7 @@ function getTableData(PDO $pdo, string $table_name, string $id_name, int $id, bo
         return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getAttractionImagePath(PDO $pdo, string $id_attraction): array
+function getAttractionImagePath(PDO $pdo, string $id_attraction): array|bool
 {
     $sql = "SELECT i.path FROM 
             images i
@@ -465,5 +465,48 @@ function insertFavouriteAttraction(PDO $pdo, int $id_user, int $id_attraction): 
 
     $stmt->execute();
     $stmt2->execute();
+    return $pdo->lastInsertId();
+}
+
+function existsAttraction(PDO $pdo, string $attraction_name): bool
+{
+
+    $sql = "SELECT id_attraction FROM attractions WHERE attraction_name=:attraction_name";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':attraction_name', $attraction_name, PDO::PARAM_STR);
+    $stmt->execute();
+    $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($stmt->rowCount() > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function getCityIdByOrganization(PDO $pdo, int $id_organization): int
+{
+    $sql = "SELECT id_city FROM organizations WHERE id_organization = :id_organization";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_organization', $id_organization, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetchColumn();
+
+}
+
+function insertAttraction(PDO $pdo, string $attraction_name, string $type, string $description, string $address, int $id_organization): int
+{
+    $sql = "INSERT INTO attractions (attraction_name,type,description,address,id_organization,id_city) VALUES 
+    (:attraction_name,:type,:description,:address,:id_organization,:id_city)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':attraction_name', $attraction_name, PDO::PARAM_STR);
+    $stmt->bindParam(':type', $type, PDO::PARAM_STR);
+    $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+    $stmt->bindParam(':address', $address, PDO::PARAM_STR);
+    $stmt->bindParam(':id_organization', $id_organization, PDO::PARAM_STR);
+    $id_city = getCityIdByOrganization($pdo, $id_organization);
+    $stmt->bindParam(':id_city', $id_city, PDO::PARAM_STR);
+
+    $stmt->execute();
     return $pdo->lastInsertId();
 }

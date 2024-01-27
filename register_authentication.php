@@ -7,11 +7,12 @@ use Web\{
 
 use Meta\Meta;
 
-$content = '';
+$content = "";
 ob_start();
+require_once 'content/registerAuthenticationContent.php';
+$content .= ob_get_clean();
 
-require_once 'error.php';
 $body = new Body('', $content, 'first');
-$header = new Header('Registration', $linksHeader, $scripts);
+$header = new Header('Register Authentication', $linksHeader, $scripts);
 
 require_once 'sablon.php';

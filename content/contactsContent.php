@@ -4,7 +4,6 @@ $id_organization = '';
 if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_int($_SESSION['id_organization'])) {
     $id_organization = $_SESSION['id_organization'];
 }
-var_dump($id_organization);
 ?>
 <div class="container px-4 px-lg-5">
 

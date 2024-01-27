@@ -17,7 +17,6 @@ ob_start();
 include 'content/resetContent.php';
 $content .= ob_get_clean();
 
-require_once 'error.php';
 $body = new Body('', $content, 'first');
 $header = new Header('Forgot', $linksHeader, $scripts);
 require_once 'sablon.php';

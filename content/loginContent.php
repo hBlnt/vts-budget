@@ -19,7 +19,7 @@
                 <div>
                     <label for="loginPassword">Password</label>
                     <br>
-                    <input type="password" id="loginPassword" name="password" class="form-control" placeholder="sesame open">
+                    <input type="password" id="loginPassword" name="password" class="form-control" placeholder="asdf12345">
                     <small></small>
                 </div>
 

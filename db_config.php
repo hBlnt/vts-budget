@@ -52,7 +52,7 @@ $messages = [
 
 $emailMessages = [
     'register' => [
-        'subject' => 'Register on Personal Trainers',
+        'subject' => 'Register on Toorizm',
         'altBody' => 'This is the body in plain text for non-HTML mail clients'
     ],
     'forget' => [

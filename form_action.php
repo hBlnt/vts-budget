@@ -18,6 +18,11 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
             deleteTableData($pdo, 'tours', 'id_tour', $id_tour);
             redirection("my_tours.php");
             break;
+        case "userDeleteFavourite":
+            $id_attraction = trim($_POST['id_attraction'] ?? '');
+            deleteFavouriteAttraction($pdo, $id_user, $id_attraction);
+            redirection("favourites.php");
+            break;
         case "newTour":
             $tour_name = trim($_POST['tour_name'] ?? '');
             $tour_type = trim($_POST['tour_type'] ?? '');
@@ -29,6 +34,12 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
             $lastTourId = insertNewTour($pdo, $id_user, $tour_name, $tour_type);
             insertTourAttractions($pdo, $lastTourId, $attractions);
             redirection('new_tour.php?success');
+            break;
+        case "makeFavourite":
+
+            $id_attraction = trim($_POST['id_attraction'] ?? '');
+            insertFavouriteAttraction($pdo,$id_user,$id_attraction);
+            redirection("favourites.php");
             break;
 
     }

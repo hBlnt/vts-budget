@@ -421,8 +421,81 @@ function insertTourAttractions(PDO $pdo, int $id_tour, array $attractions): bool
         $stmt->execute();
         $count++;
     }
-    if ($count< count($attractions))
+    if ($count < count($attractions))
         return "problem occured";
     else
         return "everything went fine";
+}
+
+function isFavouriteAttractionExist(PDO $pdo, int $id_city, int $id_user): bool
+{
+    $sql = "
+            SELECT 
+              IF(COUNT(*) > 0, 'true', 'false') AS result_exists
+            FROM 
+              favourite_attractions fa
+              INNER JOIN attractions a ON fa.id_attraction = a.id_attraction
+              INNER JOIN cities c ON a.id_city = c.id_city
+            WHERE 
+              id_user = :id_user AND c.id_city = :id_city;
+    ";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_user', $id_user, PDO::PARAM_STR);
+    $stmt->bindParam(':id_city', $id_city, PDO::PARAM_STR);
+
+    if ($stmt->execute()) {
+        $result = $stmt->fetchColumn();
+        return $result === 'true';
+    }
+
+    return false;  // Return false if execute fails
+
+}
+
+function getFavouriteAttractions(PDO $pdo, int $id_user): array
+{
+    $sql = "SELECT a.attraction_name,a.id_attraction,c.city_name FROM favourite_attractions fa
+    INNER JOIN attractions a ON fa.id_attraction = a.id_attraction
+    INNER JOIN cities c ON a.id_city = c.id_city
+    WHERE fa.id_user = :id_user";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_user', $id_user, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function deleteFavouriteAttraction(PDO $pdo, int $id_user, int $id_attraction): bool
+{
+
+    $sql = "DELETE FROM favourite_attractions WHERE id_attraction = :id_attraction AND id_user =:id_user;";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+    $stmt->bindParam(':id_user', $id_user, PDO::PARAM_STR);
+
+    $sql2 = "UPDATE attractions SET popularity = popularity - 1 WHERE id_attraction = :id_attraction";
+    $stmt2 = $pdo->prepare($sql2);
+    $stmt2->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+
+    $stmt->execute();
+    $stmt2->execute();
+    return $pdo->lastInsertId();
+}
+
+function insertFavouriteAttraction(PDO $pdo, int $id_user, int $id_attraction): int
+{
+    $sql = "INSERT INTO favourite_attractions (id_user,id_attraction) VALUES 
+    (:id_user,:id_attraction)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+    $stmt->bindParam(':id_user', $id_user, PDO::PARAM_STR);
+
+    $sql2 = "UPDATE attractions SET popularity = popularity + 1 WHERE id_attraction = :id_attraction";
+    $stmt2 = $pdo->prepare($sql2);
+    $stmt2->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+
+    $stmt->execute();
+    $stmt2->execute();
+    return $pdo->lastInsertId();
 }

@@ -29,10 +29,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
         foreach ($getUserTours as $tour) {
             $id_tour = $tour['id_tour'];
             $rowCounter++;
+            $dateTime = date('Y.m.d', strtotime($tour['datetime']));
             echo "<tr>";
             echo "<td>{$rowCounter}</td>";
             echo "<td>{$tour['tour_name']}</td>";
-            echo "<td>{$tour['datetime']}</td>";
+            echo "<td>{$dateTime}</td>";
 
             echo "<td><form method='POST' action='getTour.php'>";
             echo "<input type='hidden' name='id_tour' value='" . $id_tour . "'>";
@@ -53,6 +54,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
     ?>
     <div class="text-center">
 
-        <a href="new_tour.php"><button class='btn btn-success border-3 border-dark text-center btn-lg' ><h1>New tour</h1></button></a>
+        <a href="new_tour.php">
+            <button class='btn btn-success border-3 border-dark text-center btn-lg'><h1>New tour</h1></button>
+        </a>
     </div>
 </div>

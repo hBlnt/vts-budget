@@ -48,7 +48,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
             </fieldset>
             <br>
             <div class="text-center">
-                <button type='submit' id='searchButton' class='btn btn-primary justify-content-center align-content-center'>Search</button>
+                <button type='submit' id='searchButton' class='btn btn-light border-3 border-dark accordion-button'>Search</button>
             </div>
 
         </form>
@@ -86,7 +86,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
         $sqlAttractionSelect .= $dynamicWhereClause;
 
 
-        $pdo = connectDatabase($dsn, $pdoOptions);
         $stmtAttractionSelect = $pdo->prepare($sqlAttractionSelect);
 
         if (!empty($selectedCountry)) {
@@ -107,7 +106,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
                 echo "   
         <div class='col-md-4 mb-5'>
             <div class='card h-100 text-center border-5 border-light'style='background-image: url(" . $pathData["path"] . "); background-size: cover;'>
-                <div class='card-body title'>    
+                <div class='card-body title d-flex flex-column'>    
                     <h2>{$attractionName}</h2>
                     <p>City: {$cityData["city_name"]} </p>
                     <p>Type: {$attractionType} </p>
@@ -115,9 +114,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
                     ";
                 if (!empty($id_user)) {
                     echo "
-                    <form method='post' action='attraction_details.php'>
+                    <form method='post' action='attraction_details.php' class='mt-auto'>
                         <input type='hidden' name='attraction_id' value='{$attractionId}'>
-                        <input type='submit' class='btn btn-light border-3 border-dark' value='More information'>
+                        <input type='submit' class='btn btn-light border-3 border-dark just' value='More information'>
                     </form>";
                 }
                 echo "

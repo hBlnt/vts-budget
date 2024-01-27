@@ -1,4 +1,8 @@
 <?php
+$id_user = '';
+if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESSION['id_user'])) {
+    $id_user = $_SESSION['id_user'];
+}
 $attraction_id = $_POST['attraction_id'] ?? '';
 
 $attraction = getTableData($pdo, 'attractions', 'id_attraction', $attraction_id,false);
@@ -26,6 +30,19 @@ echo "
                 <p>{$attraction['type']}</p>
                 <h2 class='font-weight-light my-2'>Address</h2>
                 <p>{$attraction['address']}</p>
+                ";
+if(!isFavouriteAttractionExist($pdo,$attraction['id_city'],$id_user))
+{
+    echo"
+                <form method='post' class='text-center' action='form_action.php'>
+                
+                    <input type='hidden' name='action' value='makeFavourite'>
+                    <input type='hidden' name='id_attraction' value='{$attraction_id}'>
+                    <input type='submit' value='Make favourite' class='btn btn-danger'>
+                </form>
+                ";
+}
+                echo"
             </div>
         </div>
     </div>

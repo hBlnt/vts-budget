@@ -29,7 +29,26 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
             break;
         case "deleteAttraction":
             $id_attraction = trim($_POST['id_attraction'] ?? '');
+            $imageNames = array_map(function ($element) {
+                return $element['path'];
+            }, getImageNames($pdo, $id_attraction));
+            $_SESSION['names'] = $imageNames;
+            // delete images from server
+            foreach ($imageNames as $image) {
+
+                if (file_exists($image)) {
+                    if (unlink($image)) {
+                        echo "Image $image has been deleted successfully.";
+                    } else {
+                        echo "Error deleting image $image.";
+                    }
+                } else {
+                    echo "Image $image does not exist.";
+                }
+            }
+            deleteImages($pdo, $id_attraction);
             deleteTableData($pdo, 'attractions', 'id_attraction', $id_attraction);
+
             redirection("attractions.php?e=32");
             break;
         case "newTour":
@@ -62,18 +81,43 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
 
             try {
                 if (!existsAttraction($pdo, $attraction_name)) {
-                    $result = insertAttraction($pdo, $attraction_name, $type, $description, $address, $id_organization);
+                    $lastAttractionId = insertAttraction($pdo, $attraction_name, $type, $description, $address, $id_organization);
 
-                    //ide megy a :
-                        /*1. insert into images
-                        $arrayIDimages = [];
-                        $lastAttractionid =''
-                        lastinsertid attraction
-                        2. array_push lastinsertid $arrayIDimages;
-                        3.
-                        insert into attractions_images(pdo,$id_attraction
-                     */
-                    if ($result > 0)
+                    $imageIds = [];
+                    foreach ($_FILES["images"]["tmp_name"] as $key => $tmp_name) {
+                        $file_tmp = $_FILES["images"]["tmp_name"][$key];
+
+                        if (exif_imagetype($file_tmp) !== 2)
+                            redirection('new_attraction.php?e=34');
+
+                        if (is_uploaded_file($file_tmp)) {
+                            $file_name = time() . "-" . mt_rand(100, 1000) . ".jpg";
+                            $upload = "db_images/" . $file_name;
+
+                            if (move_uploaded_file($file_tmp, $upload)) {
+                                $lastImageID = insertImage($pdo, $upload);
+                                $imageIds[] = $lastImageID;
+                            }
+                        }
+                    }
+                    foreach ($imageIds as $id) {
+                        insertAttractionImage($pdo, $lastAttractionId, $id);
+                    }
+
+                    //concept
+//                    $arrayImages =[];
+//                    $imageIDS =[];
+//                    foreach ($arrayImages as $image)
+//                    {
+//                       $lastImageID = insertImage($pdo,$image);
+//                       array_push($imageIDS,$lastImageID);
+//                    }
+//                    foreach ($imageIDS as $id)
+//                    {
+//                       insertAttractionImages($pdo,$lastAttractionId,$id);
+//                    }
+
+                    if ($lastAttractionId > 0)
                         redirection('new_attraction.php?e=27');
                     else
                         redirection('new_attraction.php?e=28');
@@ -81,11 +125,12 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
                     redirection('new_attraction.php?e=35');
 
                 }
-            } catch (Exception $e) {
+            } catch
+            (Exception $e) {
                 error_log("****************************************");
                 error_log($e->getMessage());
                 error_log("file:" . $e->getFile() . " line:" . $e->getLine());
-                redirection('exercises.php?e=28');
+                redirection('new_attraction.php?e=28');
             }
 
             break;

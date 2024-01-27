@@ -6,8 +6,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
 }
 if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_int($_SESSION['id_organization'])) {
     $id_organization = $_SESSION['id_organization'];
-//    var_dump($id_organization);
 }
+
+//if(!empty($_SESSION['names']))
+//    var_dump($_SESSION['names']);
 ?>
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 text-center justify-content-center my-5">

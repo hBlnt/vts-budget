@@ -510,3 +510,52 @@ function insertAttraction(PDO $pdo, string $attraction_name, string $type, strin
     $stmt->execute();
     return $pdo->lastInsertId();
 }
+
+function insertImage(PDO $pdo, string $path): int
+{
+    $sql = "INSERT INTO images (path) VALUES (:path)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':path', $path, PDO::PARAM_STR);
+
+    $stmt->execute();
+    return $pdo->lastInsertId();
+}
+
+function insertAttractionImage(PDO $pdo, int $id_attraction, int $id_image): int
+{
+    $sql = "INSERT INTO attractions_images (id_attraction,id_image) VALUES (:id_attraction,:id_image)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+    $stmt->bindParam(':id_image', $id_image, PDO::PARAM_STR);
+
+    $stmt->execute();
+    return $pdo->lastInsertId();
+}
+
+function deleteImages(PDO $pdo, int $id_attraction): bool
+{
+    $sql = "DELETE i
+FROM images i
+INNER JOIN attractions_images ai ON
+    i.id_image = ai.id_image
+WHERE
+    ai.id_attraction = :id_attraction";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+    return $stmt->execute();
+
+}
+
+function getImageNames(PDO $pdo, int $id_attraction): array
+{
+    $sql = "SELECT i.path FROM images i 
+            INNER JOIN attractions_images ai 
+            ON i.id_image = ai.id_image
+            WHERE ai.id_attraction = :id_attraction";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

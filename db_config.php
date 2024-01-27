@@ -51,7 +51,7 @@ $messages = [
     31 => 'Successfully updated your data!',
     32 => 'Successfully deleted data!',
     33 => 'Something went wrong with image upload!',
-    34 => 'File is not picture',
+    34 => 'File is not JPG format!!',
     35 => 'Already exists attraction with this name'
 ];
 

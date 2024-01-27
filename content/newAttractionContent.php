@@ -13,7 +13,7 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['id_organization']) || !is
 
     <h1 class='font-weight-light my-2 text-center text-decoration-underline'>New tour</h1>
     <br>
-    <form method="post" class="form-control"  action="form_action.php" enctype="multipart/form-data">
+    <form method="post" class="form-control" action="form_action.php" enctype="multipart/form-data">
         <input type='hidden' name='action' value='newAttraction'>
         <label for="attraction_name">What is the attraction called?</label>
         <input type="text" name="attraction_name" id="attraction_name" class="form-control"
@@ -45,7 +45,8 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['id_organization']) || !is
         <input type="file" id="images" name="images[]" class="form-control" multiple accept="image/jpeg">
         <br>
         <div class="text-center">
-            <button type='submit' class='btn btn-success border-3 border-dark text-center btn-lg'>New attraction</button>
+            <button type='submit' class='btn btn-success border-3 border-dark text-center btn-lg'>New attraction
+            </button>
         </div>
         <?php
         require_once 'error.php';

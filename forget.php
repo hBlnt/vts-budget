@@ -69,7 +69,11 @@ switch ($method) {
             if ($resetPassword !== $resetPasswordConfirm) {
                 redirection('reset_form.php?e=7');
             }
+            $blockedDomain = "org.com";
+            list($name, $domain) = explode("@", $resetEmail);
 
+            if ($domain === $blockedDomain)
+                redirection('reset_form.php?e=36');
             $passwordHashed = password_hash($resetPassword, PASSWORD_DEFAULT);
 
 

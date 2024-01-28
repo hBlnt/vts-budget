@@ -210,6 +210,9 @@ function init() {
             } else if (!isValidEmail(forgetEmail.value.trim())) {
                 showErrorMessage(forgetEmail, 'Email is in incorrect format!');
                 isValid = false;
+            } else if (forgetEmail.value.trim().includes("@org.com")) {
+                showErrorMessage(forgetEmail, 'Email domain cannot be used');
+                isValid = false;
             } else {
                 hideErrorMessage(forgetEmail);
             }
@@ -233,6 +236,9 @@ function init() {
                 isValid = false;
             } else if (!isValidEmail(resetEmail.value.trim())) {
                 showErrorMessage(resetEmail, 'Email is in incorrect format!');
+                isValid = false;
+            } else if (resetEmail.value.trim().includes("@org.com")) {
+                showErrorMessage(resetEmail, 'Email domain cannot be used');
                 isValid = false;
             } else {
                 hideErrorMessage(resetEmail);
@@ -317,6 +323,9 @@ let validateForm = () => {
         showErrorMessage(registerEmail, 'Email is in incorrect format!');
         isValid = false;
         inputError(registerEmail);
+    } else if (registerEmail.value.trim().includes("@org.com")) {
+        showErrorMessage(registerEmail, 'Email domain cannot be used');
+        isValid = false;
     } else {
         hideErrorMessage(registerEmail);
     }
@@ -350,6 +359,9 @@ const isEmpty = value => value === '';
 const isValidEmail = (email) => {
     let rex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     return rex.test(email);
+}
+const isValidDomain = (email) => {
+
 }
 
 

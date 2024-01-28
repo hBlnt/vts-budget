@@ -52,7 +52,8 @@ $messages = [
     32 => 'Successfully deleted data!',
     33 => 'Something went wrong with image upload!',
     34 => 'File is not JPG format!!',
-    35 => 'Already exists attraction with this name'
+    35 => 'Already exists attraction with this name',
+    36 => 'You have no permission to this e-mail domain!'
 ];
 
 $emailMessages = [

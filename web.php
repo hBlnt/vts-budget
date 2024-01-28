@@ -17,6 +17,7 @@ $referer = $_SERVER['HTTP_REFERER'];
 
 $action = $_POST["action"];
 
+$blockedDomain = "org.com";
 if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !== false) {
 
 
@@ -51,6 +52,7 @@ if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !==
 
 
         case "register" :
+
 
 
             if (isset($_POST['firstname'])) {
@@ -100,6 +102,9 @@ if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !==
             if (empty($email) or !filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 redirection('registration.php?e=8');
             }
+            list($name,$domain) = explode("@",$email);
+            if($domain === $blockedDomain)
+                redirection('registration.php?e=36');
 
             //Making sure that the e-mail is not taken by either a user or a trainer
             if (!existsUser($pdo, $email)) {
@@ -126,6 +131,12 @@ if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !==
 
         case "forget" :
             $email = trim($_POST["email"]);
+
+            list($name,$domain) = explode("@",$email);
+
+            if($domain === $blockedDomain)
+                redirection('forgotPassword.php?e=36');
+
             if (!empty($email) and getUserData($pdo, 'id_user', 'email', $email)) {
                 $token = createToken(20);
                 if ($token) {

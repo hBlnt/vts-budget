@@ -19,7 +19,7 @@ $pdoOptions = [
 ];
 
 $actions = ['login', 'register', 'forget'];
-$formActions = ['userDeleteTour', 'newTour','userDeleteFavourite','makeFavourite','editAttraction','deleteAttraction','newAttraction'];
+$formActions = ['userDeleteTour', 'newTour', 'userDeleteFavourite', 'makeFavourite', 'editAttraction', 'deleteAttraction', 'newAttraction', 'newComment'];
 
 $messages = [
     0 => 'No direct access!',
@@ -70,6 +70,7 @@ $emailMessages = [
 
 $titles = [
     'index.php' => 'Index page',
+    'login.php' => 'Login page',
     'organizations.php' => 'Create organizations',
     'new_city.php' => 'Create city',
     'all_organizations.php' => 'All organizations',
@@ -89,7 +90,13 @@ $messagesAdmin = [
         6 => ['style' => 'success', 'text' => 'City created successfully.'],
         7 => ['style' => 'danger', 'text' => 'Upload a jpg format image!']
     ],
-    'all_cities.php' =>[
+    'login.php' => [
+
+        0 => ['style' => 'danger', 'text' => 'No direct access!'],
+        1 => ['style' => 'danger', 'text' => 'Unknown user!'],
+        2 => ['style' => 'danger', 'text' => 'You are logged out!'],
+    ],
+    'all_cities.php' => [
 
         1 => ['style' => 'danger', 'text' => 'Error occurs during image upload. Please try again and upload only JPG images.'],
         2 => ['style' => 'danger', 'text' => 'Something went wrong during image upload. Please try again.'],
@@ -100,4 +107,4 @@ $messagesAdmin = [
         3 => ['style' => 'success', 'text' => 'New organization generated successfully.']
     ],
 ];
-$GLOBALS['badWords'] = ['drop','delete','kill', 'destroy','fool'];
+$GLOBALS['badWords'] = ['drop', 'delete', 'kill', 'destroy', 'fool'];

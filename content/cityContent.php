@@ -1,5 +1,5 @@
 <div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 align-items-center my-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center text-center my-5">
         <div class="col-lg-5">
             <h1 class="font-weight-light">CITIES</h1>
             <p>Search by any city</p>
@@ -7,12 +7,15 @@
     </div>
     <div class="row gx-4 gx-lg-5">
         <?php
-        $pdo = connectDatabase($dsn, $pdoOptions);
-        $sqlCitySelect = "SELECT * FROM `cities` ORDER BY `cities`.`city_name` ASC;";
-        $stmtCitySelect = $pdo->prepare($sqlCitySelect);
-        $stmtCitySelect->execute();
-        if ($stmtCitySelect->rowCount() > 0) {
-            while ($row = $stmtCitySelect->fetch(PDO::FETCH_ASSOC)) {
+        $sql = "SELECT c.city_image, c.city_name FROM `cities` c
+         INNER JOIN organizations o ON c.id_city = o.id_city
+         WHERE o.is_banned = 0
+         ORDER BY c.city_name ASC;";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $image = $row["city_image"];
                 $cityName= $row["city_name"];
                 echo "   

@@ -19,9 +19,9 @@ foreach ($organizations as $organization) {
 
 
     if ($organization['is_banned'] == 0)
-        $is_banned = 'active';
+        $is_banned = 'Active';
     else
-        $is_banned = 'banned';
+        $is_banned = 'Blocked';
 
     $data[] = [
         $number,

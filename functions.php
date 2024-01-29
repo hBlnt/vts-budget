@@ -773,14 +773,15 @@ function updateCity(PDO $pdo, string $name, int $id_city, string $country, strin
 
 }
 
-function banUser(PDO $pdo, int $id_user):bool
+function banUser(PDO $pdo, int $id_user): bool
 {
     $sql = "UPDATE users SET is_banned = 1 WHERE id_user=:id_user";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':id_user', $id_user, PDO::PARAM_STR);
     return $stmt->execute();
 }
-function unbanUser(PDO $pdo, int $id_user):bool
+
+function unbanUser(PDO $pdo, int $id_user): bool
 {
     $sql = "UPDATE users SET is_banned = 0 WHERE id_user=:id_user";
     $stmt = $pdo->prepare($sql);
@@ -793,23 +794,24 @@ function unbanUser(PDO $pdo, int $id_user):bool
  * @param string $comment
  * @return array
  */
-function getFilteredCommentData(string $comment):array {
+function getFilteredCommentData(string $comment): array
+{
     $badWords = $GLOBALS['badWords'];
     $comment = strtolower(trim($comment));
-    $commentWords = str_word_count($comment,1);
+    $commentWords = str_word_count($comment, 1);
     $numberOfWords = str_word_count($comment);
     $newStr = implode(" ", $commentWords);
 
-    foreach ($badWords as $word){
-        $newStr = str_replace($word, filterComment($word),$newStr);
+    foreach ($badWords as $word) {
+        $newStr = str_replace($word, filterComment($word), $newStr);
     }
 
     $commentWordOccurence = array_count_values($commentWords);
-    $words =[];
-    $totalBadWords=0;
+    $words = [];
+    $totalBadWords = 0;
 
-    foreach($badWords as $word){
-        if(array_key_exists($word,$commentWordOccurence)) {
+    foreach ($badWords as $word) {
+        if (array_key_exists($word, $commentWordOccurence)) {
             $words[$word] = $commentWordOccurence[$word];
             $totalBadWords += $commentWordOccurence[$word];
         }
@@ -820,7 +822,7 @@ function getFilteredCommentData(string $comment):array {
         'words' => $words,
         'totalBadWords' => $totalBadWords,
         'totalWords' => $numberOfWords,
-        'suggestedBadLevel' => suggestedBadLevel($totalBadWords,$numberOfWords)
+        'suggestedBadLevel' => suggestedBadLevel($totalBadWords, $numberOfWords)
     ];
     return $data;
 }
@@ -833,14 +835,14 @@ function getFilteredCommentData(string $comment):array {
  * @param array $commentData
  * @return int
  */
-function insertComment(string $name, string $email, string $comment, array $commentData): int
+function insertComment(PDO $pdo, int $id_user, int $id_attraction, string $comment, array $commentData): int
 {
-    $sql = "INSERT INTO comments(name, email, comment,filtered_comment,total_bad_words,total_words,bad_level) 
-            VALUES(:name, :email, :comment,:filtered_comment,:total_bad_words,:total_words,:bad_level)";
+    $sql = "INSERT INTO comments(id_user, id_attraction, comment,filtered_comment,total_bad_words,total_words,bad_level) 
+            VALUES(:id_user, :id_attraction, :comment,:filtered_comment,:total_bad_words,:total_words,:bad_level)";
 
-    $stmt = $GLOBALS['pdo']->prepare($sql);
-    $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':id_user', $id_user, PDO::PARAM_STR);
+    $stmt->bindValue(':id_attraction', $id_attraction, PDO::PARAM_STR);
     $stmt->bindValue(':comment', $comment, PDO::PARAM_STR);
     $stmt->bindValue(':filtered_comment', $commentData['filteredComment'], PDO::PARAM_STR);
     $stmt->bindValue(':total_bad_words', $commentData['totalBadWords'], PDO::PARAM_STR);
@@ -848,5 +850,108 @@ function insertComment(string $name, string $email, string $comment, array $comm
     $stmt->bindValue(':bad_level', $commentData['suggestedBadLevel'], PDO::PARAM_STR);
 
     $stmt->execute();
-    return  $GLOBALS['pdo']->lastInsertId();
+    return $pdo->lastInsertId();
+}
+
+/**
+ * Censors comments
+ * @param string $word
+ * @return string
+ */
+function filterComment(string $word): string
+{
+    $pattern = $word[0];
+    $length = strlen($word);
+    $pattern .= str_repeat("*", $length - 2);
+    return $pattern . $word[$length - 1];
+}
+
+/**
+ * Returns the badness level of the comment
+ * @param int $totalBadWords
+ * @param int $totalWords
+ * @return int
+ */
+function suggestedBadLevel(int $totalBadWords, int $totalWords): int
+{
+    if ($totalBadWords == $totalWords)
+        $data = 1;
+    elseif ($totalBadWords > $totalWords * (2 / 100) && $totalBadWords < $totalWords * (19 / 100))
+        $data = 2;
+    elseif ($totalBadWords >= $totalWords * (20 / 100) && $totalBadWords < $totalWords * (39 / 100))
+        $data = 3;
+    elseif ($totalBadWords >= $totalWords * (40 / 100) && $totalBadWords < $totalWords * (59 / 100))
+        $data = 4;
+    elseif ($totalBadWords >= $totalWords * (60 / 100) && $totalBadWords < $totalWords * (79 / 100))
+        $data = 5;
+    elseif ($totalBadWords >= $totalWords * (80 / 100))
+        $data = 6;
+    else $data = 0;
+
+    return $data;
+}
+
+/**
+ * Inserts bad words into bad_words table, if there are any
+ * @param int $id_comment
+ * @param string $word
+ * @param int $number
+ * @return void
+ */
+function insertIntoBadWords(PDO $pdo, int $id_comment, string $word, int $number): void
+{
+    $sql = "INSERT INTO bad_words(id_comment,word,number) 
+            VALUES(:id_comment, :word, :number);";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':id_comment', $id_comment, PDO::PARAM_STR);
+    $stmt->bindValue(':word', $word, PDO::PARAM_STR);
+    $stmt->bindValue(':number', $number, PDO::PARAM_STR);
+
+    $stmt->execute();
+}
+
+function getCommentData(PDO $pdo, int $id_attraction): array
+{
+    $sql = " SELECT c.filtered_comment,c.date_time,u.firstname FROM comments c 
+    INNER JOIN attractions a ON c.id_attraction = a.id_attraction
+    INNER JOIN users u ON c.id_user = u.id_user 
+    WHERE a.id_attraction = :id_attraction
+ ORDER BY c.date_time DESC
+    ";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function checkAdminLogin(PDO $pdo, string $username, string $enteredPassword): array
+{
+    $sql = "SELECT id_admin, password,username FROM admins WHERE username=:username";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+
+    $data = [];
+
+    $stmt->execute();
+
+
+    if ($stmt->rowCount() > 0)
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+    if ($stmt->rowCount() > 0) {
+
+        $registeredPassword = $result['password'];
+
+        if (password_verify($enteredPassword, $registeredPassword)) {
+            $data['id_admin'] = $result['id_admin'];
+            $data['username'] = $result['username'];
+        }
+    }
+
+    return $data;
 }

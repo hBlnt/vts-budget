@@ -56,8 +56,7 @@ $(document).ready(function () {
         let answer = confirm('Do you really want to delete ' + name + ' city ?');
         if (answer) {
             $.post('ajax/deleteData.php', {id_city: id});
-            $('#allOrganizations').DataTable().clear();
-            $('#allOrganizations').DataTable().ajax.reload();
+            $('#allCities').DataTable().ajax.reload();
         }
     });
 
@@ -67,7 +66,6 @@ $(document).ready(function () {
         let answer = confirm('Do you want to delete organization with name ' + name + ' ?');
         if (answer) {
             $.post('ajax/deleteData.php', {id_organization: id});
-            $('#allOrganizations').DataTable().clear();
             $('#allOrganizations').DataTable().ajax.reload();
         }
     });

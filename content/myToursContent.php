@@ -3,6 +3,9 @@ $id_user = '';
 if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESSION['id_user'])) {
     $id_user = $_SESSION['id_user'];
 }
+if(!isset($_SESSION['username']) || !isset($_SESSION['id_user']) || !is_int($_SESSION['id_user'])){
+    redirection('login.php?e=0');
+}
 
 ?>
 <div class='container px-4 px-lg-5'>

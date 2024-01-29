@@ -5,7 +5,7 @@ require_once '../../functions.php';
 
 $data = getOrganization($pdo, (int)$_GET['id']);
 
-//var_dump($data);
+var_dump($data);
 ?>
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -57,15 +57,15 @@ $data = getOrganization($pdo, (int)$_GET['id']);
                     <label for="status" class="form-label">Status</label>
                     <select class="form-select" name="status" id="status">
                         <?php
-                        if ($data['is_banned'] === '0')
+                        if ($data['is_banned'] === 0)
                             echo '<option value="0" selected>Active</option>' . PHP_EOL;
                         else
                             echo '<option value="0">Active</option>' . PHP_EOL;
 
-                        if ($data['is_banned'] === '1')
-                            echo '<option value="1" selected>Banned</option>' . PHP_EOL;
+                        if ($data['is_banned'] === 1)
+                            echo '<option value="1" selected>Blocked</option>' . PHP_EOL;
                         else
-                            echo '<option value="1" >Banned</option>' . PHP_EOL;
+                            echo '<option value="1" >Blocked</option>' . PHP_EOL;
                         ?>
                     </select>
                 </div>

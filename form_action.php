@@ -92,7 +92,7 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
                             redirection('new_attraction.php?e=34');
 
                         if (is_uploaded_file($file_tmp)) {
-                            $file_name = uniqid('img-',true) . "-" . mt_rand(100, 1000) . ".jpg";
+                            $file_name = uniqid('img-', true) . "-" . mt_rand(100, 1000) . ".jpg";
                             $upload = "db_images/" . $file_name;
 
                             if (move_uploaded_file($file_tmp, $upload)) {
@@ -139,26 +139,25 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
         case "newComment":
 
             $id_user = $_POST["id_user"] ?? "";
+            $id_attraction = $_POST["id_attraction"] ?? "";
             $comment = $_POST["comment"] ?? "";
 
 
-            if (empty($name) || empty($comment))
+            if (empty($id_user) || empty($id_attraction)|| empty($comment))
                 redirection('attractions.php?e=4');
 
             $filteredCommentData = getFilteredCommentData($comment);
-            $lastId = insertComment($pdo,$name,$email,$comment,$filteredCommentData);
+            $lastId = insertComment($pdo, $id_user, $id_attraction, $comment, $filteredCommentData);
 
-            if($lastId){
+            if ($lastId) {
                 foreach ($filteredCommentData['words'] as $key => $value) {
-                    if($value !== 0)
-                        insertIntoBadWords($lastId,$key,$value);
+                    if ($value !== 0)
+                        insertIntoBadWords($pdo, $lastId, $key, $value);
                 }
-                echo "Upload was okay!";
-            }
-            else{
-                header("Location:index.php?e=3");
-                exit();
-            }
+                redirection('attractions.php?e=27');
+            } else
+                redirection('attractions.php?e=28');
+
     }
 
 } else {

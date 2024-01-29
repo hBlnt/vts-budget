@@ -16,17 +16,17 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
         <div class="col-lg-5">
             <h1 class="font-weight-light">ATTRACTIONS</h1>
             <div>
-            <?php
-            if (!empty($id_organization)) {
-                echo "
+                <?php
+                if (!empty($id_organization)) {
+                    echo "
                 
                 <a href='new_attraction.php'>
                     <button class='btn btn-success border-3 border-dark text-center btn-lg'><h1>New attraction</h1></button>
                 </a>
                 ";
-            }
-            require_once 'error.php';
-            ?>
+                }
+                require_once 'error.php';
+                ?>
             </div>
         </div>
     </div>
@@ -46,7 +46,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
                     <?php
 
                     $cities = getCountries($pdo);
-                    foreach ($cities as $city){
+                    foreach ($cities
+
+                    as $city){
                     $country = $city;
 
                     ?>
@@ -105,11 +107,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
 
         $sqlAttractionSelect .= " INNER JOIN `cities` c ON a.`id_city` = c.`id_city`";
 
+        $sqlAttractionSelect .= " INNER JOIN organizations o ON a.id_organization =  o.id_organization ";
+
         $dynamicWhereClause = "";
         if (isset($_GET['city'])) {
             $city = trim($_GET['city']);
             $dynamicWhereClause .= " WHERE c.`city_name` = '$city'";
         }
+
+        $dynamicWhereClause .= empty($dynamicWhereClause) ? " WHERE " : " AND ";
+        $dynamicWhereClause .= "o.is_banned = 0";
 
         if (!empty($selectedCountry)) {
             $dynamicWhereClause .= empty($dynamicWhereClause) ? " WHERE " : " AND ";

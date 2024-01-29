@@ -3,7 +3,7 @@ require_once '../../db_config.php';
 require_once '../../functions.php';
 
 if (isset($_POST['id_organization'])) {
-    $id_organization = (int)$_POST['id'];
+    $id_organization = (int)$_POST['id_organization'];
     deleteTableData($pdo, 'organizations', 'id_organization', $id_organization);
 }
 if (isset($_POST['id_city'])) {

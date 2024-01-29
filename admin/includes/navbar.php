@@ -44,7 +44,12 @@
                         <li><a class="dropdown-item" href="user_status.php">Users</a></li>
                     </ul>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="logout.php">Log out</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
+

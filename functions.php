@@ -955,3 +955,45 @@ function checkAdminLogin(PDO $pdo, string $username, string $enteredPassword): a
 
     return $data;
 }
+
+function isTroll(PDO $pdo, int $id_user): bool
+{
+    $sql = "SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END AS result
+FROM comments
+WHERE id_user = :id_user  AND bad_level >= :bad_level;";
+
+    $bad_level = 6;
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_user', $id_user, PDO::PARAM_STR);
+    $stmt->bindParam(':bad_level', $bad_level, PDO::PARAM_STR);
+    $stmt->execute();
+
+    if ($stmt->fetchColumn() == 'true')
+        return true;
+    else
+        return false;
+}
+
+function getDateBackwards(int $timeStamp): string
+{
+    $currentTime = new DateTime();
+    $commentTime = DateTime::createFromFormat('U', $timeStamp);
+    $interval = $currentTime->diff($commentTime);
+
+    if ($interval->y > 0) {
+        $backwards = $interval->y . " year" . ($interval->y > 1 ? "s" : "") . " ago";
+    } elseif ($interval->m > 0) {
+        $backwards = $interval->m . " month" . ($interval->m > 1 ? "s" : "") . " ago";
+    } elseif ($interval->d > 0) {
+        $backwards = $interval->d . " day" . ($interval->d > 1 ? "s" : "") . " ago";
+    } elseif ($interval->h > 0) {
+        $backwards = $interval->h . " hour" . ($interval->h > 1 ? "s" : "") . " ago";
+    } elseif ($interval->i > 0) {
+        $backwards = $interval->i . " minute" . ($interval->i > 1 ? "s" : "") . " ago";
+    } else {
+        $backwards = "moments ago";
+    }
+
+    return $backwards;
+
+}

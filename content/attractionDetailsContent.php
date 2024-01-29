@@ -77,8 +77,9 @@ if ($imageCounter % 2 != 0) {
     echo "</div>";
 }
 
+$troll = isTroll($pdo,$id_user);
 
-if (!empty($id_user)) {
+if (!empty($id_user) AND !$troll) {
     echo "
     
 <div id='comment-section'>
@@ -98,36 +99,40 @@ if (!empty($id_user)) {
     </form>
 </div>
 ";
-    $comments = getCommentData($pdo, $attraction_id);
-
 }
 
 
 ?>
 
-<div id="shown-comments" class="row gx-4 gx-lg-5 align-items-stretch my-5">
-    <h1 class="pb-2">Comment section</h1>
     <?php
-
+    $comments = getCommentData($pdo, $attraction_id);
     if (!empty($comments))
+        echo "
+        
+<div id='shown-comments' class=' gx-4 -lg-5 align-items-stretch my-5'>
+    <h1 class='pb-2'>Comment section</h1>
+        ";
         foreach ($comments as $comment) {
             $firstname = $comment['firstname'];
-            $date = date('Y M d, H:i', strtotime($comment['date_time']));
+            $date = strtotime($comment['date_time']);
+            $backwardsDate = getDateBackwards($date);
             $filteredComment = $comment['filtered_comment'];
 
             echo
             "
         
-    <div id='main' class='pb-2'>
-        <div id='header'>
-            <b>{$firstname} </b>
-            &nbsp;
-            &nbsp;
-            <b>Date sent: {$date}</b>
+    <div id='main' class='p-3 comment rounded-3 border border-1 border-info'>
+        <div id='header' class='comment-header'>
+            <b>{$firstname}  </b>
         </div>
-        <div id='comment-content'>
+        <div class='comment-time'>
+            <time>{$backwardsDate}</time>
+        </div>
+       <hr> 
+        <div id='comment-content' class='comment-content'>
             <p>{$filteredComment} </p>
         </div>
+        
 
     </div>
     <hr>

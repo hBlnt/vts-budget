@@ -47,3 +47,8 @@ body{
 #comment-content {
     word-wrap: break-word;
 }
+.comment {
+    background-color: rgb(243,243,243);
+}
+
+

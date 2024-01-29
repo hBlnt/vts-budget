@@ -3,6 +3,9 @@ session_start();
 require_once "db_config.php";
 require_once "functions.php";
 
+$referer = $_SERVER['HTTP_REFERER'];
+$action = $_POST["action"];
+
 $id_user = '';
 if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESSION['id_user'])) {
     $id_user = $_SESSION['id_user'];
@@ -12,8 +15,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
     $id_organization = $_SESSION['id_organization'];
 }
 
-$referer = $_SERVER['HTTP_REFERER'];
-$action = $_POST["action"];
 
 if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE) !== false) {
     switch ($action) {
@@ -91,7 +92,7 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
                             redirection('new_attraction.php?e=34');
 
                         if (is_uploaded_file($file_tmp)) {
-                            $file_name = time() . "-" . mt_rand(100, 1000) . ".jpg";
+                            $file_name = uniqid('img-',true) . "-" . mt_rand(100, 1000) . ".jpg";
                             $upload = "db_images/" . $file_name;
 
                             if (move_uploaded_file($file_tmp, $upload)) {
@@ -135,7 +136,29 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
 
             break;
 
+        case "newComment":
 
+            $id_user = $_POST["id_user"] ?? "";
+            $comment = $_POST["comment"] ?? "";
+
+
+            if (empty($name) || empty($comment))
+                redirection('attractions.php?e=4');
+
+            $filteredCommentData = getFilteredCommentData($comment);
+            $lastId = insertComment($pdo,$name,$email,$comment,$filteredCommentData);
+
+            if($lastId){
+                foreach ($filteredCommentData['words'] as $key => $value) {
+                    if($value !== 0)
+                        insertIntoBadWords($lastId,$key,$value);
+                }
+                echo "Upload was okay!";
+            }
+            else{
+                header("Location:index.php?e=3");
+                exit();
+            }
     }
 
 } else {

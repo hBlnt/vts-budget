@@ -1,0 +1,20 @@
+.required .form-label:after {
+    content: "*";
+    color: red;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.padding-table {
+    border-collapse: separate;
+    border: solid black 4px;
+    border-radius: 6px;
+    border-spacing: 0px;
+
+    td, th {
+        border: solid black 1px;
+        padding: 10px;
+    }
+}

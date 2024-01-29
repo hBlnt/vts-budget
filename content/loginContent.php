@@ -19,7 +19,7 @@
                 <div>
                     <label for="loginPassword">Password</label>
                     <br>
-                    <input type="password" id="loginPassword" name="password" class="form-control" placeholder="asdf12345">
+                    <input type="password" id="loginPassword" name="password" class="form-control" placeholder="********">
                     <small></small>
                 </div>
 

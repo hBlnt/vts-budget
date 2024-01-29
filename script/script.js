@@ -360,9 +360,6 @@ const isValidEmail = (email) => {
     let rex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     return rex.test(email);
 }
-const isValidDomain = (email) => {
-
-}
 
 
 const showErrorMessage = (field, message) => {

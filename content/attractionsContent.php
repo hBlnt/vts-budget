@@ -15,21 +15,19 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
     <div class="row gx-4 gx-lg-5 text-center justify-content-center my-5">
         <div class="col-lg-5">
             <h1 class="font-weight-light">ATTRACTIONS</h1>
+            <div>
             <?php
             if (!empty($id_organization)) {
                 echo "
                 
-            <div>
                 <a href='new_attraction.php'>
                     <button class='btn btn-success border-3 border-dark text-center btn-lg'><h1>New attraction</h1></button>
                 </a>
                 ";
-                require_once 'error.php';
-                echo "
-            </div>
-                ";
             }
+            require_once 'error.php';
             ?>
+            </div>
         </div>
     </div>
     <div class="col-lg-12 pb-4">
@@ -39,21 +37,17 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
             <input type="text" name="search" id="search_by_name" class="form-control"
                    placeholder="Search"><br>
             <?php
-            if (!empty($id_user)) {
+            if (empty($_GET['city'])) {
+
                 ?>
                 <label for="country">Country:</label>
                 <select name="country" id="country" class="form-select">
                     <option value="">Choose</option>
                     <?php
 
-                    $sql = 'SELECT DISTINCT country FROM cities';
-                    $query = $pdo->prepare($sql);
-                    $query->execute();
-                    $cities = $query->fetchAll(PDO::FETCH_ASSOC);
-                    foreach ($cities
-
-                    as $city){
-                    $country = $city['country'];
+                    $cities = getCountries($pdo);
+                    foreach ($cities as $city){
+                    $country = $city;
 
                     ?>
                     <option value="<?php echo $country; ?>"><?php echo $country;
@@ -192,15 +186,19 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
                     
                     
                     ";
+                //Not sure about this if
                 if (!empty($id_user)) {
                     echo "
 
                     <p>City: {$cityData["city_name"]} </p>
                     <p>Type: {$attractionType} </p>
-                    <form method='post' action='attraction_details.php'>
-                        <input type='hidden' name='attraction_id' value='{$attractionId}'>
-                        <input type='submit' class='btn btn-light border-3 border-dark' value='More information'>
-                    </form>";
+                    <div class='mt-auto'>
+                        <form method='post' action='attraction_details.php'>
+                            <input type='hidden' name='attraction_id' value='{$attractionId}'>
+                            <input type='submit' class='btn btn-light border-3 border-dark' value='More information'>
+                        </form>
+                    </div>
+                    ";
                 }
                 if (!empty($id_organization)) {
                     echo "

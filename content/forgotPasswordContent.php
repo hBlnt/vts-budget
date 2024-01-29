@@ -1,7 +1,7 @@
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 my-5 justify-content-center text-center">
         <div class="col-lg-5 text-center">
-            <h1 class="font-weight-light"></h1>
+            <h1 class="font-weight-light">Forgot password</h1>
         </div>
     </div>
     <div class="col-lg-12 pb-4 text-center">

@@ -347,13 +347,6 @@ function deleteTableData(PDO $pdo, string $table_name, string $id_name, int $id)
     return $stmt->execute();
 }
 
-function getAllData(PDO $pdo, string $table_name): array
-{
-    $sql = "SELECT * FROM $table_name";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
 
 function getCitiesWithAttractions(PDO $pdo): array
 {
@@ -558,4 +551,302 @@ function getImageNames(PDO $pdo, int $id_attraction): array
 
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getAllData(PDO $pdo, string $table_name): array
+{
+    $sql = "SELECT * FROM $table_name";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+////////////////////////////////////////////////////////////////
+
+/**
+ * Function returns actual script name with extension
+ * @return string
+ */
+function getCurrentPage(): string
+{
+    return substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
+}
+
+/**
+ * @param int $number
+ * @param mysqli $connection
+ * @return int
+ */
+
+function insertIntoOrganizations(PDO $pdo, string $name, string $password, string $email, int $id_city): int
+{
+
+    $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "INSERT INTO organizations(org_name,password,email,id_city)
+            VALUES (:org_name,:password,:email,:id_city)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':password', $passwordHashed, PDO::PARAM_STR);
+    $stmt->bindParam(':org_name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->bindParam(':id_city', $id_city, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $pdo->lastInsertId();
+}
+
+function insertCity(PDO $pdo, string $name, string $country, string $image = ""): int
+{
+    $imageWithPath = '';
+    if (!empty ($image))
+        $imageWithPath = "db_images/city_images/" . $image;
+
+    $sql = "INSERT INTO cities(country, city_name, city_image) 
+    VALUES (:country , :city_name , :image )";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':country', $country, PDO::PARAM_STR);
+    $stmt->bindParam(':city_name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':image', $imageWithPath, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $pdo->lastInsertId();
+}
+
+function dataExists(PDO $pdo, string $selectField, string $selectTable, array $whereFields, array $whereValues): bool
+{
+    $sql = "SELECT $selectField FROM $selectTable";
+
+    $where = " WHERE $whereFields[0] = :value0";
+    $params = [":value0" => $whereValues[0]];
+
+    for ($i = 1; $i < count($whereFields); $i++) {
+        $where .= " AND $whereFields[$i] = :value$i";
+        $params[":value$i"] = $whereValues[$i];
+    }
+
+    $sql .= $where;
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+
+    return $stmt->rowCount() > 0 ? true : false;
+}
+
+/**
+ * Checks if menu name exists in menus table
+ * @param string $name
+ * @param mysqli $connection
+ * @return bool
+ */
+function getCountries(PDO $pdo): array
+{
+
+    $sql = 'SELECT DISTINCT country FROM cities ORDER BY BINARY country ASC';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
+}
+
+
+function getOrganization(PDO $pdo, int $id_organization): array
+{
+
+    $data = [];
+    $sql = "SELECT o.id_organization,o.org_name,o.email,o.is_banned,o.id_city,c.city_name FROM organizations o 
+    INNER JOIN cities c ON o.id_city = c.id_city
+    WHERE id_organization = '$id_organization'";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+
+}
+
+/**
+ * Checks if any error happened during image upload, if file is uploaded with HTTP POST and if file type is JPG
+ * @param array $image
+ * @return bool
+ */
+function imageReady(array $image): bool
+{
+    //exif check
+    return !(($image['error'] > 0 or !is_uploaded_file($image['tmp_name']) or exif_imagetype($image['tmp_name']) !== 2));
+}
+
+
+function is_ajax(): bool
+{
+    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+}
+
+
+function updateOrganization(PDO $pdo, string $name, int $id_organization, string $email, int $id_city, int $status, string $password = ''): bool
+{
+
+    $sql = "UPDATE organizations SET org_name = :name, is_banned = :status, email = :email, id_city = :id_city ";
+
+    if (!empty($password)) {
+        $password2 = password_hash($password, PASSWORD_BCRYPT);
+        $sql .= ", password = :password ";
+    }
+    $sql .= " WHERE id_organization = :id_organization";
+    $stmt = $pdo->prepare($sql);
+    if (!empty($password))
+        $stmt->bindParam(':password', $password2, PDO::PARAM_STR);
+
+    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':id_city', $id_city, PDO::PARAM_STR);
+    $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->bindParam(':id_organization', $id_organization, PDO::PARAM_STR);
+
+    return $stmt->execute();
+
+}
+
+/**
+ * @param string $str The string to sanitize
+ * @return string Sanitized $str
+ */
+function sanitize(string $str): string
+{
+    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+}
+
+function getUnusedCities($pdo): array
+{
+
+    $sql = 'SELECT c.id_city, c.city_name
+                            FROM cities c
+                            LEFT JOIN organizations o ON c.id_city = o.id_city
+                            WHERE o.id_city IS NULL;
+                            ';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getCountryByID(PDO $pdo, int $id_city): bool
+{
+    $sql = 'SELECT country from cities WHERE id_city = :id_city';
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_city', $id_city, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->fetchColumn();
+}
+
+function deleteCityImage(string $image): string
+{
+    if (file_exists($image)) {
+        if (unlink($image)) {
+            return "Image $image has been deleted successfully.";
+        } else {
+            return "Error deleting image $image.";
+        }
+    } else {
+        return "Image $image does not exist.";
+    }
+}
+
+function updateCity(PDO $pdo, string $name, int $id_city, string $country, string $image = ''): bool
+{
+
+    $sql = "UPDATE cities SET city_name = :name, country = :country";
+
+    if (!empty($image)) {
+        $sql .= ", city_image = :city_image ";
+    }
+    $sql .= " WHERE id_city = :id_city";
+    $stmt = $pdo->prepare($sql);
+    if (!empty($image))
+        $stmt->bindParam(':city_image', $image, PDO::PARAM_STR);
+
+    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':id_city', $id_city, PDO::PARAM_STR);
+    $stmt->bindParam(':country', $country, PDO::PARAM_STR);
+
+    return $stmt->execute();
+
+}
+
+function banUser(PDO $pdo, int $id_user):bool
+{
+    $sql = "UPDATE users SET is_banned = 1 WHERE id_user=:id_user";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_user', $id_user, PDO::PARAM_STR);
+    return $stmt->execute();
+}
+function unbanUser(PDO $pdo, int $id_user):bool
+{
+    $sql = "UPDATE users SET is_banned = 0 WHERE id_user=:id_user";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_user', $id_user, PDO::PARAM_STR);
+    return $stmt->execute();
+}
+
+/**
+ * Gives back an array containing the comments data
+ * @param string $comment
+ * @return array
+ */
+function getFilteredCommentData(string $comment):array {
+    $badWords = $GLOBALS['badWords'];
+    $comment = strtolower(trim($comment));
+    $commentWords = str_word_count($comment,1);
+    $numberOfWords = str_word_count($comment);
+    $newStr = implode(" ", $commentWords);
+
+    foreach ($badWords as $word){
+        $newStr = str_replace($word, filterComment($word),$newStr);
+    }
+
+    $commentWordOccurence = array_count_values($commentWords);
+    $words =[];
+    $totalBadWords=0;
+
+    foreach($badWords as $word){
+        if(array_key_exists($word,$commentWordOccurence)) {
+            $words[$word] = $commentWordOccurence[$word];
+            $totalBadWords += $commentWordOccurence[$word];
+        }
+    }
+
+    $data = [
+        'filteredComment' => $newStr,
+        'words' => $words,
+        'totalBadWords' => $totalBadWords,
+        'totalWords' => $numberOfWords,
+        'suggestedBadLevel' => suggestedBadLevel($totalBadWords,$numberOfWords)
+    ];
+    return $data;
+}
+
+/**
+ * Inserts comment into comments and gives back lastInsertId
+ * @param string $name
+ * @param string $email
+ * @param string $comment
+ * @param array $commentData
+ * @return int
+ */
+function insertComment(string $name, string $email, string $comment, array $commentData): int
+{
+    $sql = "INSERT INTO comments(name, email, comment,filtered_comment,total_bad_words,total_words,bad_level) 
+            VALUES(:name, :email, :comment,:filtered_comment,:total_bad_words,:total_words,:bad_level)";
+
+    $stmt = $GLOBALS['pdo']->prepare($sql);
+    $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+    $stmt->bindValue(':comment', $comment, PDO::PARAM_STR);
+    $stmt->bindValue(':filtered_comment', $commentData['filteredComment'], PDO::PARAM_STR);
+    $stmt->bindValue(':total_bad_words', $commentData['totalBadWords'], PDO::PARAM_STR);
+    $stmt->bindValue(':total_words', $commentData['totalWords'], PDO::PARAM_STR);
+    $stmt->bindValue(':bad_level', $commentData['suggestedBadLevel'], PDO::PARAM_STR);
+
+    $stmt->execute();
+    return  $GLOBALS['pdo']->lastInsertId();
 }

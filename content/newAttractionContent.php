@@ -26,6 +26,7 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['id_organization']) || !is
         $query->execute();
         $types = $query->fetch(PDO::FETCH_ASSOC);
         $enum_values = explode("','", substr($types['Type'], 6, -2));
+        sort($enum_values);
 
         foreach ($enum_values as $value) {
             echo '<option value="' . $value . '">' . $value . '</option>';

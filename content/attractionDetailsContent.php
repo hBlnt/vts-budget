@@ -5,7 +5,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
 }
 $attraction_id = $_POST['attraction_id'] ?? '';
 
-$attraction = getTableData($pdo, 'attractions', 'id_attraction', $attraction_id,false);
+$attraction = getTableData($pdo, 'attractions', 'id_attraction', $attraction_id, false);
 $attractionName = $attraction['attraction_name'];
 $images = getAttractionImages($pdo, $attraction_id);
 echo "
@@ -31,9 +31,8 @@ echo "
                 <h2 class='font-weight-light my-2'>Address</h2>
                 <p>{$attraction['address']}</p>
                 ";
-if(!isFavouriteAttractionExist($pdo,$attraction['id_city'],$id_user))
-{
-    echo"
+if (!isFavouriteAttractionExist($pdo, $attraction['id_city'], $id_user)) {
+    echo "
                 <form method='post' class='text-center' action='form_action.php'>
                 
                     <input type='hidden' name='action' value='makeFavourite'>
@@ -42,7 +41,7 @@ if(!isFavouriteAttractionExist($pdo,$attraction['id_city'],$id_user))
                 </form>
                 ";
 }
-                echo"
+echo "
             </div>
         </div>
     </div>
@@ -76,6 +75,35 @@ foreach ($images as $image) {
 
 if ($imageCounter % 2 != 0) {
     echo "</div>";
-} ?>
+}
+
+
+if(!empty($id_user))
+    echo "
+    
+<div id='comment-section'>
+
+    <h1>Comment section</h1>
+
+
+    <form action='form_action.php' method='post' class='pb-5'>
+        <label for='comment' class='form-label'>Tell us, and others what you think about this attraction:</label>
+        <br>
+        <textarea class='form-control' name='comment' id='comment' rows='4' maxlength='300'></textarea>
+        <br>
+        <input type='hidden' name='action' value='newComment'>
+        <input type='hidden' name='id_user' value='{$id_user}'>
+        <button type='submit' class='btn btn-success border-3 border-dark text-center btn-lg'>Send</button>
+    </form>
 </div>
+";
+
+?>
+
+<div id="shown-comments">
+
+</div>
+
+
+<!--Must leave this div closer here-->
 </div>

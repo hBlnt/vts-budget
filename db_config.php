@@ -66,3 +66,38 @@ $emailMessages = [
         'altBody' => 'This is the body in plain text for non-HTML mail clients'
     ]
 ];
+
+
+$titles = [
+    'index.php' => 'Index page',
+    'organizations.php' => 'Create organizations',
+    'new_city.php' => 'Create city',
+    'all_organizations.php' => 'All organizations',
+    'all_cities.php' => 'All cities',
+    'user_status.php' => 'Change user status',
+    'all_attractions.php' => 'All attractions',
+];
+
+
+$messagesAdmin = [
+    'new_city.php' => [
+        1 => ['style' => 'danger', 'text' => 'Please, insert required fields.'],
+        2 => ['style' => 'danger', 'text' => 'There is already a city with this name.'],
+        3 => ['style' => 'danger', 'text' => 'Error occurs during image upload. Please try again and upload only JPG images.'],
+        4 => ['style' => 'danger', 'text' => 'Something went wrong during image upload. Please try again.'],
+        5 => ['style' => 'success', 'text' => 'City created successfully, but some values were not inserted.'],
+        6 => ['style' => 'success', 'text' => 'City created successfully.'],
+        7 => ['style' => 'danger', 'text' => 'Upload a jpg format image!']
+    ],
+    'all_cities.php' =>[
+
+        1 => ['style' => 'danger', 'text' => 'Error occurs during image upload. Please try again and upload only JPG images.'],
+        2 => ['style' => 'danger', 'text' => 'Something went wrong during image upload. Please try again.'],
+    ],
+    'organizations.php' => [
+        1 => ['style' => 'danger', 'text' => 'Please, insert required fields.'],
+        2 => ['style' => 'danger', 'text' => 'Organization with this name already exists.'],
+        3 => ['style' => 'success', 'text' => 'New organization generated successfully.']
+    ],
+];
+$GLOBALS['badWords'] = ['drop','delete','kill', 'destroy','fool'];

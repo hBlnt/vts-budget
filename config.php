@@ -33,7 +33,7 @@ $links = [
     "Home" => ['class' => 'nav-link', 'href' => 'index.php', 'title' => 'Home / Index'],
     "Contact" => ['class' => 'nav-link', 'href' => 'contacts.php', 'title' => 'Contacts'],
     "Attractions" => ['class' => 'nav-link', 'href' => 'attractions.php', 'title' => 'Attractions'],
-    "City" => ['class' => 'nav-link', 'href' => 'city.php', 'title' => 'Search by City'],
+    "City" => ['class' => 'nav-link'. ($isOrg ? ' hidden ' : ''), 'href' => 'city.php', 'title' => 'Search by City'],
 
     "Register" => ['class' => 'nav-link' . ($isLoggedIn ? ' hidden ' : ''), 'href' => 'registration.php', 'title' => 'Register'],
     "Login" => ['class' => 'nav-link' . ($isLoggedIn ? ' hidden ' : ''), 'href' => 'login.php', 'title' => 'Login'],

@@ -4,9 +4,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
     $id_user = $_SESSION['id_user'];
 }
 
-if (!isset($_SESSION['username']) || !isset($_SESSION['id_user']) || !is_int($_SESSION['id_user'])) {
-    redirection('index.php?e=0');
-}
+//if (!isset($_SESSION['username']) || !isset($_SESSION['id_user']) || !is_int($_SESSION['id_user'])) {
+//    redirection('index.php?e=0');
+//}
 ?>
 <div class='container px-4 px-lg-5'>
 

@@ -43,9 +43,18 @@
                     <small></small>
                     <br>
                 </div>
+                <div class="align-items-center">
+                    <div>
+                        <label for="newsLetter">Do you want news ?</label>
+                        <input type="checkbox" id="news" name="news" value="1">
+                        <small></small>
+                    </div>
+                    <br>
+                </div>
                 <input type="hidden" name="action" value="register">
                 <button type="submit" id="register" class="border border-dark btn btn-success">Register</button>
                 <br><br>
+
 
                 <a href="login.php"  class="border border-dark btn btn-info">Login page</a>
             </form>

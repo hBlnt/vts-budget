@@ -1,4 +1,6 @@
 <?php
+
+require_once 'isUser.php';
 $id_tour = $_POST['id_tour'] ?? '';
 $tourData = getTableData($pdo, 'tours', 'id_tour', $id_tour, false);
 $tourAttractionData = getTourData($pdo, $id_tour);
@@ -39,13 +41,15 @@ echo "
 
         ";
 foreach ($tourAttractionData as $attractionData) {
+    $path = getAttractionImagePath($pdo, $attractionData['id_attraction']);
     echo "   
    
-     <div class='col-md-4 mb-5'>
-         <div class='card h-100'>
-             <div class='card-body'>    
+        <div class=' col-md-6 col-lg-4 mb-5'>
+            <div class='card h-100 text-center border-5 border-light'style='background-image: url(" . $path . "); background-size: cover;'>
+                <div class='card-body title d-flex flex-column'>    
                  <h2>" . $attractionData["attraction_name"] . "</h2>
-                 <p>Address: <br>" . $attractionData["address"] . "</p>
+                 
+                 <p class='mt-auto'>Address: <br>" . $attractionData["address"] . "</p>
                                  
              </div>
          </div>

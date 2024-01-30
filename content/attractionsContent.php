@@ -181,13 +181,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
                 $attractionType = $row["type"];
                 $attractionPopularity = $row["popularity"];
                 $cityData = getCityData($pdo, $attractionName);
-                $pathData = getAttractionImagePath($pdo, $attractionId);
+                $path = getAttractionImagePath($pdo, $attractionId);
                 $img_path = '';
-                if (!empty($pathData["path"]))
-                    $img_path = $pathData["path"];
                 echo "   
-        <div class='col-md-4 mb-5'>
-            <div class='card h-100 text-center border-5 border-light'style='background-image: url(" . $img_path . "); background-size: cover;'>
+        <div class=' col-md-6 col-lg-4 mb-5'>
+            <div class='card h-100 text-center border-5 border-light'style='background-image: url(" . $path . "); background-size: cover;'>
                 <div class='card-body title d-flex flex-column'>    
                     <h2>{$attractionName}</h2>
                     
@@ -211,7 +209,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
                     echo "
                    <p class='text-decoration-underline mt-auto'>Popularity: {$attractionPopularity} </p> 
                    <div class='d-flex justify-content-between mt-auto'>
-                        <form method='post' action='form_action.php'>
+                        <form method='post' action='edit_attraction.php'>
                             <input type='hidden' name='action' value='editAttraction'>
                             <input type='hidden' name='id_attraction' value='{$attractionId}'>
                             <input type='submit' class='btn btn-warning border-3 border-dark' value='Edit'>

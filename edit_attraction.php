@@ -1,5 +1,6 @@
 <?php
 
+session_cache_limiter('private_no_expire');
 session_start();
 
 require_once 'config.php';
@@ -12,10 +13,9 @@ use Meta\Meta;
 
 $content = "";
 ob_start();
-require_once 'isUser.php';
-require_once 'content/newTourContent.php';
+require_once 'content/editAttractionContent.php';
 $content .= ob_get_clean();
 $body = new Body('', $content, 'first');
-$header = new Header('New tour', $linksHeader, $scripts);
+$header = new Header('Edit attraction', $linksHeader, $scripts);
 
 require_once 'sablon.php';

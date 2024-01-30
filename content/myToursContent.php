@@ -3,9 +3,6 @@ $id_user = '';
 if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESSION['id_user'])) {
     $id_user = $_SESSION['id_user'];
 }
-if(!isset($_SESSION['username']) || !isset($_SESSION['id_user']) || !is_int($_SESSION['id_user'])){
-    redirection('login.php?e=0');
-}
 
 ?>
 <div class='container px-4 px-lg-5'>
@@ -56,6 +53,9 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['id_user']) || !is_int($_SE
         echo "<h2>You didn't make any tours yet.</h2>";
     ?>
     <div class="text-center">
+        <?php
+        require_once 'error.php';
+        ?>
 
         <a href="new_tour.php">
             <button class='btn btn-success border-3 border-dark text-center btn-lg'><h1>New tour</h1></button>

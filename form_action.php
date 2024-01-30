@@ -21,7 +21,7 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
         case "userDeleteTour":
             $id_tour = trim($_POST['id_tour'] ?? '');
             deleteTableData($pdo, 'tours', 'id_tour', $id_tour);
-            redirection("my_tours.php");
+            redirection("my_tours.php?e=32");
             break;
         case "userDeleteFavourite":
             $id_attraction = trim($_POST['id_attraction'] ?? '');
@@ -30,9 +30,7 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
             break;
         case "deleteAttraction":
             $id_attraction = trim($_POST['id_attraction'] ?? '');
-            $imageNames = array_map(function ($element) {
-                return $element['path'];
-            }, getImageNames($pdo, $id_attraction));
+            $imageNames = getImageNames($pdo, $id_attraction);
             $_SESSION['names'] = $imageNames;
             // delete images from server
             foreach ($imageNames as $image) {
@@ -83,6 +81,26 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
             try {
                 if (!existsAttraction($pdo, $attraction_name)) {
                     $lastAttractionId = insertAttraction($pdo, $attraction_name, $type, $description, $address, $id_organization);
+
+                    $usersWithNews = getAllData($pdo, 'users');
+                    foreach ($usersWithNews as $user) {
+                        if ($user['news']) {
+                            $id_user = $user['id_user'];
+                            $email = $user['email'];
+                            try {
+                                $body = " <h1 style='color: #327d81'>Toorizm</h1><br>
+                                          <h2>New attraction</h2><br>
+                                         <p>There is a new attraction on Toorizm, called <strong style='color: #21cfd5'>" . $attraction_name . "</strong> check it out if you would like.</p><br>
+                                         <a href=" . SITE . "email.php?newid={$lastAttractionId}>Check attraction</a>
+                                          ";
+                                sendEmail($pdo, $email, $emailMessages['news'], $body, $id_user);
+                            } catch (Exception $e) {
+                                error_log("****************************************");
+                                error_log($e->getMessage());
+                                error_log("file:" . $e->getFile() . " line:" . $e->getLine());
+                            }
+                        }
+                    }
 
                     $imageIds = [];
                     foreach ($_FILES["images"]["tmp_name"] as $key => $tmp_name) {
@@ -143,7 +161,7 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
             $comment = $_POST["comment"] ?? "";
 
 
-            if (empty($id_user) || empty($id_attraction)|| empty($comment))
+            if (empty($id_user) || empty($id_attraction) || empty($comment))
                 redirection('attractions.php?e=4');
 
             $filteredCommentData = getFilteredCommentData($comment);
@@ -157,6 +175,34 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
                 redirection('attractions.php?e=27');
             } else
                 redirection('attractions.php?e=28');
+
+            break;
+        case "editAttraction":
+            $id_attraction = $_POST["id_attraction"] ?? "";
+            $attraction_name = $_POST["attraction_name"] ?? "";
+            $description = $_POST["description"] ?? "";
+            $address = $_POST["address"] ?? "";
+            $type = $_POST["type"] ?? "";
+            var_dump($_POST);
+            if (empty ($attraction_name) || empty($id_attraction) || empty($description) || empty($address) || empty($type))
+                redirection('attractions.php?e=4');
+
+            try {
+                $result = updateAttraction($pdo, $id_attraction, $attraction_name, $description, $address, $type);
+                if ($result) {
+                    redirection('attractions.php?e=31');
+                } else
+                    redirection('attractions.php?e=28');
+
+            } catch
+            (Exception $e) {
+                error_log("****************************************");
+                error_log($e->getMessage());
+                error_log("file:" . $e->getFile() . " line:" . $e->getLine());
+                redirection('new_attraction.php?e=28');
+            }
+
+            break;
 
     }
 

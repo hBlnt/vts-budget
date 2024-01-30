@@ -19,7 +19,7 @@
                 $image = $row["city_image"];
                 $cityName= $row["city_name"];
                 echo "   
-        <div class='col-md-4 mb-5'>
+        <div class=' col-md-6 col-lg-4 mb-5'>
             <div class='card h-100 text-center border-5 border-light'style='background-image: url(" . $image . "); background-size: cover;'>
                 <div class='card-body'>    
                     <a href='attractions.php?city={$cityName}' class='title'><h2>{$cityName}</h2></a>

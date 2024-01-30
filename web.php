@@ -54,7 +54,6 @@ if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !==
         case "register" :
 
 
-
             if (isset($_POST['firstname'])) {
                 $firstname = trim($_POST["firstname"]);
             }
@@ -102,15 +101,16 @@ if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !==
             if (empty($email) or !filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 redirection('registration.php?e=8');
             }
-            list($name,$domain) = explode("@",$email);
-            if($domain === $blockedDomain)
+            list($name, $domain) = explode("@", $email);
+            if ($domain === $blockedDomain)
                 redirection('registration.php?e=36');
 
+            $news = $_POST['news'] ?? 0;
             //Making sure that the e-mail is not taken by either a user or a trainer
             if (!existsUser($pdo, $email)) {
                 $token = createToken(20);
                 if ($token) {
-                    $id_user = registerUser($pdo, $password, $firstname, $lastname, $email, $token);
+                    $id_user = registerUser($pdo, $password, $firstname, $lastname, $email, $token, $news);
                     try {
                         $body = "Your username is $email. To activate your account click on the <a href=" . SITE . "active.php?token=$token   >link</a>";
                         sendEmail($pdo, $email, $emailMessages['register'], $body, $id_user);
@@ -132,9 +132,9 @@ if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !==
         case "forget" :
             $email = trim($_POST["email"]);
 
-            list($name,$domain) = explode("@",$email);
+            list($name, $domain) = explode("@", $email);
 
-            if($domain === $blockedDomain)
+            if ($domain === $blockedDomain)
                 redirection('forgotPassword.php?e=36');
 
             if (!empty($email) and getUserData($pdo, 'id_user', 'email', $email)) {

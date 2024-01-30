@@ -86,6 +86,23 @@ $(document).ready(function () {
             })
         });
     });
+
+    $('body').on('click', '.editAttraction', function () {
+        var id = $(this).data('id');
+        let options = {
+            backdrop: 'static',
+            keyboard: true,
+            show: false
+        };
+
+        $.get('ajax/editAttractionsModal.php', {id: id}, function (html) {
+            $('#attractionModal').html(html);
+            $('#attractionModal').modal('show', options);
+            $('#attractionModal').on('shown.bs.modal', function () {
+                $('#name').focus();
+            })
+        });
+    });
     $('body').on('click', '.editOrganization', function () {
         var id = $(this).data('id');
         let options = {
@@ -103,6 +120,38 @@ $(document).ready(function () {
         });
     });
 
+    $('body').on('submit', '#attraction', function (event) {
+            if ($('#name').val().trim().length === 0) {
+                $('#name').val('');
+                $('#name').focus();
+                errorMessage('<strong>Error!</strong> Insert name for attraction!');
+                return false;
+            }
+            if ($('#address').val().trim().length === 0) {
+                $('#address').val('');
+                $('#address').focus();
+                errorMessage('<strong>Error!</strong> Insert address for attraction!');
+                return false;
+            }
+            if ($('#description').val().trim().length === 0) {
+                $('#description').val('');
+                $('#description').focus();
+                errorMessage('<strong>Error!</strong> Insert description for attraction!');
+                return false;
+            }
+
+            $.post("ajax/updateAttraction.php", $(this).serialize(), function (data) {
+                $("#message").html(data.message);
+                $('#message').removeClass();
+                $("#message").addClass(data.aclass);
+                $('#message').fadeIn(300);
+                $("#message").delay(1000).fadeOut(300);
+                $('#allAttractions').DataTable().ajax.reload();
+            }, "json");
+            event.preventDefault();
+        }
+    )
+    ;
     $('body').on('submit', '#city', function (event) {
             event.preventDefault();
             if ($('#name').val().trim().length === 0) {

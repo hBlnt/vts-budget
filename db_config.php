@@ -19,7 +19,7 @@ $pdoOptions = [
 ];
 
 $actions = ['login', 'register', 'forget'];
-$formActions = ['userDeleteTour', 'newTour', 'userDeleteFavourite', 'makeFavourite', 'editAttraction', 'deleteAttraction', 'newAttraction', 'newComment'];
+$formActions = ['userDeleteTour', 'newTour', 'userDeleteFavourite', 'makeFavourite', 'editAttraction', 'deleteAttraction', 'newAttraction', 'newComment','editAttraction'];
 
 $messages = [
     0 => 'No direct access!',
@@ -48,8 +48,8 @@ $messages = [
 
     29 => 'Something went wrong. Please contact our support.',
     30 => 'Fill at least one field!',
-    31 => 'Successfully updated your data!',
-    32 => 'Successfully deleted data!',
+    31 => 'Successfully updated!',
+    32 => 'Successfully deleted!',
     33 => 'Something went wrong with image upload!',
     34 => 'File is not JPG format!!',
     35 => 'Already exists attraction with this name',
@@ -64,7 +64,11 @@ $emailMessages = [
     'forget' => [
         'subject' => 'Forgotten password - create new password',
         'altBody' => 'This is the body in plain text for non-HTML mail clients'
-    ]
+    ],
+    'news' => [
+    'subject' => 'New attraction on Toorizm',
+    'altBody' => 'This is the body in plain text for non-HTML mail clients'
+],
 ];
 
 

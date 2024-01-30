@@ -109,18 +109,19 @@ function existsUser(PDO $pdo, string $email): bool
     }
 }
 
-function registerUser(PDO $pdo, string $password, string $firstname, string $lastname, string $email, string $token): int
+function registerUser(PDO $pdo, string $password, string $firstname, string $lastname, string $email, string $token, int $news): int
 {
 
     $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO users(password,firstname,lastname,email,registration_token, registration_token_expiry,active)
-            VALUES (:passwordHashed,:firstname,:lastname,:email,:token,DATE_ADD(now(),INTERVAL 1 DAY),0)";
+    $sql = "INSERT INTO users(password,firstname,lastname,email,news,registration_token, registration_token_expiry,active)
+            VALUES (:passwordHashed,:firstname,:lastname,:email,:news,:token,DATE_ADD(now(),INTERVAL 1 DAY),0)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':passwordHashed', $passwordHashed, PDO::PARAM_STR);
     $stmt->bindParam(':firstname', $firstname, PDO::PARAM_STR);
     $stmt->bindParam(':lastname', $lastname, PDO::PARAM_STR);
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->bindParam(':news', $news, PDO::PARAM_STR);
     $stmt->bindParam(':token', $token, PDO::PARAM_STR);
     $stmt->execute();
 
@@ -284,7 +285,7 @@ function getTableData(PDO $pdo, string $table_name, string $id_name, int $id, bo
         return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getAttractionImagePath(PDO $pdo, string $id_attraction): array|bool
+function getAttractionImagePath(PDO $pdo, string $id_attraction): string
 {
     $sql = "SELECT i.path FROM 
             images i
@@ -295,7 +296,7 @@ function getAttractionImagePath(PDO $pdo, string $id_attraction): array|bool
     $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
     $stmt->execute();
 
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    return $stmt->fetch(PDO::FETCH_COLUMN);
 }
 
 function getAttractionImages(PDO $pdo, $id_attraction): array
@@ -314,7 +315,7 @@ function getAttractionImages(PDO $pdo, $id_attraction): array
 
 function getTourData(PDO $pdo, $id_tour): array
 {
-    $sql = "SELECT a.attraction_name,a.address FROM tours t
+    $sql = "SELECT a.attraction_name,a.address,a.id_attraction FROM tours t
     INNER JOIN tours_attractions ta ON t.id_tour = ta.id_tour
     INNER JOIN attractions a ON ta.id_attraction = a.id_attraction
     WHERE t.id_tour = :id_tour";
@@ -550,7 +551,7 @@ function getImageNames(PDO $pdo, int $id_attraction): array
     $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
 
     $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
 }
 
 function getAllData(PDO $pdo, string $table_name): array
@@ -996,4 +997,62 @@ function getDateBackwards(int $timeStamp): string
 
     return $backwards;
 
+}
+
+function updateAttraction(PDO $pdo, int $id_attraction, string $attraction_name, string $description, string $address, string $type): bool
+{
+    $sql = "UPDATE attractions SET attraction_name = :attraction_name, description = :description, address = :address, type = :type
+   WHERE id_attraction = :id_attraction";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+    $stmt->bindParam(':attraction_name', $attraction_name, PDO::PARAM_STR);
+    $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+    $stmt->bindParam(':address', $address, PDO::PARAM_STR);
+    $stmt->bindParam(':type', $type, PDO::PARAM_STR);
+
+    return $stmt->execute();
+}
+
+function getAllAttractionTypes(PDO $pdo): array
+{
+
+    $sql = "SHOW COLUMNS FROM attractions LIKE 'type'";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $types = $stmt->fetch(PDO::FETCH_ASSOC);
+    $enum_values = explode("','", substr($types['Type'], 6, -2));
+    sort($enum_values);
+    return $enum_values;
+}
+
+function getAllAttractionDataByID(PDO $pdo, int $id_attraction): array
+{
+    $sql = "SELECT a.attraction_name,a.type,a.address,a.description,a.id_organization,a.id_city,o.org_name,c.city_name FROM attractions a
+    INNER JOIN cities c ON a.id_city = c.id_city
+    INNER JOIN organizations o ON a.id_organization = o.id_organization
+    WHERE a.id_attraction = :id_attraction";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function updateAttractionAllFields(PDO $pdo, int $id_attraction, int $id_organization, int $id_city, string $attraction_name, string $type, string $address, string $description): bool
+{
+
+    $sql = "UPDATE attractions SET attraction_name = :attraction_name, description = :description, address = :address, type = :type, id_organization = :id_organization, id_city = :id_city
+   WHERE id_attraction = :id_attraction";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':attraction_name', $attraction_name, PDO::PARAM_STR);
+    $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+    $stmt->bindParam(':address', $address, PDO::PARAM_STR);
+    $stmt->bindParam(':type', $type, PDO::PARAM_STR);
+    $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+    $stmt->bindParam(':id_city', $id_city, PDO::PARAM_STR);
+    $stmt->bindParam(':id_organization', $id_organization, PDO::PARAM_STR);
+
+    return $stmt->execute();
 }

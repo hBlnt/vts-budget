@@ -12,6 +12,7 @@ use Meta\Meta;
 
 $content = "";
 ob_start();
+require_once 'isUser.php';
 require_once 'content/favouritesContent.php';
 $content .= ob_get_clean();
 $body = new Body('', $content, 'first');

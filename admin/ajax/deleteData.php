@@ -20,9 +20,8 @@ if (isset($_POST['id_city'])) {
 
 if (isset($_POST['id_attraction'])) {
     $id_attraction = (int)$_POST['id_attraction'];
-    $imageNames = array_map(function ($element) {
-        return $element['path'];
-    }, getImageNames($pdo, $id_attraction));
+    $imageNames = getImageNames($pdo, $id_attraction);
+
 
     foreach ($imageNames as $image) {
 
@@ -43,13 +42,11 @@ if (isset($_POST['id_attraction'])) {
 
 }
 
-if(isset($_POST['id_user_ban']))
-{
+if (isset($_POST['id_user_ban'])) {
     $id_user = (int)$_POST['id_user_ban'];
-    banUser($pdo,$id_user);
+    banUser($pdo, $id_user);
 }
-if(isset($_POST['id_user_unban']))
-{
+if (isset($_POST['id_user_unban'])) {
     $id_user = (int)$_POST['id_user_unban'];
-    unbanUser($pdo,$id_user);
+    unbanUser($pdo, $id_user);
 }

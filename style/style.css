@@ -34,8 +34,8 @@ footer {
 }
 
 .imgsmall {
-    max-width: 300px;
-    height: auto; /* To maintain the aspect ratio */
+    max-height: 500px;
+    width: auto; /* To maintain the aspect ratio */
 }
 
 .error {

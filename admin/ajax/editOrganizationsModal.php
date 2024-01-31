@@ -5,7 +5,7 @@ require_once '../../functions.php';
 
 $data = getOrganization($pdo, (int)$_GET['id']);
 
-var_dump($data);
+//var_dump($data);
 ?>
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">

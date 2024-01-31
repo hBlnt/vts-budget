@@ -24,9 +24,23 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
             redirection("my_tours.php?e=32");
             break;
         case "userDeleteFavourite":
-            $id_attraction = trim($_POST['id_attraction'] ?? '');
-            deleteFavouriteAttraction($pdo, $id_user, $id_attraction);
-            redirection("favourites.php");
+            $id_favourite = trim($_POST['favourite'] ?? '');
+            $id_attraction = trim($_POST['attraction'] ?? '');
+            if (deleteFavouriteAttraction($pdo, $id_user, $id_favourite, $id_attraction))
+                redirection("favourites.php?e=32");
+            else
+                redirection("favourites.php?e=28");
+
+            break;
+        case "userEditFavourite":
+            $id_favourite = trim($_POST['favourite'] ?? '');
+            $id_attraction = trim($_POST['attraction'] ?? '');
+            $new_favourite = trim($_POST['select'] ?? '');
+            if (updateFavouriteAttraction($pdo, $id_user, $id_favourite, $id_attraction, $new_favourite))
+                redirection("favourites.php?e=31");
+            else
+                redirection("favourites.php?e=28");
+
             break;
         case "deleteAttraction":
             $id_attraction = trim($_POST['id_attraction'] ?? '');
@@ -55,12 +69,12 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
             $tour_type = trim($_POST['tour_type'] ?? '');
             $attractions = $_POST['attractions'] ?? [];
             if (empty ($tour_type) || empty($tour_name) || empty($attractions))
-                redirection('index.php?e=4;');
+                redirection('my_tours.php?e=4');
 
 
             $lastTourId = insertNewTour($pdo, $id_user, $tour_name, $tour_type);
             insertTourAttractions($pdo, $lastTourId, $attractions);
-            redirection('new_tour.php?success');
+            redirection('my_tours.php?e=27');
             break;
         case "makeFavourite":
 

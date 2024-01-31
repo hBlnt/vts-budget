@@ -11,7 +11,7 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['id_organization']) || !is
 
 <div class='container px-4 px-lg-5'>
 
-    <h1 class='font-weight-light my-2 text-center text-decoration-underline'>New tour</h1>
+    <h1 class='font-weight-light my-2 text-center text-decoration-underline'>New attraction</h1>
     <br>
     <form method="post" class="form-control" action="form_action.php" enctype="multipart/form-data">
         <input type='hidden' name='action' value='newAttraction'>
@@ -38,9 +38,9 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['id_organization']) || !is
         <br>
         <textarea rows="5" name="description" id="description" class="form-control"></textarea>
 
-        <label for="address">Type address here</label>
+        <label for="address">Type in coordinates, in decimals!</label>
         <br>
-        <input type="text" name="address" id="address" class="form-control" placeholder="Attraction address">
+        <input type="text" name="address" id="address" class="form-control" placeholder="">
 
         <label for="images">Images about attraction</label>
         <input type="file" id="images" name="images[]" class="form-control" multiple accept="image/jpeg">

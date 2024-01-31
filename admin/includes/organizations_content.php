@@ -17,12 +17,12 @@
         </div>
         <div class="col-md-2 required">
             <label for="city" class="form-label required">City</label>
-
             <select name="city" id="city" class="form-select">
                 <option value="">Choose</option>
                 <?php
-
                 $unusedCities = getUnusedCities($pdo);
+                usort($unusedCities, fn($a, $b) => $a['city_name'] <=> $b['city_name']);
+                var_dump($unusedCities);
                 foreach ($unusedCities as $city) {
                     $id_city = $city['id_city'];
                     $city_name = $city['city_name'];

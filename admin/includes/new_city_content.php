@@ -16,7 +16,7 @@
             <label for="country" class="form-label">Country</label>
             <select class="form-select" aria-label="Default select example" id="country" name="country">
                 <?php
-                $countries = getCountries($pdo);
+                $countries = getAllCountries($pdo);
                 echo '<option value="choose" selected>Choose</option>' . PHP_EOL;
                 foreach ($countries as $country) {
                     echo '<option value="' . $country . '">' . $country . '</option>' . PHP_EOL;

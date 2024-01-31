@@ -19,7 +19,7 @@ $pdoOptions = [
 ];
 
 $actions = ['login', 'register', 'forget'];
-$formActions = ['userDeleteTour', 'newTour', 'userDeleteFavourite', 'makeFavourite', 'editAttraction', 'deleteAttraction', 'newAttraction', 'newComment','editAttraction'];
+$formActions = ['userDeleteTour', 'newTour', 'userDeleteFavourite', 'makeFavourite', 'editAttraction', 'deleteAttraction', 'newAttraction', 'newComment','editAttraction','userEditFavourite'];
 
 $messages = [
     0 => 'No direct access!',
@@ -111,4 +111,4 @@ $messagesAdmin = [
         3 => ['style' => 'success', 'text' => 'New organization generated successfully.']
     ],
 ];
-$GLOBALS['badWords'] = ['drop', 'delete', 'kill', 'destroy', 'fool'];
+$GLOBALS['badWords'] = ['drop', 'delete', 'kill', 'destroy', 'fool','vts','shit','noob','monkey','poop','butt','asshole'];

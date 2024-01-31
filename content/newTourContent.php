@@ -25,6 +25,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
         $query->execute();
         $tourTypes = $query->fetch(PDO::FETCH_ASSOC);
         $enum_values = explode("','", substr($tourTypes['Type'], 6, -2));
+        sort($enum_values);
 
         foreach ($enum_values as $value) {
             echo '<option value="' . $value . '">' . $value . '</option>';
@@ -38,6 +39,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
             <?php
             $cities = getCitiesWithAttractions($pdo);
 
+
             foreach ($cities as $city) {
                 $attractions = getTableData($pdo, 'attractions', 'id_city', $city['id_city'], true);
                 echo "   
@@ -46,8 +48,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
                          <div class='card-body'>    
                              <h2>" . $city['city_name'] . "</h2>
                              ";
+                $counter = 0;
                 foreach ($attractions as $attraction) {
-                    echo "<input type='checkbox' name='attractions[]' value='{$attraction['id_attraction']}'> {$attraction['attraction_name']}<br>";
+                    $identitifaction = $city['city_name'].$counter;
+                    echo "<input type='checkbox' name='attractions[]' id='attraction{$identitifaction}' value='{$attraction['id_attraction']}'> <label for='attraction{$identitifaction}'>{$attraction['attraction_name']}</label><br>";
+                    $counter++;
                 }
                 echo "
                          </div>

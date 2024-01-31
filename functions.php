@@ -263,14 +263,6 @@ function getCityData(PDO $pdo, string $attractionName): array
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getAttractionTypes(PDO $pdo): array
-{
-    $sql = 'SELECT DISTINCT type FROM attractions';
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
 
 function getTableData(PDO $pdo, string $table_name, string $id_name, int $id, bool $fetchAll): array|bool
 {
@@ -417,7 +409,7 @@ function isFavouriteAttractionExist(PDO $pdo, int $id_city, int $id_user): bool
 
 function getFavouriteAttractions(PDO $pdo, int $id_user): array
 {
-    $sql = "SELECT a.attraction_name,a.id_attraction,c.city_name,a.id_city FROM favourite_attractions fa
+    $sql = "SELECT a.attraction_name,a.id_attraction,c.city_name,a.id_city,fa.id_favourite FROM favourite_attractions fa
     INNER JOIN attractions a ON fa.id_attraction = a.id_attraction
     INNER JOIN cities c ON a.id_city = c.id_city
     WHERE fa.id_user = :id_user";
@@ -428,23 +420,48 @@ function getFavouriteAttractions(PDO $pdo, int $id_user): array
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function deleteFavouriteAttraction(PDO $pdo, int $id_user, int $id_attraction): bool
+function deleteFavouriteAttraction(PDO $pdo, int $id_user, int $id_favourite, int $id_attraction): bool
 {
 
-    $sql = "DELETE FROM favourite_attractions WHERE id_attraction = :id_attraction AND id_user =:id_user;";
+    $sql = "DELETE FROM favourite_attractions WHERE id_favourite = :id_favourite AND id_user =:id_user;";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+    $stmt->bindParam(':id_favourite', $id_favourite, PDO::PARAM_STR);
     $stmt->bindParam(':id_user', $id_user, PDO::PARAM_STR);
 
     $sql2 = "UPDATE attractions SET popularity = popularity - 1 WHERE id_attraction = :id_attraction";
     $stmt2 = $pdo->prepare($sql2);
     $stmt2->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
 
-    $stmt->execute();
-    $stmt2->execute();
-    return $pdo->lastInsertId();
+
+    if($stmt->execute() AND $stmt2->execute())
+        return true;
+    else
+        return false;
 }
 
+function updateFavouriteAttraction(PDO $pdo, int $id_user, int $id_favourite, int $id_attraction,int $new_favourite): bool
+{
+
+    $sql = "UPDATE favourite_attractions SET id_attraction = :new_favourite WHERE id_user = :id_user AND id_favourite = :id_favourite ";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':new_favourite', $new_favourite, PDO::PARAM_STR);
+    $stmt->bindParam(':id_favourite', $id_favourite, PDO::PARAM_STR);
+    $stmt->bindParam(':id_user', $id_user, PDO::PARAM_STR);
+
+    $sql2 = "UPDATE attractions SET popularity = popularity - 1 WHERE id_attraction = :id_attraction";;
+    $stmt2 = $pdo->prepare($sql2);
+    $stmt2->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+
+    $sql3 = "UPDATE attractions SET popularity = popularity + 1 WHERE id_attraction = :new_favourite;";
+    $stmt3 = $pdo->prepare($sql3);
+    $stmt3->bindParam(':new_favourite', $new_favourite, PDO::PARAM_STR);
+
+
+    if($stmt->execute() AND $stmt2->execute() AND $stmt3->execute())
+        return true;
+    else
+        return false;
+}
 function insertFavouriteAttraction(PDO $pdo, int $id_user, int $id_attraction): int
 {
     $sql = "INSERT INTO favourite_attractions (id_user,id_attraction) VALUES 
@@ -643,7 +660,10 @@ function dataExists(PDO $pdo, string $selectField, string $selectTable, array $w
 function getCountries(PDO $pdo): array
 {
 
-    $sql = 'SELECT DISTINCT country FROM cities ORDER BY BINARY country ASC';
+    $sql = 'SELECT DISTINCT c.country FROM cities c 
+     INNER JOIN attractions a ON c.id_city = a.id_city
+     WHERE a.id_city IN (SELECT id_city FROM cities)
+     ORDER BY BINARY country ASC';
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
 
@@ -914,7 +934,7 @@ function insertIntoBadWords(PDO $pdo, int $id_comment, string $word, int $number
 
 function getCommentData(PDO $pdo, int $id_attraction): array
 {
-    $sql = " SELECT c.filtered_comment,c.date_time,u.firstname FROM comments c 
+    $sql = " SELECT c.filtered_comment,c.date_time,u.firstname,c.bad_level FROM comments c 
     INNER JOIN attractions a ON c.id_attraction = a.id_attraction
     INNER JOIN users u ON c.id_user = u.id_user 
     WHERE a.id_attraction = :id_attraction
@@ -1055,4 +1075,45 @@ function updateAttractionAllFields(PDO $pdo, int $id_attraction, int $id_organiz
     $stmt->bindParam(':id_organization', $id_organization, PDO::PARAM_STR);
 
     return $stmt->execute();
+}
+function getGoodComments(PDO $pdo, int $id_attraction): array
+{
+    $sql = " SELECT c.filtered_comment,c.date_time,u.firstname,c.bad_level FROM comments c 
+    INNER JOIN attractions a ON c.id_attraction = a.id_attraction
+    INNER JOIN users u ON c.id_user = u.id_user 
+    WHERE a.id_attraction = :id_attraction AND c.bad_level < :okay_bad_level
+ ORDER BY c.date_time DESC
+    ";
+
+    $okay_bad_level = 6;
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
+    $stmt->bindParam(':okay_bad_level', $okay_bad_level, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getAllCountries(PDO $pdo): array
+{
+
+    $sql = "SHOW COLUMNS FROM cities LIKE 'country'";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $types = $stmt->fetch(PDO::FETCH_ASSOC);
+    $enum_values = explode("','", substr($types['Type'], 6, -2));
+    sort($enum_values);
+    return $enum_values;
+}
+function getAttractionsByCity(PDO $pdo, int $id_city): array
+{
+    $sql = "SELECT c.id_city,a.id_attraction,a.attraction_name FROM cities c
+    INNER JOIN attractions a ON c.id_city = a.id_city
+    WHERE c.id_city = :id_city ORDER BY a.attraction_name ASC";
+    $stmt= $pdo->prepare($sql);
+    $stmt->bindParam(':id_city',$id_city,PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 }

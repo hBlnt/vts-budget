@@ -7,9 +7,10 @@
     </div>
     <div class="row gx-4 gx-lg-5">
         <?php
-        $sql = "SELECT c.city_image, c.city_name FROM `cities` c
+        $sql = "SELECT DISTINCT c.city_image, c.city_name FROM `cities` c
          INNER JOIN organizations o ON c.id_city = o.id_city
-         WHERE o.is_banned = 0
+         INNER JOIN attractions a ON c.id_city = a.id_city
+         WHERE o.is_banned = 0 
          ORDER BY c.city_name ASC;";
 
         $stmt = $pdo->prepare($sql);
@@ -22,7 +23,7 @@
         <div class=' col-md-6 col-lg-4 mb-5'>
             <div class='card h-100 text-center border-5 border-light'style='background-image: url(" . $image . "); background-size: cover;'>
                 <div class='card-body'>    
-                    <a href='attractions.php?city={$cityName}' class='title'><h2>{$cityName}</h2></a>
+                    <h2 class='title'><a href='attractions.php?city={$cityName}'>{$cityName}</a></h2>
                 </div>
             </div>
         </div>

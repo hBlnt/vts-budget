@@ -54,7 +54,7 @@ echo "
         <br>
         <textarea rows='5' name='description' id='description' class='form-control'>{$attraction_data['description']}</textarea>
 
-        <label for='address'>Type address here</label>
+        <label for='address'>Type coordinates here</label>
         <br>
         <input type='text' name='address' id='address' class='form-control' placeholder='Attraction address' value='{$attraction_data['address']}'>
         

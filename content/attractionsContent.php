@@ -11,7 +11,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
 //if(!empty($_SESSION['names']))
 //    var_dump($_SESSION['names']);
 ?>
-<div class="container px-4 px-lg-5">
+<div class="container px-5 justify-content-center">
     <div class="row gx-4 gx-lg-5 text-center justify-content-center my-5">
         <div class="col-lg-5">
             <h1 class="font-weight-light">ATTRACTIONS</h1>
@@ -30,14 +30,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
             </div>
         </div>
     </div>
-    <div class="col-lg-12 pb-4">
+    <div class="col-lg-8 pb-4 mx-auto">
 
         <form method="post" class="form-control">
             <label for="search_by_name">Search</label>
             <input type="text" name="search" id="search_by_name" class="form-control"
                    placeholder="Search"><br>
             <?php
-            if (empty($_GET['city'])) {
+            if (empty($_GET['city']) and !empty($id_user)) {
 
                 ?>
                 <label for="country">Country:</label>
@@ -46,9 +46,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
                     <?php
 
                     $cities = getCountries($pdo);
-                    foreach ($cities
-
-                    as $city){
+                    foreach ($cities as $city){
                     $country = $city;
 
                     ?>
@@ -60,14 +58,40 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
             }
             ?>
             <br>
-            <fieldset class="border p-1">
+            <fieldset class="border p-1 rounded-3   ">
                 <legend>Choose your attraction types</legend>
                 <?php
-                $types = getAttractionTypes($pdo);
+                $sqlTypes = 'SELECT DISTINCT a.type FROM attractions a 
+                INNER JOIN cities c ON a.id_city = c.id_city ';
+
+                if (isset($_GET['city'])) {
+                    $city = trim($_GET['city']);
+                    $sqlTypes .= " WHERE c.`city_name` = '$city'";
+                }
+
+                $stmtTypes = $pdo->prepare($sqlTypes);
+                $stmtTypes->execute();
+
+                $types = $stmtTypes->fetchAll(PDO::FETCH_ASSOC);
+                $dynamicCount = count($types);
+                $divider = floor($dynamicCount / 2);
+                sort($types);
+
+                echo "<div class='row gx-4 gx-lg-5 px-2'>";
+                $typeCounter = 1;
+                echo "<div class='col-sm-6 col-md-6 col-lg-4 py-4'>";
                 foreach ($types as $type) {
                     $typeSingle = $type['type'];
-                    echo "<input type='checkbox' name='typeArray[]' value='$typeSingle'> $typeSingle<br>";
+                    if ($typeCounter % $divider === 0)
+                        echo "<input type='checkbox' id='type{$typeCounter}' name='typeArray[]' value='$typeSingle'> <label for='type{$typeCounter}'>{$typeSingle}</label><br></div><div class='col-sm-6 col-md-6 col-lg-4 py-4'>";
+                    else
+                        echo "<input type='checkbox' id='type{$typeCounter}' name='typeArray[]' value='$typeSingle'> <label for='type{$typeCounter}'>{$typeSingle}</label><br>";
+
+                    $typeCounter++;
                 }
+
+
+                echo "</div></div>";
                 ?>
             </fieldset>
             <?php
@@ -87,7 +111,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
             ?>
             <br>
             <div class="text-center">
-                <button type='submit' id='searchButton' class='btn btn-light border-3 border-dark accordion-button'>
+                <button type='submit' id='searchButton' class='btn btn-primary border-3 border-dark w-100'>
                     Search
                 </button>
             </div>
@@ -185,18 +209,25 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
                 $img_path = '';
                 echo "   
         <div class=' col-md-6 col-lg-4 mb-5'>
-            <div class='card h-100 text-center border-5 border-light'style='background-image: url(" . $path . "); background-size: cover;'>
-                <div class='card-body title d-flex flex-column'>    
-                    <h2>{$attractionName}</h2>
+            <div class='card h-100 text-center border-5 border-light'style='background-image: url(" . $path . "); background-size: cover; background-position: center '>
+                <div class='card-body  d-flex flex-column'>    
+                    <h2 class='title'>{$attractionName}</h2>
+                    
                     
                     
                     ";
+                if(empty($_SESSION['username']))
+                    echo "
+                    <div class='py-5'></div>";
+
                 //Not sure about this if
                 if (!empty($id_user)) {
                     echo "
 
-                    <p>City: {$cityData["city_name"]} </p>
-                    <p>Type: {$attractionType} </p>
+                    <div class='mt-auto title'>
+                        <p>City: {$cityData["city_name"]} </p>
+                        <p>Type: {$attractionType} </p>
+                    </div>
                     <div class='mt-auto'>
                         <form method='post' action='attraction_details.php'>
                             <input type='hidden' name='attraction_id' value='{$attractionId}'>
@@ -207,7 +238,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
                 }
                 if (!empty($id_organization)) {
                     echo "
-                   <p class='text-decoration-underline mt-auto'>Popularity: {$attractionPopularity} </p> 
+                   <i class='text-decoration-underline mt-auto title'>Popularity: {$attractionPopularity} </i> 
                    <div class='d-flex justify-content-between mt-auto'>
                         <form method='post' action='edit_attraction.php'>
                             <input type='hidden' name='action' value='editAttraction'>
@@ -231,7 +262,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
             }
 
         } else {
-            echo "There are no attractions like this.";
+            echo "<h2 class='text-center pb-5'>There are no attractions like this.</h2>";
         }
         ?>
     </div>

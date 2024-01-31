@@ -16,33 +16,48 @@ if (!empty($getFavourites))
     <?php
     $rowCounter = 0;
     if ($isFavouritesExist) {
+        echo "";
         echo "<table class='table table-bordered text-center table-striped'>";
         echo "<tr>
             <th></th>
             <th>Attraction name</th>
             <th>City name</th>
-            <th>Delete</th>
+            <th colspan='2'>Operation</th>
         </tr>";
+//        var_dump($getFavourites);
         foreach ($getFavourites as $favourite) {
             $id_attraction = $favourite['id_attraction'];
             $rowCounter++;
             echo "<tr>";
             echo "<td>{$rowCounter}</td>";
-            echo "<td>{$favourite['attraction_name']}</td>";
+            echo "<td> <form method='post' action='form_action.php'>";
+            echo "
+                <select name='select' id='attraction_name' class='form-select'>";
+            $attractions = getAttractionsByCity($pdo, $favourite['id_city']);
+            foreach ($attractions as $attraction) {
+                if ($favourite['id_attraction'] == $attraction['id_attraction'])
+                    echo '<option selected value="' . $attraction['id_attraction'] . '">' . $attraction['attraction_name'] . '</option>';
+                else
+                    echo '<option value="' . $attraction['id_attraction'] . '">' . $attraction['attraction_name'] . '</option>';
+            }
+            ?>
+            <input type='hidden' name='favourite' value='<?= $favourite['id_favourite'] ?>'>
+            <input type='hidden' name='attraction' value='<?= $favourite['id_attraction'] ?>'></select></td>
+            <?php
             echo "<td>{$favourite['city_name']}</td>";
+            echo "<td><button class='border-1 btn btn-warning' name='action' value='userEditFavourite' type='submit'>Edit</button></td>";
+            echo "<td><button class='btn btn-danger' name='action' value='userDeleteFavourite' type='submit'>Delete</button></form></td>";
 
-
-            echo "<td><form method='POST' action='form_action.php'>";
-            echo "<input type='hidden' name='id_attraction' value='" . $id_attraction . "'>";
-            echo "<input type='hidden' name='action' value='userDeleteFavourite'>";
-            echo "<button class='btn btn-danger' type='submit'>Delete</button>";
-
-            echo "</form></td>";
             echo "</tr>";
         }
         echo "</table>";
     } else
-        echo "<h2>You don't have any favourite attractions yet.</h2>";
+        echo "<h2 class='text-center'>You don't have any favourite attractions yet.</h2>";
+
+    echo "<div class='text-center text-info text-decoration-underline'>";
+
+    require_once 'error.php';
+    echo "</div>";
     ?>
 
 </div>

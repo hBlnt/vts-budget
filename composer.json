@@ -1,6 +1,7 @@
 {
     "require": {
         "phpmailer/phpmailer": "^6.9",
-      "ext-exif": "*"
+      "ext-exif": "*",
+        "mobiledetect/mobiledetectlib": "^4.8"
     }
 }

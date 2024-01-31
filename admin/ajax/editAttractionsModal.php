@@ -4,7 +4,7 @@ require_once '../../db_config.php';
 require_once '../../functions.php';
 $data = getAllAttractionDataByID($pdo,(int)$_GET['id']);
 
-var_dump($data);
+//var_dump($data);
 ?>
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">

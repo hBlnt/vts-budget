@@ -50,7 +50,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
         }
         echo "</table>";
     } else
-        echo "<h2>You didn't make any tours yet.</h2>";
+        echo "<h2 class='text-center pb-5'>You didn't make any tours yet.</h2>";
     ?>
     <div class="text-center">
         <?php

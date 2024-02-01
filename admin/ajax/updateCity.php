@@ -31,7 +31,7 @@ if (!empty($cityName) and !empty($country) and !empty($id_city) and $op === 'upd
                     deleteCityImage($currentImage);
                 $directory = "../../db_images/city_images/";
                 $extension = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
-                $newFileName = uniqid('city_image-', true) . '-' . mt_rand(10, 100) . '.' . $extension;
+                $newFileName = uniqid('city_image-', true) . '-' . str_replace(' ', '', $cityName) . mt_rand(10, 100) . '.' . $extension;
                 if (!move_uploaded_file($image['tmp_name'], $directory . $newFileName)) {
                     redirection('all_cities.php?m=2');
                 }

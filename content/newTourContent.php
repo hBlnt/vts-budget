@@ -34,6 +34,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
         </select><br>
 
         <h2 class="text-center">Which attractions would you like?</h2>
+        <br><br>
 
         <div class='row gx-4 gx-lg-5'>
             <?php
@@ -42,20 +43,31 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_user']) && is_int($_SESS
 
             foreach ($cities as $city) {
                 $attractions = getTableData($pdo, 'attractions', 'id_city', $city['id_city'], true);
+                $city_name = $city['city_name'];
                 echo "   
-                 <div class='col-md-4 mb-5'>
-                     <div class='card h-100'>
-                         <div class='card-body'>    
-                             <h2>" . $city['city_name'] . "</h2>
+                 <div class='col-xs-12 col-sm-6 col-md-6 col-lg-4 mb-5'>
+                     <div class='card '>
+                        <div class='accordion ' id='accordionExample{$city_name}'>
+                            <div class='accordion-item'>
+                                <h2 class='accordion-header bg-light' id='heading{$city_name}'>
+                                    <button class='accordion-button collapsed fs-3 bg-light border-light' type='button' data-bs-toggle='collapse' data-bs-target='#collapse{$city_name}' aria-expanded='false' aria-controls='collapse{$city_name}'>
+                                          {$city_name}
+                                    </button> 
+                                </h2>
+                            <div id='collapse{$city_name}' class='accordion-collapse collapse' aria-labelledby='heading{$city_name}' data-bs-parent='#accordionExample{$city_name}'>
+                                <div class='accordion-body'>
+                             
                              ";
                 $counter = 0;
                 foreach ($attractions as $attraction) {
-                    $identitifaction = $city['city_name'].$counter;
-                    echo "<input type='checkbox' name='attractions[]' id='attraction{$identitifaction}' value='{$attraction['id_attraction']}'> <label for='attraction{$identitifaction}'>{$attraction['attraction_name']}</label><br>";
+                    $identitifaction = $city_name . $counter;
+                    echo "
+                    <div class='d-inline-flex'><input type='checkbox' name='attractions[]' id='attraction{$identitifaction}' value='{$attraction['id_attraction']}'> <label class='ms-2' for='attraction{$identitifaction}'>{$attraction['attraction_name']}</label></div><br>";
                     $counter++;
                 }
                 echo "
-                         </div>
+</div></div></div></div> <!-- Accordion closers-->
+
                      </div>
                  </div>
                 ";

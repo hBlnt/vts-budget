@@ -1,3 +1,9 @@
+
+<?php
+if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_int($_SESSION['id_organization'])) {
+    redirection('index.php?e=0');
+}
+?>
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center text-center my-5">
         <div class="col-lg-5">

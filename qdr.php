@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 require_once 'config.php';
 
@@ -9,10 +8,13 @@ use Web\{
 
 use Meta\Meta;
 
-$content = "";
+$content = '';
+
 ob_start();
-require_once 'content/contactsContent.php';
+include 'content/qdrContent.php';
 $content .= ob_get_clean();
+
 $body = new Body('', $content, 'first');
-$header = new Header('Contacts', $linksHeader, $scripts);
+$header = new Header('qdr', $linksHeader, $scripts);
+
 require_once 'sablon.php';

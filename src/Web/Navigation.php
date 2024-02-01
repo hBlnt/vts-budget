@@ -9,12 +9,13 @@ class Navigation
     {
 
         echo '<nav class="navbar navbar-expand-lg navbar-light bg-info px-3 ">
+<div class="container-fluid">
   <a class="navbar-brand" href="index.php">Tourist</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto">
 ' . PHP_EOL;
         foreach ($links as $linkText => $link) {
             echo '<li class="nav-item">
@@ -25,6 +26,6 @@ class Navigation
             }
             echo ">$linkText</a></li>" . PHP_EOL;
         }
-        echo '</ul></div></nav>';
+        echo '</ul></div></div></nav>';
     }
 }

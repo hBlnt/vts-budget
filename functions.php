@@ -433,13 +433,13 @@ function deleteFavouriteAttraction(PDO $pdo, int $id_user, int $id_favourite, in
     $stmt2->bindParam(':id_attraction', $id_attraction, PDO::PARAM_STR);
 
 
-    if($stmt->execute() AND $stmt2->execute())
+    if ($stmt->execute() and $stmt2->execute())
         return true;
     else
         return false;
 }
 
-function updateFavouriteAttraction(PDO $pdo, int $id_user, int $id_favourite, int $id_attraction,int $new_favourite): bool
+function updateFavouriteAttraction(PDO $pdo, int $id_user, int $id_favourite, int $id_attraction, int $new_favourite): bool
 {
 
     $sql = "UPDATE favourite_attractions SET id_attraction = :new_favourite WHERE id_user = :id_user AND id_favourite = :id_favourite ";
@@ -457,11 +457,12 @@ function updateFavouriteAttraction(PDO $pdo, int $id_user, int $id_favourite, in
     $stmt3->bindParam(':new_favourite', $new_favourite, PDO::PARAM_STR);
 
 
-    if($stmt->execute() AND $stmt2->execute() AND $stmt3->execute())
+    if ($stmt->execute() and $stmt2->execute() and $stmt3->execute())
         return true;
     else
         return false;
 }
+
 function insertFavouriteAttraction(PDO $pdo, int $id_user, int $id_attraction): int
 {
     $sql = "INSERT INTO favourite_attractions (id_user,id_attraction) VALUES 
@@ -895,8 +896,8 @@ function filterComment(string $word): string
  */
 function suggestedBadLevel(int $totalBadWords, int $totalWords): int
 {
-    if ($totalBadWords == $totalWords)
-        $data = 1;
+    if ($totalBadWords === $totalWords)
+        $data = 7;
     elseif ($totalBadWords > $totalWords * (2 / 100) && $totalBadWords < $totalWords * (19 / 100))
         $data = 2;
     elseif ($totalBadWords >= $totalWords * (20 / 100) && $totalBadWords < $totalWords * (39 / 100))
@@ -909,11 +910,13 @@ function suggestedBadLevel(int $totalBadWords, int $totalWords): int
         $data = 6;
     else $data = 0;
 
+
     return $data;
 }
 
 /**
  * Inserts bad words into bad_words table, if there are any
+ * @param PDO $pdo
  * @param int $id_comment
  * @param string $word
  * @param int $number
@@ -983,7 +986,7 @@ function isTroll(PDO $pdo, int $id_user): bool
 FROM comments
 WHERE id_user = :id_user  AND bad_level >= :bad_level;";
 
-    $bad_level = 6;
+    $bad_level = 4;
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':id_user', $id_user, PDO::PARAM_STR);
     $stmt->bindParam(':bad_level', $bad_level, PDO::PARAM_STR);
@@ -1076,6 +1079,7 @@ function updateAttractionAllFields(PDO $pdo, int $id_attraction, int $id_organiz
 
     return $stmt->execute();
 }
+
 function getGoodComments(PDO $pdo, int $id_attraction): array
 {
     $sql = " SELECT c.filtered_comment,c.date_time,u.firstname,c.bad_level FROM comments c 
@@ -1105,13 +1109,14 @@ function getAllCountries(PDO $pdo): array
     sort($enum_values);
     return $enum_values;
 }
+
 function getAttractionsByCity(PDO $pdo, int $id_city): array
 {
     $sql = "SELECT c.id_city,a.id_attraction,a.attraction_name FROM cities c
     INNER JOIN attractions a ON c.id_city = a.id_city
     WHERE c.id_city = :id_city ORDER BY a.attraction_name ASC";
-    $stmt= $pdo->prepare($sql);
-    $stmt->bindParam(':id_city',$id_city,PDO::PARAM_STR);
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_city', $id_city, PDO::PARAM_STR);
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);

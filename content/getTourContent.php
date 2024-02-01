@@ -73,6 +73,7 @@ echo "
     let latitudes = [];
     let longitudes = [];
     let countCoordinates = 0;
+    let zoomLevel = 0;
     for (let i = 0; i < numericCoordinates.length; i++) {
         countCoordinates++;
         let numericCoordinate = [i];
@@ -89,8 +90,8 @@ echo "
     let longitudesSum = 0.00;
     for (let i = 0; i < longitudes.length; i++)
         longitudesSum += longitudes[i];
-    let middleLatitude = latitudesSum/ countCoordinates;
-    let middleLongitude = longitudesSum/ countCoordinates;
+    let middleLatitude = latitudesSum / countCoordinates;
+    let middleLongitude = longitudesSum / countCoordinates;
 
     console.log("----------------------------");
 
@@ -98,7 +99,7 @@ echo "
     const map = L.map('map');
 
 
-    map.setView([middleLatitude, middleLongitude], 13);
+    map.setView([middleLatitude, middleLongitude], 11);
     //48.804806, 2.120333
     //latitude, longitude
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -114,6 +115,10 @@ echo "
             .bindPopup("<h4>" + name + "</h4>")
             .addTo(map);
         counter++;
+    }
+
+    function map_range(value, low1, high1, low2, high2) {
+        return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
     }
 
 </script>

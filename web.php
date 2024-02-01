@@ -32,11 +32,11 @@ if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !==
 
             if (!empty($username) and !empty($password)) {
                 $data = checkUserLogin($pdo, $username, $password);
-                if ($data and is_int($data['id_user'])) {
+                if ($data and isset($data['id_user'])) {
                     $_SESSION['username'] = $username;
                     $_SESSION['id_user'] = $data['id_user'];
                     redirection('index.php');
-                } else if ($data and is_int($data['id_organization'])) {
+                } else if ($data and isset($data['id_organization'])) {
                     $_SESSION['username'] = $username;
                     $_SESSION['id_organization'] = $data['id_organization'];
                     redirection('index.php');
@@ -101,12 +101,12 @@ if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !==
             if (empty($email) or !filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 redirection('registration.php?e=8');
             }
-            list($name, $domain) = explode("@", $email);
-            if ($domain === $blockedDomain)
+
+            if (str_contains($email, $orgDomain))
                 redirection('registration.php?e=36');
 
             $news = $_POST['news'] ?? 0;
-            //Making sure that the e-mail is not taken by either a user or a trainer
+            //Making sure that the e-mail is not taken by user
             if (!existsUser($pdo, $email)) {
                 $token = createToken(20);
                 if ($token) {

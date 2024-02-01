@@ -108,7 +108,9 @@ $messagesAdmin = [
     'organizations.php' => [
         1 => ['style' => 'danger', 'text' => 'Please, insert required fields.'],
         2 => ['style' => 'danger', 'text' => 'Organization with this name already exists.'],
-        3 => ['style' => 'success', 'text' => 'New organization generated successfully.']
+        3 => ['style' => 'success', 'text' => 'New organization generated successfully.'],
+        4 => ['style' => 'danger', 'text' => 'Wrong domain!!']
     ],
 ];
 $GLOBALS['badWords'] = ['drop', 'delete', 'kill', 'destroy', 'fool','vts','shit','noob','monkey','poop','butt','asshole'];
+$orgDomain = '@org.com';

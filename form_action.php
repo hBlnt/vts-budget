@@ -178,6 +178,8 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
             if (empty($id_user) || empty($id_attraction) || empty($comment))
                 redirection('attractions.php?e=4');
 
+            $_SESSION['current_page'] = $id_attraction;
+
             $filteredCommentData = getFilteredCommentData($comment);
             $lastId = insertComment($pdo, $id_user, $id_attraction, $comment, $filteredCommentData);
 
@@ -186,7 +188,7 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
                     if ($value !== 0)
                         insertIntoBadWords($pdo, $lastId, $key, $value);
                 }
-                redirection('attractions.php?e=27');
+                redirection('new_comment.php');
             } else
                 redirection('attractions.php?e=28');
 

@@ -8,8 +8,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
     $id_organization = $_SESSION['id_organization'];
 }
 
-//if(!empty($_SESSION['names']))
-//    var_dump($_SESSION['names']);
 ?>
 <div class="container px-5 justify-content-center">
     <div class="row gx-4 gx-lg-5 text-center justify-content-center my-5">
@@ -32,8 +30,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
     </div>
     <div class="col-lg-8 pb-4 mx-auto">
 
-        <form method="post" class="form-control">
-            <label for="search_by_name">Search</label>
+        <form method="post" class="form-control" action="attractions.php">
+            <label for="search_by_name">Search by name</label>
             <input type="text" name="search" id="search_by_name" class="form-control"
                    placeholder="Search"><br>
             <?php
@@ -46,7 +44,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
                     <?php
 
                     $cities = getCountries($pdo);
-                    foreach ($cities as $city){
+                    foreach ($cities
+
+                    as $city){
                     $country = $city;
 
                     ?>
@@ -66,15 +66,25 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
 
                 if (isset($_GET['city'])) {
                     $city = trim($_GET['city']);
-                    $sqlTypes .= " WHERE c.`city_name` = '$city'";
+                    $sqlTypes .= " WHERE c.`city_name` = :city";
+                }
+                if (!empty($id_organization)) {
+                    $sqlTypes .= " WHERE id_organization = :id_organization";
                 }
 
                 $stmtTypes = $pdo->prepare($sqlTypes);
+
+                if (isset($_GET['city'])) {
+                    $stmtTypes->bindParam(':city', $city, PDO::PARAM_STR);
+                }
+                if (!empty($id_organization)) {
+                    $stmtTypes->bindParam(':id_organization', $id_organization, PDO::PARAM_STR);
+                }
                 $stmtTypes->execute();
 
                 $types = $stmtTypes->fetchAll(PDO::FETCH_ASSOC);
                 $dynamicCount = count($types);
-                $divider = floor($dynamicCount / 2);
+                $divider = round($dynamicCount / 2);
                 sort($types);
 
                 echo "<div class='row gx-4 gx-lg-5 px-2'>";
@@ -172,10 +182,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
                         $dynamicWhereClause .= " ORDER BY a.attraction_name DESC";
                         break;
                     case "popularity_high":
-                        $dynamicWhereClause .= " ORDER BY a.popularity DESC";
+                        $dynamicWhereClause .= " ORDER BY a.popularity DESC, a.attraction_name ASC";
                         break;
                     case "popularity_low":
-                        $dynamicWhereClause .= " ORDER BY a.popularity ASC";
+                        $dynamicWhereClause .= " ORDER BY a.popularity ASC, a.attraction_name ASC";
                         break;
                 }
             }
@@ -216,7 +226,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id_organization']) && is_in
                     
                     
                     ";
-                if(empty($_SESSION['username']))
+                if (empty($_SESSION['username']))
                     echo "
                     <div class='py-5'></div>";
 

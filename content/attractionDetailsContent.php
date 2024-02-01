@@ -62,7 +62,7 @@ $longitude = substr($coordinates, $pos + 1);
         <iframe
                 width="100%"
                 height=400
-                frameborder="0"
+                class="border border-dark border-3 rounded-3"
 
                 src="https://www.openstreetmap.org/export/embed.html?bbox=<?php echo $longitude; ?>,<?php echo $latitude; ?>,<?php echo $longitude; ?>,<?php echo $latitude; ?>&layer=mapnik">
         </iframe>

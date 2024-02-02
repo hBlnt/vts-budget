@@ -8,7 +8,7 @@ if (isset($_GET['token'])) {
 
 if (!empty($token) and strlen($token) === 40) {
 
-        $sql = "UPDATE users SET active = 1, registration_token = ''
+        $sql = "UPDATE users SET active = 1, registration_token = '',registration_token_expiry = NULL
             WHERE binary registration_token = :token AND registration_token_expiry > now()";
 
     $stmt = $pdo->prepare($sql);

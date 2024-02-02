@@ -75,6 +75,8 @@ function checkUserLogin(PDO $pdo, string $email, string $enteredPassword): array
 
         if (password_verify($enteredPassword, $registeredPassword)) {
             $data['id_user'] = $result['id_user'];
+            $data['firstname'] = $result['firstname'];
+            $data['lastname'] = $result['lastname'];
         }
     } else if ($stmtOrg->rowCount() > 0) {
         $registeredPassword = $result['password'];
@@ -671,11 +673,11 @@ function getCountries(PDO $pdo): array
     return $stmt->fetchAll(PDO::FETCH_COLUMN);
 }
 
+//nemAdmin
 
 function getOrganization(PDO $pdo, int $id_organization): array
 {
 
-    $data = [];
     $sql = "SELECT o.id_organization,o.org_name,o.email,o.is_banned,o.id_city,c.city_name FROM organizations o 
     INNER JOIN cities c ON o.id_city = c.id_city
     WHERE id_organization = '$id_organization'";
@@ -751,15 +753,6 @@ function getUnusedCities($pdo): array
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getCountryByID(PDO $pdo, int $id_city): bool
-{
-    $sql = 'SELECT country from cities WHERE id_city = :id_city';
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':id_city', $id_city, PDO::PARAM_STR);
-    $stmt->execute();
-
-    return $stmt->fetchColumn();
-}
 
 function deleteCityImage(string $image): string
 {
@@ -1050,6 +1043,10 @@ function getAllAttractionTypes(PDO $pdo): array
 
 function getAllAttractionDataByID(PDO $pdo, int $id_attraction): array
 {
+
+//admin
+
+
     $sql = "SELECT a.attraction_name,a.type,a.address,a.description,a.id_organization,a.id_city,o.org_name,c.city_name FROM attractions a
     INNER JOIN cities c ON a.id_city = c.id_city
     INNER JOIN organizations o ON a.id_organization = o.id_organization
@@ -1064,6 +1061,8 @@ function getAllAttractionDataByID(PDO $pdo, int $id_attraction): array
 
 function updateAttractionAllFields(PDO $pdo, int $id_attraction, int $id_organization, int $id_city, string $attraction_name, string $type, string $address, string $description): bool
 {
+
+//admin
 
     $sql = "UPDATE attractions SET attraction_name = :attraction_name, description = :description, address = :address, type = :type, id_organization = :id_organization, id_city = :id_city
    WHERE id_attraction = :id_attraction";
@@ -1101,6 +1100,8 @@ function getGoodComments(PDO $pdo, int $id_attraction): array
 function getAllCountries(PDO $pdo): array
 {
 
+//admin
+
     $sql = "SHOW COLUMNS FROM cities LIKE 'country'";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
@@ -1121,4 +1122,26 @@ function getAttractionsByCity(PDO $pdo, int $id_city): array
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+}
+
+function isSameCity(PDO $pdo, int $new_favourite, int $id_favourite): bool
+{
+    $sql1 = "SELECT id_city FROM attractions WHERE id_attraction = :new_favourite";
+    $stmt1 = $pdo->prepare($sql1);
+    $stmt1->bindParam(':new_favourite', $new_favourite, PDO::PARAM_STR);
+    $stmt1->execute();
+    $new_favourite_city = $stmt1->fetchColumn();
+    if (!$new_favourite_city)
+        return false;
+
+    $sql2 = "SELECT f.id_attraction FROM favourite_attractions f INNER JOIN attractions a ON f.id_attraction = a.id_attraction WHERE a.id_city = :new_favourite_city AND f.id_favourite = :id_favourite";
+    $stmt2 = $pdo->prepare($sql2);
+    $stmt2->bindParam(':new_favourite_city', $new_favourite_city, PDO::PARAM_STR);
+    $stmt2->bindParam(':id_favourite', $id_favourite, PDO::PARAM_STR);
+    $stmt2->execute();
+
+    if ($stmt2->rowCount() > 0) {
+        return true;
+    }
+    return false;
 }

@@ -39,6 +39,7 @@ $messages = [
     14 => 'Something went wrong with server.',
     15 => 'Token or other data are invalid!',
     16 => 'Your new password is set and you can login.',
+    17 => 'Dont mess around with the form!',
     18 => 'Fill out the new fields!',//
     22 => 'Logged in congrats, you are a USER',
     24 => 'Admin did not approve yet!',
@@ -112,5 +113,7 @@ $messagesAdmin = [
         4 => ['style' => 'danger', 'text' => 'Wrong domain!!']
     ],
 ];
+
+$apiFields = "country,proxy";
 $GLOBALS['badWords'] = ['drop', 'delete', 'kill', 'destroy', 'fool','vts','shit','noob','monkey','poop','butt','asshole'];
 $orgDomain = '@org.com';

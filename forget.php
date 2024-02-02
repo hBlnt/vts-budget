@@ -77,7 +77,7 @@ switch ($method) {
             $passwordHashed = password_hash($resetPassword, PASSWORD_DEFAULT);
 
 
-            $sqlUser = "UPDATE users SET forgotten_password_token = '', password = :resetPassword
+            $sqlUser = "UPDATE users SET forgotten_password_token = '',forgotten_password_expiry = NULL, password = :resetPassword
             WHERE binary forgotten_password_token = :token AND forgotten_password_expiry>now() AND active = 1 AND email = :email";
 
 

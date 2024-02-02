@@ -3,6 +3,9 @@ session_start();
 require_once "db_config.php";
 require_once "functions.php";
 
+require __DIR__ . '/vendor/autoload.php';
+use Detection\MobileDetect;
+
 $password = "";
 $passwordConfirm = "";
 $firstname = "";
@@ -14,7 +17,6 @@ $action = "";
 
 $referer = $_SERVER['HTTP_REFERER'];
 
-
 $action = $_POST["action"];
 
 $blockedDomain = "org.com";
@@ -24,8 +26,6 @@ if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !==
     switch ($action) {
         case "login":
 
-            $_SESSION['firstname'] = '';
-            $_SESSION['lastname'] = '';
 
             $username = trim($_POST["username"]);
             $password = trim($_POST["password"]);
@@ -33,8 +33,11 @@ if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !==
             if (!empty($username) and !empty($password)) {
                 $data = checkUserLogin($pdo, $username, $password);
                 if ($data and isset($data['id_user'])) {
+                    $detect = new MobileDetect();
                     $_SESSION['username'] = $username;
                     $_SESSION['id_user'] = $data['id_user'];
+                    $_SESSION['firstname'] = $data['firstname'];
+                    $_SESSION['lastname'] = $data['lastname'];
                     redirection('index.php');
                 } else if ($data and isset($data['id_organization'])) {
                     $_SESSION['username'] = $username;

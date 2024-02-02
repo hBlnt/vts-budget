@@ -36,6 +36,8 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
             $id_favourite = trim($_POST['favourite'] ?? '');
             $id_attraction = trim($_POST['attraction'] ?? '');
             $new_favourite = trim($_POST['select'] ?? '');
+            if (!isSameCity($pdo, $new_favourite, $id_favourite))
+                redirection("favourites.php?e=17");
             if (updateFavouriteAttraction($pdo, $id_user, $id_favourite, $id_attraction, $new_favourite))
                 redirection("favourites.php?e=31");
             else

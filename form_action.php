@@ -67,8 +67,8 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
             redirection("attractions.php?e=32");
             break;
         case "newTour":
-            $tour_name = trim($_POST['tour_name'] ?? '');
-            $tour_type = trim($_POST['tour_type'] ?? '');
+            $tour_name = htmlspecialchars(trim($_POST['tour_name']) ?? '');
+            $tour_type = htmlspecialchars(trim($_POST['tour_type']) ?? '');
             $attractions = $_POST['attractions'] ?? [];
             if (empty ($tour_type) || empty($tour_name) || empty($attractions))
                 redirection('my_tours.php?e=4');
@@ -87,10 +87,10 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
 
         case "newAttraction":
 
-            $attraction_name = trim($_POST['attraction_name'] ?? '');
-            $type = trim($_POST['type'] ?? '');
-            $description = trim($_POST['description'] ?? '');
-            $address = trim($_POST['address'] ?? '');
+            $attraction_name = htmlspecialchars(trim($_POST['attraction_name']) ?? '');
+            $type = htmlspecialchars(trim($_POST['type']) ?? '');
+            $description = htmlspecialchars(trim($_POST['description']) ?? '');
+            $address = htmlspecialchars(trim($_POST['address']) ?? '');
             if (empty ($attraction_name) || empty($type) || empty($description) || empty($address))
                 redirection('new_attraction.php?e=4');
 
@@ -172,9 +172,9 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
 
         case "newComment":
 
-            $id_user = $_POST["id_user"] ?? "";
-            $id_attraction = $_POST["id_attraction"] ?? "";
-            $comment = $_POST["comment"] ?? "";
+            $id_user = $_POST['id_user'] ?? '';
+            $id_attraction = $_POST['id_attraction'] ?? '';
+            $comment = htmlspecialchars(trim($_POST['comment'])) ?? '';
 
 
             if (empty($id_user) || empty($id_attraction) || empty($comment))
@@ -196,11 +196,11 @@ if ($action != "" and in_array($action, $formActions) and strpos($referer, SITE)
 
             break;
         case "editAttraction":
-            $id_attraction = $_POST["id_attraction"] ?? "";
-            $attraction_name = $_POST["attraction_name"] ?? "";
-            $description = $_POST["description"] ?? "";
-            $address = $_POST["address"] ?? "";
-            $type = $_POST["type"] ?? "";
+            $id_attraction = $_POST['id_attraction'] ?? '';
+            $attraction_name = htmlspecialchars(trim($_POST['attraction_name'])) ?? '';
+            $description = htmlspecialchars(trim($_POST['description'])) ?? '';
+            $address = htmlspecialchars(trim($_POST['address'])) ?? '';
+            $type = htmlspecialchars(trim($_POST['type'])) ?? '';
             var_dump($_POST);
             if (empty ($attraction_name) || empty($id_attraction) || empty($description) || empty($address) || empty($type))
                 redirection('attractions.php?e=4');

@@ -1145,3 +1145,65 @@ function isSameCity(PDO $pdo, int $new_favourite, int $id_favourite): bool
     }
     return false;
 }
+
+/**Function detects ip address of the request.
+ * It returns valid ip address or unknown word.
+ * @return string
+ */
+function getIpAddress(): string
+{
+
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+
+    if (!filter_var($ip, FILTER_VALIDATE_IP)) {
+        $ip = "unknown";
+    }
+
+    return $ip;
+}
+
+/**Function inserts data into log table.
+ * @param string $userAgent
+ * @param string $ipAddress
+ * @param string $deviceType
+ * @param string $country
+ * @param bool $proxy
+ * @return void
+ */
+function insertIntoLog(PDO $pdo, int $id_user, string $userAgent, string $ipAddress, string $deviceType, string $country, bool $proxy): void
+{
+
+    $sql = "INSERT INTO user_informations(user_agent, ip_address,device_type, country, proxy, id_user ) VALUES(:userAgent, :ipAddress,:deviceType, :country, :proxy, :id_user)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':userAgent', $userAgent, PDO::PARAM_STR);
+    $stmt->bindValue(':ipAddress', $ipAddress, PDO::PARAM_STR);
+    $stmt->bindValue(':country', $country, PDO::PARAM_STR);
+    $stmt->bindValue(':proxy', $proxy, PDO::PARAM_INT);
+    $stmt->bindValue(':deviceType', $deviceType, PDO::PARAM_STR);
+    $stmt->bindValue(':id_user', $id_user, PDO::PARAM_STR);
+
+    $stmt->execute();
+}
+
+/**Function executes curl session and returns the transfer as a string of the return value of execution.
+ * @param $url
+ * @return string
+ */
+function getCurlData($url): string
+{
+    // https://www.php.net/manual/en/book.curl.php
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    return $result;
+}

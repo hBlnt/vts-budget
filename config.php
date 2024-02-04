@@ -7,7 +7,8 @@ $metas = [
         ['charset' => 'UTF-8'],
         ['name' => "keywords", 'content' => 'HTML, CSS, JavaScript'],
         ['name' => 'author', 'content' => 'Mark M'],
-        ['http-equiv' => 'X-UA-Compatible', 'content' => 'IE=edge']
+        ['http-equiv' => 'X-UA-Compatible', 'content' => 'IE=edge'],
+        ['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1,user-scalable=yes']
     ],
     'index.php' => [
         ['name' => 'description', 'content' => 'Home']
@@ -48,7 +49,7 @@ $linksHeader = [
     ['rel' => 'stylesheet', 'href' => 'style/style.css'],
     ['rel' => 'stylesheet', 'href' => 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css', 'integrity' => 'sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN', 'crossorigin' => 'anonymous'],
     ['rel' => 'stylesheet', 'href' => 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', 'integrity' => 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=', 'crossorigin' => ''],
-    ['rel' => 'shortcut icon', 'type' => 'image/x-icon', 'href' =>'favicon.ico']
+    ['rel' => 'shortcut icon', 'type' => 'image/x-icon', 'href' => 'favicon.ico']
 ];
 $scripts = [
     ['src' => 'https://code.jquery.com/jquery-3.2.1.slim.min.js', 'integrity' => 'sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN', 'crossorigin' => 'anonymous'],

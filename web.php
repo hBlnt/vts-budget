@@ -33,11 +33,33 @@ if ($action != "" and in_array($action, $actions) and strpos($referer, SITE) !==
             if (!empty($username) and !empty($password)) {
                 $data = checkUserLogin($pdo, $username, $password);
                 if ($data and isset($data['id_user'])) {
-                    $detect = new MobileDetect();
                     $_SESSION['username'] = $username;
                     $_SESSION['id_user'] = $data['id_user'];
                     $_SESSION['firstname'] = $data['firstname'];
                     $_SESSION['lastname'] = $data['lastname'];
+
+                    $detect = new MobileDetect();
+                    $deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
+                    $ipAddress = getIpAddress();
+                    $country = "";
+                    $proxy = false;
+
+                    $userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+                    $urlApi = "http://ip-api.com/json/$ipAddress?fields=$apiFields";
+                    $apiResponse = getCurlData($urlApi);
+
+                    $apiData = json_decode($apiResponse, true);
+
+                    if (isset($apiData['country']))
+                        $country = $apiData['country'];
+
+                    if (isset($apiData['proxy']))
+                        $proxy = $apiData['proxy'];
+
+                    insertIntoLog($pdo,$_SESSION['id_user'], $userAgent, $ipAddress, $deviceType, $country, $proxy);
+
+
                     redirection('index.php');
                 } else if ($data and isset($data['id_organization'])) {
                     $_SESSION['username'] = $username;

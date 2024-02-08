@@ -37,11 +37,12 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                         <li><a class="dropdown-item" href="organizations.php">Create organizations</a></li>
+                        <li><a class="dropdown-item" href="all_organizations.php">All organizations</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="all_organizations.php">All organizations</a></li>
                         <li><a class="dropdown-item" href="user_status.php">Users</a></li>
+                        <li><a class="dropdown-item" href="all_user_info.php">User details</a></li>
                     </ul>
                 </li>
 

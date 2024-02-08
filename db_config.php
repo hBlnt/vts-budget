@@ -82,6 +82,7 @@ $titles = [
     'all_cities.php' => 'All cities',
     'user_status.php' => 'Change user status',
     'all_attractions.php' => 'All attractions',
+    'all_user_info.php' => 'All data about user',
 ];
 
 

@@ -21,6 +21,10 @@ $(document).ready(function () {
         ajax: 'ajax/getAttractions.php'
     });
 
+    $('#allInfos').DataTable({
+        ajax: 'ajax/getInfos.php'
+    });
+
     $('body').on('click', '.deleteAttraction', function () {
         var id = $(this).data('id');
         let name = $(this).data('name');

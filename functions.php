@@ -1059,6 +1059,22 @@ function getAllAttractionDataByID(PDO $pdo, int $id_attraction): array
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function getIPInfo(PDO $pdo): array
+{
+
+//admin
+
+
+    $sql = "SELECT ui.user_agent,ui.ip_address,ui.device_type,ui.country,ui.proxy,ui.date_time,u.email FROM user_informations ui
+    INNER JOIN users u ON ui.id_user = u.id_user
+    ORDER BY u.email";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function updateAttractionAllFields(PDO $pdo, int $id_attraction, int $id_organization, int $id_city, string $attraction_name, string $type, string $address, string $description): bool
 {
 

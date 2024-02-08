@@ -1,0 +1,2056 @@
+{
+	"info": {
+		"_postman_id": "0811878f-b805-4503-be20-dcda1a771bd1",
+		"name": "IWS _Tourist_projekt",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31227404",
+		"_collection_link": "https://blue-shadow-199795.postman.co/workspace/School~420f43c7-2d69-4afd-9e5b-6f34843a38b5/collection/31227404-0811878f-b805-4503-be20-dcda1a771bd1?action=share&source=collection_link&creator=31227404"
+	},
+	"item": [
+		{
+			"name": "getAttractions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/2024/reactPHP/getAttractions.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"2024",
+						"reactPHP",
+						"getAttractions.php"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "foundAttractions",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/getAttractions.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getAttractions.php"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 14:24:25 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1903"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id_attraction\": 51,\n        \"attraction_name\": \"Arc de Triomphe\",\n        \"type\": \"Triumphal arch\"\n    },\n    {\n        \"id_attraction\": 63,\n        \"attraction_name\": \"Brandenburg Gate\",\n        \"type\": \"Landmark\"\n    },\n    {\n        \"id_attraction\": 60,\n        \"attraction_name\": \"Buda Castle\",\n        \"type\": \"Castle\"\n    },\n    {\n        \"id_attraction\": 52,\n        \"attraction_name\": \"Catacombs of Paris\",\n        \"type\": \"Catacomb\"\n    },\n    {\n        \"id_attraction\": 3,\n        \"attraction_name\": \"Château de Versaillesent\",\n        \"type\": \"Cathedral\"\n    },\n    {\n        \"id_attraction\": 64,\n        \"attraction_name\": \"Colosseum\",\n        \"type\": \"Amphitheatre\"\n    },\n    {\n        \"id_attraction\": 4,\n        \"attraction_name\": \"Eiffel Tower\",\n        \"type\": \"Tower\"\n    },\n    {\n        \"id_attraction\": 58,\n        \"attraction_name\": \"Fisherman's Bastion\",\n        \"type\": \"Fortification\"\n    },\n    {\n        \"id_attraction\": 56,\n        \"attraction_name\": \"Heroes' Square\",\n        \"type\": \"Square\"\n    },\n    {\n        \"id_attraction\": 67,\n        \"attraction_name\": \"Hortobágy National Park\",\n        \"type\": \"National park\"\n    },\n    {\n        \"id_attraction\": 55,\n        \"attraction_name\": \"Hungarian Parliament Building\",\n        \"type\": \"Government building\"\n    },\n    {\n        \"id_attraction\": 5,\n        \"attraction_name\": \"Louvre Museum\",\n        \"type\": \"Museum\"\n    },\n    {\n        \"id_attraction\": 50,\n        \"attraction_name\": \"Notre-Dame Cathedral\",\n        \"type\": \"Cathedral\"\n    },\n    {\n        \"id_attraction\": 53,\n        \"attraction_name\": \"Palais Garnier\",\n        \"type\": \"Amusement park\"\n    },\n    {\n        \"id_attraction\": 66,\n        \"attraction_name\": \"Pantheon\",\n        \"type\": \"Church\"\n    },\n    {\n        \"id_attraction\": 69,\n        \"attraction_name\": \"Prado Museum\",\n        \"type\": \"Museum\"\n    },\n    {\n        \"id_attraction\": 68,\n        \"attraction_name\": \"Reformed Great Church of Debrecen\",\n        \"type\": \"Forest\"\n    },\n    {\n        \"id_attraction\": 62,\n        \"attraction_name\": \"Reichstag\",\n        \"type\": \"Government building\"\n    },\n    {\n        \"id_attraction\": 70,\n        \"attraction_name\": \"Royal Palace of Madrid\",\n        \"type\": \"Palace\"\n    },\n    {\n        \"id_attraction\": 54,\n        \"attraction_name\": \"Sacré-Cœur\",\n        \"type\": \"Basilica\"\n    },\n    {\n        \"id_attraction\": 61,\n        \"attraction_name\": \"Schloss Charlottenburg\",\n        \"type\": \"Palace\"\n    },\n    {\n        \"id_attraction\": 57,\n        \"attraction_name\": \"St. Stephen's Basilica\",\n        \"type\": \"Basilica\"\n    },\n    {\n        \"id_attraction\": 59,\n        \"attraction_name\": \"Széchenyi Chain Bridge\",\n        \"type\": \"Bridge\"\n    },\n    {\n        \"id_attraction\": 65,\n        \"attraction_name\": \"Trevi Fountain\",\n        \"type\": \"Fountain\"\n    }\n]"
+				},
+				{
+					"name": "noAttractions",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/getAttractions.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getAttractions.php"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:14:42 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "56"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"No attractions exist yet!\"\n}"
+				},
+				{
+					"name": "errorMethod",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/getAttractions.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getAttractions.php"
+							]
+						}
+					},
+					"status": "Method Not Allowed",
+					"code": 405,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:15:10 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "49"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Method Not Allowed\"\n}"
+				}
+			]
+		},
+		{
+			"name": "getAttractionData",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.0.107/2024/reactPHP/getAttractionData.php?id_attraction=54&id_user=32",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"107"
+					],
+					"path": [
+						"2024",
+						"reactPHP",
+						"getAttractionData.php"
+					],
+					"query": [
+						{
+							"key": "id_attraction",
+							"value": "54"
+						},
+						{
+							"key": "id_user",
+							"value": "32"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "alreadyFavouriteCity",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.107/2024/reactPHP/getAttractionData.php?id_attraction=51&id_user=3",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"107"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getAttractionData.php"
+							],
+							"query": [
+								{
+									"key": "id_attraction",
+									"value": "51"
+								},
+								{
+									"key": "id_user",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 14:25:52 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "366"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id_attraction\": 51,\n    \"attraction_name\": \"Arc de Triomphe\",\n    \"type\": \"Triumphal arch\",\n    \"description\": \"The Arc de Triomphe de l'Étoile is one of the most famous monuments in Paris, France, standing at the western end of the Champs-Élysées at the centre of Place Charles de Gaulle.\",\n    \"city_name\": \"Paris\",\n    \"org_name\": \"ParisORG\",\n    \"id_city\": 1,\n    \"isCityFavourite\": true\n}"
+				},
+				{
+					"name": "notFavouriteCity",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.107/2024/reactPHP/getAttractionData.php?id_attraction=51&id_user=4",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"107"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getAttractionData.php"
+							],
+							"query": [
+								{
+									"key": "id_attraction",
+									"value": "51"
+								},
+								{
+									"key": "id_user",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:21:45 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "367"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=99"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id_attraction\": 51,\n    \"attraction_name\": \"Arc de Triomphe\",\n    \"type\": \"Triumphal arch\",\n    \"description\": \"The Arc de Triomphe de l'Étoile is one of the most famous monuments in Paris, France, standing at the western end of the Champs-Élysées at the centre of Place Charles de Gaulle.\",\n    \"city_name\": \"Paris\",\n    \"org_name\": \"ParisORG\",\n    \"id_city\": 1,\n    \"isCityFavourite\": false\n}"
+				},
+				{
+					"name": "wrongAttraction",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.107/2024/reactPHP/getAttractionData.php?id_attraction=1&id_user=0",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"107"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getAttractionData.php"
+							],
+							"query": [
+								{
+									"key": "id_attraction",
+									"value": "1"
+								},
+								{
+									"key": "id_user",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:38:40 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "47"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Wrong attraction\"\n}"
+				},
+				{
+					"name": "notAllParameters",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.107/2024/reactPHP/getAttractionData.php?id_attraction=54&id_user=",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"107"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getAttractionData.php"
+							],
+							"query": [
+								{
+									"key": "id_attraction",
+									"value": "54"
+								},
+								{
+									"key": "id_user",
+									"value": ""
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:43:42 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "58"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Not all parameters included\"\n}"
+				},
+				{
+					"name": "errorMethod",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.107/2024/reactPHP/getAttractionData.php?id_attraction=54&id_user=32",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"107"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getAttractionData.php"
+							],
+							"query": [
+								{
+									"key": "id_attraction",
+									"value": "54"
+								},
+								{
+									"key": "id_user",
+									"value": "32"
+								}
+							]
+						}
+					},
+					"status": "Method Not Allowed",
+					"code": 405,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:46:35 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "49"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Method Not Allowed\"\n}"
+				}
+			]
+		},
+		{
+			"name": "getFavourites",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/2024/reactPHP/getFavourites.php?id_user=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"2024",
+						"reactPHP",
+						"getFavourites.php"
+					],
+					"query": [
+						{
+							"key": "id_user",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "foundFavourites",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/getFavourites.php?id_user=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getFavourites.php"
+							],
+							"query": [
+								{
+									"key": "id_user",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 14:24:39 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "323"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"attraction_name\": \"Brandenburg Gate\",\n        \"id_attraction\": 63,\n        \"city_name\": \"Berlin\",\n        \"id_city\": 5,\n        \"id_favourite\": 65\n    },\n    {\n        \"attraction_name\": \"Arc de Triomphe\",\n        \"id_attraction\": 51,\n        \"city_name\": \"Paris\",\n        \"id_city\": 1,\n        \"id_favourite\": 66\n    },\n    {\n        \"attraction_name\": \"Buda Castle\",\n        \"id_attraction\": 60,\n        \"city_name\": \"Budapest\",\n        \"id_city\": 9,\n        \"id_favourite\": 67\n    }\n]"
+				},
+				{
+					"name": "notFoundFavourites",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/getFavourites.php?id_user=30",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getFavourites.php"
+							],
+							"query": [
+								{
+									"key": "id_user",
+									"value": "30"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:46:53 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "40"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Not found\"\n}"
+				},
+				{
+					"name": "notLoggedIn",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/getFavourites.php?id_user=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getFavourites.php"
+							],
+							"query": [
+								{
+									"key": "id_user",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:48:32 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "49"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"User not logged in\"\n}"
+				},
+				{
+					"name": "errorMethod",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/getFavourites.php?id_user=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getFavourites.php"
+							],
+							"query": [
+								{
+									"key": "id_user",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"status": "Method Not Allowed",
+					"code": 405,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:52:07 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "49"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Method Not Allowed\"\n}"
+				}
+			]
+		},
+		{
+			"name": "getUserData",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/2024/reactPHP/getUserData.php?id_user=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"2024",
+						"reactPHP",
+						"getUserData.php"
+					],
+					"query": [
+						{
+							"key": "id_user",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "foundUser",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/getUserData.php?id_user=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getUserData.php"
+							],
+							"query": [
+								{
+									"key": "id_user",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 14:26:05 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "48"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"firstname\": \"firstnam1\",\n    \"lastname\": \"lastname2\"\n}"
+				},
+				{
+					"name": "notLoggedIn",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/getUserData.php?id_user=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getUserData.php"
+							],
+							"query": [
+								{
+									"key": "id_user",
+									"value": ""
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:55:37 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "49"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"User not logged in\"\n}"
+				},
+				{
+					"name": "errorMethod",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/getUserData.php?id_user=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"getUserData.php"
+							],
+							"query": [
+								{
+									"key": "id_user",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"status": "Method Not Allowed",
+					"code": 405,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:52:28 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "49"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Method Not Allowed\"\n}"
+				}
+			]
+		},
+		{
+			"name": "insertFavourite",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id_user\":3,\r\n    \"id_attraction\":60\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/2024/reactPHP/insertFavourite.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"2024",
+						"reactPHP",
+						"insertFavourite.php"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_user\":3,\r\n    \"id_attraction\":60\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/insertFavourite.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"insertFavourite.php"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 14:28:51 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "50"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"message\": \"Successful insert\"\n}"
+				},
+				{
+					"name": "dbError",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/insertFavourite.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"insertFavourite.php"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 16:07:50 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "46"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Database error!\"\n}"
+				},
+				{
+					"name": "errorMethod",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_user\":3,\r\n    \"id_attraction\":60\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/insertFavourite.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"insertFavourite.php"
+							]
+						}
+					},
+					"status": "Method Not Allowed",
+					"code": 405,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:52:49 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "49"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Method Not Allowed\"\n}"
+				},
+				{
+					"name": "notEnoughVars",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_attraction\":61\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/insertFavourite.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"insertFavourite.php"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 16:15:21 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "57"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Not enough variables given\"\n}"
+				}
+			]
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"balinth3@gmail.com\",\r\n    \"password\":\"asdf1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/2024/reactPHP/login.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"2024",
+						"reactPHP",
+						"login.php"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"balinth3@gmail.com\",\r\n    \"password\":\"asdf1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/login.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"login.php"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 14:29:07 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "84"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"message\": \"Successful\",\n    \"email\": \"balinth3@gmail.com\",\n    \"id_user\": 3\n}"
+				},
+				{
+					"name": "errorMethod",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"balinth3@gmail.com\",\r\n    \"password\":\"asdf1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/login.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"login.php"
+							]
+						}
+					},
+					"status": "Method Not Allowed",
+					"code": 405,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:52:38 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "49"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Method Not Allowed\"\n}"
+				},
+				{
+					"name": "userNotExists",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"balin3@gmail.com\",\r\n    \"password\":\"asdf1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/login.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"login.php"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 16:24:09 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "45"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Not found user\"\n}"
+				},
+				{
+					"name": "notEnoughParameters",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\":\"asdf1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/login.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"login.php"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 16:30:45 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "52"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Not enough parameters\"\n}"
+				}
+			]
+		},
+		{
+			"name": "updateUser",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id_user\":3,\r\n    \"firstname\":\"firstnam1\",\r\n    \"lastname\":\"lastname2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/2024/reactPHP/updateUserData.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"2024",
+						"reactPHP",
+						"updateUserData.php"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "successfulUpdate",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_user\":3,\r\n    \"firstname\":\"firstnam1\",\r\n    \"lastname\":\"lastname2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/updateUserData.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"updateUserData.php"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 13:30:31 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "53"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=99"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"ok\",\n    \"message\": \"Data updated successfully\"\n}"
+				},
+				{
+					"name": "errorMethod",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_user\":3,\r\n    \"firstname\":\"firstnam1\",\r\n    \"lastname\":\"lastname2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/updateUserData.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"updateUserData.php"
+							]
+						}
+					},
+					"status": "Method Not Allowed",
+					"code": 405,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:53:00 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "49"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Method Not Allowed\"\n}"
+				},
+				{
+					"name": "errorEmpty",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_user\":3,\r\n    \"firstname\":\"firstnam1\",\r\n    \"lastname\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/updateUserData.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"updateUserData.php"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 16:53:40 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "46"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Empty variables\"\n}"
+				}
+			]
+		},
+		{
+			"name": "deleteFavourite",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id_favourite\":68\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/2024/reactPHP/deleteFavourite.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"2024",
+						"reactPHP",
+						"deleteFavourite.php"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "successfulDelete",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_favourite\":68\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/deleteFavourite.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"deleteFavourite.php"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 14:23:17 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "52"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"message\": \"Successful deletion\"\n}"
+				},
+				{
+					"name": "errorMethod",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_favourite\":68\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/deleteFavourite.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"deleteFavourite.php"
+							]
+						}
+					},
+					"status": "Method Not Allowed",
+					"code": 405,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 15:53:12 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "49"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Method Not Allowed\"\n}"
+				},
+				{
+					"name": "emptyFav",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_favourite\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/2024/reactPHP/deleteFavourite.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"2024",
+								"reactPHP",
+								"deleteFavourite.php"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 16:56:02 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "52"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"Nonexistent favourite\"\n}"
+				}
+			]
+		}
+	]
+}

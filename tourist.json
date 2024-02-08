@@ -1,0 +1,2331 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "IWS _Tourist_projekt",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "servers": [
+    {
+      "url": "https://budget.stud.vts.su.ac.rs"
+    }
+  ],
+  "tags": [
+    {
+      "name": "tourism",
+      "description": "Everything in the mobile app"
+    }
+  ],
+  "paths": {
+    "/reactPHP/getAttractions.php": {
+      "get": {
+
+        "tags": [
+          "tourism"
+        ],
+        "summary": "Get all attractions",
+        "description": "getAttractions",
+        "responses": {
+          "200": {
+            "description": "foundAttractions",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "1903"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 14:24:25 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "attraction_name": {
+                        "type": "string",
+                        "example": "Arc de Triomphe"
+                      },
+                      "id_attraction": {
+                        "type": "number",
+                        "example": 51
+                      },
+                      "type": {
+                        "type": "string",
+                        "example": "Triumphal arch"
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "attraction_name": "Arc de Triomphe",
+                      "id_attraction": 51,
+                      "type": "Triumphal arch"
+                    },
+                    {
+                      "attraction_name": "Brandenburg Gate",
+                      "id_attraction": 63,
+                      "type": "Landmark"
+                    },
+                    {
+                      "attraction_name": "Buda Castle",
+                      "id_attraction": 60,
+                      "type": "Castle"
+                    },
+                    {
+                      "attraction_name": "Catacombs of Paris",
+                      "id_attraction": 52,
+                      "type": "Catacomb"
+                    },
+                    {
+                      "attraction_name": "Château de Versaillesent",
+                      "id_attraction": 3,
+                      "type": "Cathedral"
+                    },
+                    {
+                      "attraction_name": "Colosseum",
+                      "id_attraction": 64,
+                      "type": "Amphitheatre"
+                    },
+                    {
+                      "attraction_name": "Eiffel Tower",
+                      "id_attraction": 4,
+                      "type": "Tower"
+                    },
+                    {
+                      "attraction_name": "Fisherman's Bastion",
+                      "id_attraction": 58,
+                      "type": "Fortification"
+                    },
+                    {
+                      "attraction_name": "Heroes' Square",
+                      "id_attraction": 56,
+                      "type": "Square"
+                    },
+                    {
+                      "attraction_name": "Hortobágy National Park",
+                      "id_attraction": 67,
+                      "type": "National park"
+                    },
+                    {
+                      "attraction_name": "Hungarian Parliament Building",
+                      "id_attraction": 55,
+                      "type": "Government building"
+                    },
+                    {
+                      "attraction_name": "Louvre Museum",
+                      "id_attraction": 5,
+                      "type": "Museum"
+                    },
+                    {
+                      "attraction_name": "Notre-Dame Cathedral",
+                      "id_attraction": 50,
+                      "type": "Cathedral"
+                    },
+                    {
+                      "attraction_name": "Palais Garnier",
+                      "id_attraction": 53,
+                      "type": "Amusement park"
+                    },
+                    {
+                      "attraction_name": "Pantheon",
+                      "id_attraction": 66,
+                      "type": "Church"
+                    },
+                    {
+                      "attraction_name": "Prado Museum",
+                      "id_attraction": 69,
+                      "type": "Museum"
+                    },
+                    {
+                      "attraction_name": "Reformed Great Church of Debrecen",
+                      "id_attraction": 68,
+                      "type": "Forest"
+                    },
+                    {
+                      "attraction_name": "Reichstag",
+                      "id_attraction": 62,
+                      "type": "Government building"
+                    },
+                    {
+                      "attraction_name": "Royal Palace of Madrid",
+                      "id_attraction": 70,
+                      "type": "Palace"
+                    },
+                    {
+                      "attraction_name": "Sacré-Cœur",
+                      "id_attraction": 54,
+                      "type": "Basilica"
+                    },
+                    {
+                      "attraction_name": "Schloss Charlottenburg",
+                      "id_attraction": 61,
+                      "type": "Palace"
+                    },
+                    {
+                      "attraction_name": "St. Stephen's Basilica",
+                      "id_attraction": 57,
+                      "type": "Basilica"
+                    },
+                    {
+                      "attraction_name": "Széchenyi Chain Bridge",
+                      "id_attraction": 59,
+                      "type": "Bridge"
+                    },
+                    {
+                      "attraction_name": "Trevi Fountain",
+                      "id_attraction": 65,
+                      "type": "Fountain"
+                    }
+                  ]
+                },
+                "examples": {
+                  "foundAttractions": {
+                    "value": [
+                      {
+                        "attraction_name": "Arc de Triomphe",
+                        "id_attraction": 51,
+                        "type": "Triumphal arch"
+                      },
+                      {
+                        "attraction_name": "Brandenburg Gate",
+                        "id_attraction": 63,
+                        "type": "Landmark"
+                      },
+                      {
+                        "attraction_name": "Buda Castle",
+                        "id_attraction": 60,
+                        "type": "Castle"
+                      },
+                      {
+                        "attraction_name": "Catacombs of Paris",
+                        "id_attraction": 52,
+                        "type": "Catacomb"
+                      },
+                      {
+                        "attraction_name": "Château de Versaillesent",
+                        "id_attraction": 3,
+                        "type": "Cathedral"
+                      },
+                      {
+                        "attraction_name": "Colosseum",
+                        "id_attraction": 64,
+                        "type": "Amphitheatre"
+                      },
+                      {
+                        "attraction_name": "Eiffel Tower",
+                        "id_attraction": 4,
+                        "type": "Tower"
+                      },
+                      {
+                        "attraction_name": "Fisherman's Bastion",
+                        "id_attraction": 58,
+                        "type": "Fortification"
+                      },
+                      {
+                        "attraction_name": "Heroes' Square",
+                        "id_attraction": 56,
+                        "type": "Square"
+                      },
+                      {
+                        "attraction_name": "Hortobágy National Park",
+                        "id_attraction": 67,
+                        "type": "National park"
+                      },
+                      {
+                        "attraction_name": "Hungarian Parliament Building",
+                        "id_attraction": 55,
+                        "type": "Government building"
+                      },
+                      {
+                        "attraction_name": "Louvre Museum",
+                        "id_attraction": 5,
+                        "type": "Museum"
+                      },
+                      {
+                        "attraction_name": "Notre-Dame Cathedral",
+                        "id_attraction": 50,
+                        "type": "Cathedral"
+                      },
+                      {
+                        "attraction_name": "Palais Garnier",
+                        "id_attraction": 53,
+                        "type": "Amusement park"
+                      },
+                      {
+                        "attraction_name": "Pantheon",
+                        "id_attraction": 66,
+                        "type": "Church"
+                      },
+                      {
+                        "attraction_name": "Prado Museum",
+                        "id_attraction": 69,
+                        "type": "Museum"
+                      },
+                      {
+                        "attraction_name": "Reformed Great Church of Debrecen",
+                        "id_attraction": 68,
+                        "type": "Forest"
+                      },
+                      {
+                        "attraction_name": "Reichstag",
+                        "id_attraction": 62,
+                        "type": "Government building"
+                      },
+                      {
+                        "attraction_name": "Royal Palace of Madrid",
+                        "id_attraction": 70,
+                        "type": "Palace"
+                      },
+                      {
+                        "attraction_name": "Sacré-Cœur",
+                        "id_attraction": 54,
+                        "type": "Basilica"
+                      },
+                      {
+                        "attraction_name": "Schloss Charlottenburg",
+                        "id_attraction": 61,
+                        "type": "Palace"
+                      },
+                      {
+                        "attraction_name": "St. Stephen's Basilica",
+                        "id_attraction": 57,
+                        "type": "Basilica"
+                      },
+                      {
+                        "attraction_name": "Széchenyi Chain Bridge",
+                        "id_attraction": 59,
+                        "type": "Bridge"
+                      },
+                      {
+                        "attraction_name": "Trevi Fountain",
+                        "id_attraction": 65,
+                        "type": "Fountain"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "noAttractions",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "56"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 15:14:42 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "No attractions exist yet!"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "noAttractions": {
+                    "value": {
+                      "message": "No attractions exist yet!",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "errorMethod",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "49"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 15:15:10 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Method Not Allowed"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "errorMethod": {
+                    "value": {
+                      "message": "Method Not Allowed",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reactPHP/getAttractionData.php": {
+      "get": {
+        "tags": [
+          "tourism"
+        ],
+        "summary": "Get single attractions data",
+        "description": "getAttractionData",
+        "operationId": "getattractiondata",
+        "parameters": [
+          {
+            "name": "id_attraction",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "54"
+            }
+          },
+          {
+            "name": "id_user",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "notFavouriteCity",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "367"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 15:21:45 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=99"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "attraction_name": {
+                      "type": "string",
+                      "example": "Arc de Triomphe"
+                    },
+                    "city_name": {
+                      "type": "string",
+                      "example": "Paris"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "The Arc de Triomphe de l'Étoile is one of the most famous monuments in Paris, France, standing at the western end of the Champs-Élysées at the centre of Place Charles de Gaulle."
+                    },
+                    "id_attraction": {
+                      "type": "number",
+                      "example": 51
+                    },
+                    "id_city": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "isCityFavourite": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "org_name": {
+                      "type": "string",
+                      "example": "ParisORG"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "Triumphal arch"
+                    }
+                  }
+                },
+                "examples": {
+                  "notFavouriteCity": {
+                    "value": {
+                      "attraction_name": "Arc de Triomphe",
+                      "city_name": "Paris",
+                      "description": "The Arc de Triomphe de l'Étoile is one of the most famous monuments in Paris, France, standing at the western end of the Champs-Élysées at the centre of Place Charles de Gaulle.",
+                      "id_attraction": 51,
+                      "id_city": 1,
+                      "isCityFavourite": false,
+                      "org_name": "ParisORG",
+                      "type": "Triumphal arch"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "notAllParameters",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "close"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "58"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 15:43:42 GMT"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not all parameters included"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "notAllParameters": {
+                    "value": {
+                      "message": "Not all parameters included",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "errorMethod",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "49"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 15:46:35 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Method Not Allowed"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "errorMethod": {
+                    "value": {
+                      "message": "Method Not Allowed",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reactPHP/getFavourites.php": {
+      "get": {
+        "tags": [
+          "tourism"
+        ],
+        "summary": "Get all favourites for one of the users",
+        "description": "getFavourites",
+        "operationId": "getfavourites",
+        "parameters": [
+          {
+            "name": "id_user",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "example": "3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "foundFavourites",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "323"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 14:24:39 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "attraction_name": {
+                        "type": "string",
+                        "example": "Brandenburg Gate"
+                      },
+                      "city_name": {
+                        "type": "string",
+                        "example": "Berlin"
+                      },
+                      "id_attraction": {
+                        "type": "number",
+                        "example": 63
+                      },
+                      "id_city": {
+                        "type": "number",
+                        "example": 5
+                      },
+                      "id_favourite": {
+                        "type": "number",
+                        "example": 65
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "attraction_name": "Brandenburg Gate",
+                      "city_name": "Berlin",
+                      "id_attraction": 63,
+                      "id_city": 5,
+                      "id_favourite": 65
+                    },
+                    {
+                      "attraction_name": "Arc de Triomphe",
+                      "city_name": "Paris",
+                      "id_attraction": 51,
+                      "id_city": 1,
+                      "id_favourite": 66
+                    },
+                    {
+                      "attraction_name": "Buda Castle",
+                      "city_name": "Budapest",
+                      "id_attraction": 60,
+                      "id_city": 9,
+                      "id_favourite": 67
+                    }
+                  ]
+                },
+                "examples": {
+                  "foundFavourites": {
+                    "value": [
+                      {
+                        "attraction_name": "Brandenburg Gate",
+                        "city_name": "Berlin",
+                        "id_attraction": 63,
+                        "id_city": 5,
+                        "id_favourite": 65
+                      },
+                      {
+                        "attraction_name": "Arc de Triomphe",
+                        "city_name": "Paris",
+                        "id_attraction": 51,
+                        "id_city": 1,
+                        "id_favourite": 66
+                      },
+                      {
+                        "attraction_name": "Buda Castle",
+                        "city_name": "Budapest",
+                        "id_attraction": 60,
+                        "id_city": 9,
+                        "id_favourite": 67
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "notLoggedIn",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "49"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 15:48:32 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User not logged in"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "notLoggedIn": {
+                    "value": {
+                      "message": "User not logged in",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "notFoundFavourites",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "40"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 15:46:53 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not found"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "notFoundFavourites": {
+                    "value": {
+                      "message": "Not found",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "errorMethod",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "49"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 15:52:07 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Method Not Allowed"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "errorMethod": {
+                    "value": {
+                      "message": "Method Not Allowed",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reactPHP/getUserData.php": {
+      "get": {
+        "tags": [
+          "tourism"
+        ],
+        "summary": "Get all firstname, lastname for a specific user",
+        "description": "getUserData",
+        "operationId": "getuserdata",
+        "parameters": [
+          {
+            "name": "id_user",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "example": "3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "foundUser",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "48"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 14:26:05 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "firstname": {
+                      "type": "string",
+                      "example": "firstnam1"
+                    },
+                    "lastname": {
+                      "type": "string",
+                      "example": "lastname2"
+                    }
+                  }
+                },
+                "examples": {
+                  "foundUser": {
+                    "value": {
+                      "firstname": "firstnam1",
+                      "lastname": "lastname2"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "notLoggedIn",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "49"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 15:55:37 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User not logged in"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "notLoggedIn": {
+                    "value": {
+                      "message": "User not logged in",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "errorMethod",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "49"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 15:52:28 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Method Not Allowed"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "errorMethod": {
+                    "value": {
+                      "message": "Method Not Allowed",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reactPHP/insertFavourite.php": {
+      "post": {
+        "tags": [
+          "tourism"
+        ],
+        "summary": "Make a new favourite",
+        "description": "insertFavourite",
+        "operationId": "insertfavourite",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_attraction": {
+                    "type": "number",
+                    "example": 3
+                  },
+                  "id_user": {
+                    "type": "number",
+                    "example": 3
+                  }
+                }
+              },
+              "example": {
+                "id_attraction": 3,
+                "id_user": 3
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "50"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 14:28:51 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful insert"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "message": "Successful insert",
+                      "status": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "notEnoughVars",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "close"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "57"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 16:15:21 GMT"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not enough variables given"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "notEnoughVars": {
+                    "value": {
+                      "message": "Not enough variables given",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "errorMethod",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "49"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 15:52:49 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Method Not Allowed"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "errorMethod": {
+                    "value": {
+                      "message": "Method Not Allowed",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "dbError",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "close"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "46"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 16:07:50 GMT"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Database error!"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "dbError": {
+                    "value": {
+                      "message": "Database error!",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reactPHP/login.php": {
+      "post": {
+        "tags": [
+          "tourism"
+        ],
+        "summary": "Login to the mobile app",
+        "description": "login",
+        "operationId": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "balinth3@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "asdf1234"
+                  }
+                }
+              },
+              "example": {
+                "email": "balinth3@gmail.com",
+                "password": "asdf1234"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "84"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 14:29:07 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "example": "balinth3@gmail.com"
+                    },
+                    "id_user": {
+                      "type": "number",
+                      "example": 3
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successful"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "email": "balinth3@gmail.com",
+                      "id_user": 3,
+                      "message": "Successful",
+                      "status": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "notEnoughParameters",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "close"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "52"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 16:30:45 GMT"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not enough parameters"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "notEnoughParameters": {
+                    "value": {
+                      "message": "Not enough parameters",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "userNotExists",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "45"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 16:24:09 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not found user"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "userNotExists": {
+                    "value": {
+                      "message": "Not found user",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "errorMethod",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "49"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 15:52:38 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Method Not Allowed"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "errorMethod": {
+                    "value": {
+                      "message": "Method Not Allowed",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reactPHP/updateUserData.php": {
+      "patch": {
+        "tags": [
+          "tourism"
+        ],
+        "summary": "Update the data for the user",
+        "description": "updateUser",
+        "operationId": "updateuser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstname": {
+                    "type": "string",
+                    "example": "firstnam1"
+                  },
+                  "id_user": {
+                    "type": "number",
+                    "example": 3
+                  },
+                  "lastname": {
+                    "type": "string",
+                    "example": "asd"
+                  }
+                }
+              },
+              "example": {
+                "firstname": "firstnam1",
+                "id_user": 3,
+                "lastname": "asd"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfulUpdate",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "53"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 13:30:31 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=99"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Data updated successfully"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    }
+                  }
+                },
+                "examples": {
+                  "successfulUpdate": {
+                    "value": {
+                      "message": "Data updated successfully",
+                      "status": "ok"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "errorEmpty",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "close"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "46"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 16:53:40 GMT"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Empty variables"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "errorEmpty": {
+                    "value": {
+                      "message": "Empty variables",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "errorMethod",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "49"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 15:53:00 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Method Not Allowed"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "errorMethod": {
+                    "value": {
+                      "message": "Method Not Allowed",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reactPHP/deleteFavourite.php": {
+      "delete": {
+        "tags": [
+          "tourism"
+        ],
+        "summary": "Delete one of the existing favourites",
+        "description": "deleteFavourite",
+        "operationId": "deletefavourite",
+
+        "parameters": [
+          {
+            "name": "id_favourite",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfulDelete",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "52"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 14:23:17 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful deletion"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    }
+                  }
+                },
+                "examples": {
+                  "successfulDelete": {
+                    "value": {
+                      "message": "Successful deletion",
+                      "status": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "emptyFav",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "close"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "52"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 16:56:02 GMT"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Nonexistent favourite"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "emptyFav": {
+                    "value": {
+                      "message": "Nonexistent favourite",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "errorMethod",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "Keep-Alive"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "string",
+                  "example": "49"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 07 Feb 2024 15:53:12 GMT"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5, max=100"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12"
+                }
+              },
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "PHP/8.2.12"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Method Not Allowed"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    }
+                  }
+                },
+                "examples": {
+                  "errorMethod": {
+                    "value": {
+                      "message": "Method Not Allowed",
+                      "status": "error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
